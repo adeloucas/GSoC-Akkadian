@@ -41,8 +41,7 @@ A python file that shows the state of this code as of 4/23/18.
 ###### Akkadian.txt
 A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
 
-###### LICENSE 
-###### README.md
+###### LICENSE and README.md
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
 ###### Transliteration.txt
