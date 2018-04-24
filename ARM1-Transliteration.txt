@@ -1,0 +1,100 @@
+&P254202 = ARM 01, 001 
+#atf: lang akk 
+@tablet 
+@obverse 
+1. a-na ia-ah-du-li-[im] 
+#tr.ts: ana yaḫdu-lim 
+#tr.en: To Yaḫdu-Lim 
+#tr.fr: À Yaḫdun-Lim
+2. qi2-bi2-[ma] 
+#tr.ts: qibima 
+#tr.en: speak! 
+#tr.fr: dis ceci:
+3. um-ma a-bi-sa-mar#-[ma] 
+#tr.ts: umma abi-samarma 
+#tr.en: Thus Abī-Samar: 
+#tr.fr: Ainsi parle Abī-Samar.
+4. sa-li-ma-am e-pu-[usz] 
+#tr.ts: salīmam ēpuš 
+#tr.en: I concluded peace. 
+#tr.fr: J’avais conclu un pacte de non-agression.
+5. asz-szum mu-sze-zi-ba-am# [la i-szu] 
+#tr.ts: aššum mušēzibam lā īšu 
+#tr.en: Since a safeguarder I don’t have, 
+#tr.fr: Comme je n’avais personne qui puisse me sauver,
+6. [sa]-li#-ma-am sza e-[pu-szu] 
+#tr.ts: salīmam ša ēpušu 
+#tr.en: the peace that I concluded, 
+#tr.fr: le pacte que j’avais fait
+7. [u2-ul] e-pu-usz sa#-[li-mu-um] 
+#tr.ts: ul ēpuš salīmum 
+#tr.en: I did not conclude: peace 
+#tr.fr: ne voulait rien dire. Ce pacte
+8. [u2-ul] sa-[li-mu-um-ma] 
+#tr.ts: ul salīmumma 
+#tr.en: was not peace, and ... 
+#tr.fr: n’en était pas un.
+$ rest broken 
+@reverse 
+$ beginning broken 
+1'. isz#-tu mu#-[sze-zi-ba-am la i-szu] 
+#tr.ts: ištu mušēzibam lā īšu 
+#tr.en: where a safeguarder I don’t have, 
+#tr.fr: Depuis que je n’avais plus personne pour me sauver,
+2'. a-la-nu-ia sza la is,-s,a-ab#-[tu] 
+#tr.ts: alānūya ša lā iṣṣabtū 
+#tr.en: my cities, that they did not seize, 
+#tr.fr: des villes à moi qui n’avaient pas été prises
+3'. i-na-an-na is,-s,a-ab-[tu] 
+#tr.ts: inanna iṣṣabtū 
+#tr.en: they now seized; 
+#tr.fr: désormais l’ont été.
+4'. i-na ne2-kur-ti _lu2_ ha-szi-[im{ki}] 
+#tr.ts: ina nekurti awīl ḫaššim 
+#tr.en: in hostilities with the Man of Haššum, 
+#tr.fr: Lors de guerres avec le prince de Haššum,
+5'. ur-si-im{ki} _lu2_ ka-ar-ka#-[mi-is{ki}] 
+#tr.ts: ursim awīl karkamis 
+#tr.en: Ursum, the Man of Carchemish 
+#tr.fr: avec Ursum, avec le prince de Carkémiš
+6'. u3 ia-am-ha-ad[{ki}] 
+#tr.ts: u yamḫad 
+#tr.en: or Yamḫad, 
+#tr.fr: ou avec le Yamhad,
+7'. a-la-nu an-nu-tum u2-ul ih-li-qu2# 
+#tr.ts: alānū annûtum ul iḫliqū 
+#tr.en: those cities were not lost; 
+#tr.fr: ces villes n’avaient pas été perdues.
+8'. i-na ne2-kur-ti {disz}sa-am-si-{d}iszkur#-ma 
+#tr.ts: ina nekurti samsi-adduma 
+#tr.en: in hostilities with Samsī-Addu 
+#tr.fr: C’est lors de la guerre avec Samsī-Addu
+9'. ih-ta-al-qu2 
+#tr.ts: iḫtalqū 
+#tr.en: they were lost! 
+#tr.fr: qu’elles venaient de l’être.
+10'. u3 a-la-nu sza ki-ma u2-hu-ru u2-sze-zi-ib# 
+#tr.ts: u alānū ša kīma uḫḫuru ušezib 
+#tr.en: And the cities, those left, I safeguarded 
+#tr.fr: J’ai sauvé les villes pour autant qu’il en restait
+11'. u3 na-pa-asz2-ti u2-ba-li-it, 
+#tr.ts: u napaštī uballiṭ 
+#tr.en: and my life preserved. 
+#tr.fr: et j’ai échappé à la mort.
+12'. pi2-qa-at ha-s,e-ra#-at 
+#tr.ts: pīqat ḫaṣerāt 
+#tr.en: Maybe you are the savior! 
+#tr.fr: Il n’y a pas de doute que c’est toi le sauveur!
+13'. asz-szum a-la-nu-ka 
+#tr.ts: aššum ālanūka 
+#tr.en: That your cities 
+#tr.fr: Le fait que tes villes
+14'. u3 ma-ru-ka sza-al#-[mu] 
+#tr.ts: u mārūka šalmū 
+#tr.en: and your sons are well, 
+#tr.fr: et tes fils soient saufs
+15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur 
+#tr.ts: ana napaštiya itūr 
+#tr.en: to life returned me. 
+#tr.fr: m’est apparu comme ma vie!
+
