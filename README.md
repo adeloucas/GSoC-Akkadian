@@ -29,8 +29,6 @@ Tyler Kirby
 
 ## Table of Contents
 
-The following items are in this repository:
-
 ###### ARM1-Akkadian.txt
 A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
 
