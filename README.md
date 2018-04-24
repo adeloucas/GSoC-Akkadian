@@ -2,23 +2,6 @@
 
 This project is being made for Google's 2018 Summer of Code on behalf of CLTK.
 
-## CLTK: 
-GSoC Profile: <https://summerofcode.withgoogle.com/organizations/4928035770335232/>
-
-###### About the organization:
-We develop the Classical Language Toolkit (CLTK) because we believe it is revolutionizing the study of the ancient world. It is doing so by removing barriers to entry for those doing natural language processing (NLP) in Classical languages (namely, the surviving literature of the entirety of Eurasia and north Africa, from roughly 3000 B.C. to A.D. 1500).
-
-Due to how academic disciplines have evolved over the past 200 years, our earliest civilizations are often studied in isolation from one another. This is tragic, for today we know that the ancient world – from Rome to Mesopotamia to India to China – consisted of deeply interconnected networks of ideas, technologies, art, and beliefs. As a framework for multidisciplinary research, the CLTK will help scholars discover the commonalities of what were once thought disparate cultures.
-
-As software, the CLTK is a suite of NLP tools suited to the special needs of ancient languages. We have have three goals: The most basic is to offer low-level libraries for doing NLP in particular Classical languages (e.g., Ancient Greek, Sanskrit). Developed with an extensible architecture, our code is easily hacked to support new languages. Second, the CLTK offers tools for students and scholars to do reproducible scientific research. For instance, it has version-controlled linguistic corpora and a suite of functions for stylometrics. Third, it is a framework for multidisciplinary language research. With pre-trained models (such as Word2Vec for vector space models), we provide easy-to-use tools to capture the transmission and evolution of knowledge, from the earliest human societies to the dawn of the modern era.
-## CDLI
-GSoC Profile: <https://summerofcode.withgoogle.com/organizations/5332375953735680/>
-
-###### About the organization:
-The mission of the Cuneiform Digital Library Initiative (CDLI) is to collect, preserve and make available images, text and metadata of all artifacts inscribed with the cuneiform script. It is the sole project with this mission and we estimate that our 334,000 catalogue entries cover some two-thirds of all sources in collections around the world. Our data are available publicly at <https://cdli.ucla.edu> and our audiences comprise primarily scholars and students, but with growing numbers of informal learners.
-
-At the heart of cdli is a group of developers, language scientists, machine learning engineers, and cuneiform specialists who develop software infrastructure to process and analyze curated data. To this effect, we are actively developing two projects: Framework Update <https://cdli.ucla.edu/?q=news/cdli-core-update> and Machine Translation and Automated Analysis of Cuneiform Languages <https://cdli-gh.github.io/mtaac/.> As part of these projects we are building a natural language processing platform to empower specialists of ancient languages for undertaking automated annotation and translation of Sumerian language texts thus enabling data driven study of languages, culture, history, economy and politics of the ancient Near Eastern civilizations. As part of this platform we are focusing on data standardization using Linked Open Data to foster best practices in data exchange and integration with other digital humanities and computational philology projects.
-
 ## Student and Mentors:
 
 ###### Student:
@@ -47,7 +30,27 @@ LICENCE and README.md are both supplied by Github. README.md will be actively ed
 ###### Transliteration.txt
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
-## Updates
+## Organizations involved
+
+### CLTK: 
+GSoC Profile: <https://summerofcode.withgoogle.com/organizations/4928035770335232/>
+
+###### About the organization:
+We develop the Classical Language Toolkit (CLTK) because we believe it is revolutionizing the study of the ancient world. It is doing so by removing barriers to entry for those doing natural language processing (NLP) in Classical languages (namely, the surviving literature of the entirety of Eurasia and north Africa, from roughly 3000 B.C. to A.D. 1500).
+
+Due to how academic disciplines have evolved over the past 200 years, our earliest civilizations are often studied in isolation from one another. This is tragic, for today we know that the ancient world – from Rome to Mesopotamia to India to China – consisted of deeply interconnected networks of ideas, technologies, art, and beliefs. As a framework for multidisciplinary research, the CLTK will help scholars discover the commonalities of what were once thought disparate cultures.
+
+As software, the CLTK is a suite of NLP tools suited to the special needs of ancient languages. We have have three goals: The most basic is to offer low-level libraries for doing NLP in particular Classical languages (e.g., Ancient Greek, Sanskrit). Developed with an extensible architecture, our code is easily hacked to support new languages. Second, the CLTK offers tools for students and scholars to do reproducible scientific research. For instance, it has version-controlled linguistic corpora and a suite of functions for stylometrics. Third, it is a framework for multidisciplinary language research. With pre-trained models (such as Word2Vec for vector space models), we provide easy-to-use tools to capture the transmission and evolution of knowledge, from the earliest human societies to the dawn of the modern era.
+### CDLI
+GSoC Profile: <https://summerofcode.withgoogle.com/organizations/5332375953735680/>
+
+###### About the organization:
+The mission of the Cuneiform Digital Library Initiative (CDLI) is to collect, preserve and make available images, text and metadata of all artifacts inscribed with the cuneiform script. It is the sole project with this mission and we estimate that our 334,000 catalogue entries cover some two-thirds of all sources in collections around the world. Our data are available publicly at <https://cdli.ucla.edu> and our audiences comprise primarily scholars and students, but with growing numbers of informal learners.
+
+At the heart of cdli is a group of developers, language scientists, machine learning engineers, and cuneiform specialists who develop software infrastructure to process and analyze curated data. To this effect, we are actively developing two projects: Framework Update <https://cdli.ucla.edu/?q=news/cdli-core-update> and Machine Translation and Automated Analysis of Cuneiform Languages <https://cdli-gh.github.io/mtaac/.> As part of these projects we are building a natural language processing platform to empower specialists of ancient languages for undertaking automated annotation and translation of Sumerian language texts thus enabling data driven study of languages, culture, history, economy and politics of the ancient Near Eastern civilizations. As part of this platform we are focusing on data standardization using Linked Open Data to foster best practices in data exchange and integration with other digital humanities and computational philology projects.
+
+
+# Updates
 
 I will be updating weekly the development of this project, labeled as such until final submission week:
 
@@ -57,7 +60,8 @@ I will be updating weekly the development of this project, labeled as such until
        etc.
        
        
-This code will follow the proposal developed by the author, reproduced below:
+This code will follow the proposal developed by the author, reproduced below.
+
 
 # The Road to CDLI’s Corpora Integration into CLTK: an Undertaking
 <https://summerofcode.withgoogle.com/projects/#5184805973524480>
