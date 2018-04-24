@@ -55,8 +55,8 @@ At the heart of cdli is a group of developers, language scientists, machine lear
 I will be updating weekly the development of this project, labeled as such until final submission week:
 
        _e.g._ \
-       n) z - ATF Converter EOW x.ipynb \
-       n+1) z - ATF Converter EOW x+1.ipynb \
+       z - ATF Converter EOW x.ipynb \
+       z - ATF Converter EOW x+1.ipynb \
        etc.
        
        
