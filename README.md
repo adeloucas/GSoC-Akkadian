@@ -8,44 +8,37 @@ The author is Andrew Deloucas <adeloucas@g.harvard.com>
 
 The following items are in this repository:
 
-1) ARM1-Akkadian.txt
-2) ARM-Transliteration.txt
-3) ATF Converter - Summer Start.ipynb
-4) Akkadian.txt
-5) LICENCE
-6) README.md
-7) Transliteration.txt
+###### ARM1-Akkadian.txt
+A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
 
-###### Detailed Table of Contents 
+###### ARM1-Transliteration.txt
+A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
 
-1) ARM1-Akkadian.txt
-       A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
+###### ATF Converter - Summer Start.ipynb
+A python file that shows the state of this code as of 4/23/18.
 
-2) ARM1-Transliteration.txt
-       A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
+###### Akkadian.txt
+A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
 
-3) ATF Converter - Summer Start.ipynb
-       A python file that shows the state of this code as of 4/23/18.
+###### LICENSE 
+###### README.md
+LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoc 2018.
 
-4) Akkadian.txt
-       A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
-
-5) and 6) Supplied by Github. 
-       README.md will be actively edited by Andrew Deloucas during the duration of GSoc 2018.
-
-7) Transliteration.txt 
-       A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
+###### Transliteration.txt
+A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
 ## Updates
 
-I will be updating weekly the development of this project, labeled such (n being the next number in the folder series, x being the number of the weeks' end within the project) until final submission, dated week of August 6th:
-       n) z - ATF Converter EOW x.ipynb
-       n+1) z - ATF Converter EOW x+1.ipynb
-       etc.
+I will be updating weekly the development of this project, labeled as such until final submission, dated week of August 6th: \
+       e.g. \
+       n) z - ATF Converter EOW x.ipynb \
+       n+1) z - ATF Converter EOW x+1.ipynb \
+       etc. 
 
-This code will follow the proposal developed by the author, seen here and reproduced below: <https://summerofcode.withgoogle.com/projects/#5184805973524480>
+This code will follow the proposal developed by the author, reproduced below:
 
 # The Road to CDLI’s Corpora Integration into CLTK: an Undertaking
+<https://summerofcode.withgoogle.com/projects/#5184805973524480>
 
 ## Abstract
 This project focuses on integrating Cuneiform Digital Library Initiative (CDLI) corpora into the Classical Language Toolkit (CLTK). Currently, CLTK houses several functions developed by Dr. Willis Monroe; the difficulty in utilizing these functions is due to the variables having to be presented in a reconstructed normalized form of Akkadian, which is not how tablets are either written traditionally or stored by CDLI. The goal of this project is to enable CLTK to reconstruct a normalized spelling out of CDLI’s ATF text and thus create data available for two fundamental uses: 1) allowance of individuals to learn and practice Akkadian with real and novel reading exercises; and 2) with further class development, be analyzed on a mass scale.
