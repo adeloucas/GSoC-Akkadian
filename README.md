@@ -5,7 +5,8 @@ This project is being made for Google's 2018 Summer of Code on behalf of CLTK.
 ## Student and Mentors:
 
 #### Student:
-Andrew Deloucas, email: <adeloucas@g.harvard.com>
+Andrew Deloucas \
+       email: <adeloucas@g.harvard.com> 
 #### Mentors:
 Willis Monroe \
 Tyler Kirby
@@ -49,7 +50,6 @@ The mission of the Cuneiform Digital Library Initiative (CDLI) is to collect, pr
 
 At the heart of cdli is a group of developers, language scientists, machine learning engineers, and cuneiform specialists who develop software infrastructure to process and analyze curated data. To this effect, we are actively developing two projects: Framework Update <https://cdli.ucla.edu/?q=news/cdli-core-update> and Machine Translation and Automated Analysis of Cuneiform Languages <https://cdli-gh.github.io/mtaac/.> As part of these projects we are building a natural language processing platform to empower specialists of ancient languages for undertaking automated annotation and translation of Sumerian language texts thus enabling data driven study of languages, culture, history, economy and politics of the ancient Near Eastern civilizations. As part of this platform we are focusing on data standardization using Linked Open Data to foster best practices in data exchange and integration with other digital humanities and computational philology projects.
 
-
 ## Updates
 
 I will be updating weekly the development of this project, labeled as such until final submission week:
@@ -83,14 +83,13 @@ Because ATF-inflected data is uncommon to find, part 2 of this project involves 
 The case study of this project is composed of two exercises: 1) a long-form analysis of a singular text and 2) a sample of a larger corpus. This section of the project should be able to utilize parts 1 and 2 in order to become fully capable of being analyzed like any other NLP.
 
 ## The Dataset  
-Due to the scope of this project, this proposal will focus on the Old Babylonian dialect of Akkadian, which has rules well established in Dr. John Huehnergard’s “A Grammar of Akkadian.” The texts being used will be the Code of Hammurapi and Georges Dossin’s
-'Archives Royale de Mari 1' (ARM 01).
+Due to the scope of this project, this proposal will focus on the Old Babylonian dialect of Akkadian, which has rules well established in Dr. John Huehnergard’s “A Grammar of Akkadian.” The texts being used will be the Code of Hammurapi (henceforth Codex Hammurabi) and Georges Dossin’s 'Archives Royale de Mari 1' (ARM 01).
 
 ## Timeline 
-I will be dedicating 20 hours per week to this project, totaling 420 hours over the next four months. Below is a table breaking down work and goals, hours dedicated, and their relation to the Google Summer of Code schedule. Evaluations established by GSoC will be completed outside of the allotted time mentioned.
+I will be dedicating 20 hours per week to this project. Below is a table breaking down work and goals, hours dedicated, and their relation to the Google Summer of Code schedule. Evaluations established by GSoC will be completed outside of the allotted time mentioned.
 
 ### GSoC Timeline Weeks Endeavors
-#### Application Review Period, 27.3 – 23.4, COMPLETED
+###### Application Review Period, 27.3 – 23.4, COMPLETED
 (4 weeks) \
 • Learn string manipulation \
 • Learn Dictionary / List Comprehension \
@@ -102,12 +101,12 @@ I will be dedicating 20 hours per week to this project, totaling 420 hours over 
 • Develop and Complete Part 1, Converter \
 • Total hours = 60 hours
 
-#### Coding, 14.5 – 6.8, IN PROGRESS
+###### Coding, 14.5 – 6.8, not started
 (12 weeks) \
 • Develop and Complete Parts 2 and 3, Normalization and Implementation \
 • Total hours = 240 hours
 
-#### Code Submissions and Final Evaluations, 6.8 – 18.8, IN PROGRESS
+###### Code Submissions and Final Evaluations, 6.8 – 18.8, not started
 (2 weeks) \
 • Complete Evaluations and Write Article \
 • Set for Publication \
