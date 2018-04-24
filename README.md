@@ -64,7 +64,7 @@ This code will follow the proposal developed by the author, reproduced below.
 
 
 # The Road to CDLI’s Corpora Integration into CLTK: an Undertaking
-<https://summerofcode.withgoogle.com/projects/#5184805973524480>
+GSoC Profile: <https://summerofcode.withgoogle.com/projects/#5184805973524480>
 
 ## Abstract
 This project focuses on integrating Cuneiform Digital Library Initiative (CDLI) corpora into the Classical Language Toolkit (CLTK). Currently, CLTK houses several functions developed by Dr. Willis Monroe; the difficulty in utilizing these functions is due to the variables having to be presented in a reconstructed normalized form of Akkadian, which is not how tablets are either written traditionally or stored by CDLI. The goal of this project is to enable CLTK to reconstruct a normalized spelling out of CDLI’s ATF text and thus create data available for two fundamental uses: 1) allowance of individuals to learn and practice Akkadian with real and novel reading exercises; and 2) with further class development, be analyzed on a mass scale.
@@ -90,25 +90,25 @@ Due to the scope of this project, this proposal will focus on the Old Babylonian
 I will be dedicating 20 hours per week to this project, totaling 420 hours over the next four months. Below is a table breaking down work and goals, hours dedicated, and their relation to the Google Summer of Code schedule. Evaluations established by GSoC will be completed outside of the allotted time mentioned.
 
 ### GSoC Timeline Weeks Endeavors
-###### Application Review Period, 27.3 – 23.4, COMPLETED
-(4 weeks)
-• Learn string manipulation
-• Learn Dictionary / List Comprehension
-• Familiarize myself with collections library functions
+#### Application Review Period, 27.3 – 23.4, COMPLETED
+(4 weeks) \
+• Learn string manipulation \
+• Learn Dictionary / List Comprehension \
+• Familiarize myself with collections library functions \
 • Total hours = 80 hours
 
-###### Community Bonding, 23.4 – 14.5, IN PROGRESS
-(3 weeks)
-• Develop and Complete Part 1, Converter
+#### Community Bonding, 23.4 – 14.5, IN PROGRESS
+(3 weeks) \
+• Develop and Complete Part 1, Converter \
 • Total hours = 60 hours
 
-###### Coding, 14.5 – 6.8, IN PROGRESS
-(12 weeks)
-• Develop and Complete Parts 2 and 3, Normalization and Implementation
+#### Coding, 14.5 – 6.8, IN PROGRESS
+(12 weeks) \
+• Develop and Complete Parts 2 and 3, Normalization and Implementation \
 • Total hours = 240 hours
 
-###### Code Submissions and Final Evaluations, 6.8 – 18.8, IN PROGRESS
-(2 weeks)
-• Complete Evaluations and Write Article
-Set for Publication
+#### Code Submissions and Final Evaluations, 6.8 – 18.8, IN PROGRESS
+(2 weeks) \
+• Complete Evaluations and Write Article \
+• Set for Publication \
 • Total hours = 40 hours
