@@ -45,19 +45,19 @@ A text file that contains the ATF information of the publication Codex Hammurabi
 
 ###### LICENSE 
 ###### README.md
-LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoc 2018.
+LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
 ###### Transliteration.txt
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
 ## Updates
 
-I will be updating weekly the development of this project, labeled as such until final submission, dated week of August 6th:
+I will be updating weekly the development of this project, labeled as such until final submission week:
 
        _e.g._ \
        n) z - ATF Converter EOW x.ipynb \
        n+1) z - ATF Converter EOW x+1.ipynb \
-       _etc._
+       etc.
        
        
 This code will follow the proposal developed by the author, reproduced below:
