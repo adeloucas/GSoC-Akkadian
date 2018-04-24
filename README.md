@@ -2,7 +2,7 @@
 
 This project is being made for Google's 2018 Summer of Code on behalf of CLTK.
 
-The author is Andrew Deloucas <adeloucas@g.harvard.com>
+The author is Andrew Deloucas, email: <adeloucas@g.harvard.com>
 
 ## Table of Contents
 
