@@ -53,4 +53,4 @@ class Test2(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(ATF, target)
 
 if __name__ == '__main__':
-    unittest.main
+    unittest.main()
