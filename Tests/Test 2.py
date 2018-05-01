@@ -47,8 +47,6 @@ class Test2(unittest.TestCase):  # pylint: disable=R0904
         target = ['szì', 'líl', 'bí', 't,e4', 'ù', 'ága', 'áRAD', 'géme', 'sig17', 'ù _kù-sig17', 'ra-pí-qí']
         self.accents = \
             [(re.compile(regex), repl) for (regex, repl) in accents]
-            
-    def x(self, text):  
         for (pattern, repl) in self.accents:
             ATF = re.subn(pattern, repl, str(ATF))[0]
             
