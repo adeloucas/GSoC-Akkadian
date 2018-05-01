@@ -16,26 +16,26 @@ Tyler Kirby
 ### Texts
 
 #### ARM1-Akkadian.txt
-A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
+A text file that contains the ATF information for publication ARM 01. Information can be found in the file.
 
 #### ARM1-Transliteration.txt
-A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
+A text file that contains the ATF information for publication ARM 01.001. Information can be found in the file.
 
 #### Akkadian.txt
-A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
+A text file that contains the ATF information for publication Codex Hammurabi. Information can be found in the file.
 
 #### Transliteration.txt
-A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
+A text file that contains the ATF information for publication Codex Hammurabi including translation. Information can be found in the file.
 
 ### Tests
 
-#### Test 1 - N
+#### test1 - n
 Tests that check individual parts of the ATF Converter
 
 #### LICENSE and README.md
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
-#### ATF Converter - Summer Start.ipynb
+#### ATF Converter - Summer Start.py
 A python file that shows the state of this code as of 4/23/18.
 
 ## Organizations involved
