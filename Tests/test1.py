@@ -18,12 +18,10 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         target = [r'ṣ', r'Ṣ', r'ṭ', r'Ṭ', r'š', r'Š', r'ṣa', r'aṣ-bat']
         self.tittles = \
             [(re.compile(regex), repl) for (regex, repl) in tittles]
-            
-    def y(self, text):
         for (pattern, repl) in self.tittles:
             ATF = re.subn(pattern, repl, str(ATF))[0]
-           
-            self.assertEqual(ATF, target)
+        self.assertEqual(ATF, target)
 
 if __name__ == '__main__':
-    unittest.main
+    unittest.main()
+    

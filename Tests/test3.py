@@ -23,9 +23,7 @@ class Test3(unittest.TestCase):  # pylint: disable=R0904
         target = ['ᵈ', 'ⁱʳⁱ', 'ˡᶸ2', 'ˡᶸ2', '𒁹', '𒁹', 'ᵍᵉˢᶻ', 'ᵍᵉˢᶻ', 'ⁱ7', 'ⁱ7'
                   'ᵐᶸⁿᶸˢ', 'ˢᶻᵉ', 'ˢᶻᵉ', 'ᶸᶻᶸ', 'ᵏᶸˢᶻ', 'ᵏᶸˢᶻ', 'ᵏⁱ', '(𒌋)', '(𒁹)', '(𒁹)']
         self.determinatives = \
-            [(re.compile(regex), repl) for (regex, repl) in determinatives]
-            
-    def x(self, text):    
+            [(re.compile(regex), repl) for (regex, repl) in determinatives]  
         for (pattern, repl) in self.determinatives:
             ATF = re.subn(pattern, repl, str(ATF))[0]
             
