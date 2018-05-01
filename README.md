@@ -13,23 +13,30 @@ Tyler Kirby
 
 ## Table of Contents
 
+### Texts
+
 #### ARM1-Akkadian.txt
 A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
 
 #### ARM1-Transliteration.txt
 A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
 
-#### ATF Converter - Summer Start.ipynb
-A python file that shows the state of this code as of 4/23/18.
-
 #### Akkadian.txt
 A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
+
+#### Transliteration.txt
+A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
+
+### Tests
+
+#### Test 1 - N
+Tests that check individual parts of the ATF Converter
 
 #### LICENSE and README.md
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
-#### Transliteration.txt
-A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
+#### ATF Converter - Summer Start.ipynb
+A python file that shows the state of this code as of 4/23/18.
 
 ## Organizations involved
 
@@ -55,8 +62,8 @@ At the heart of cdli is a group of developers, language scientists, machine lear
 I will be updating weekly the development of this project, labeled as such until final submission week:
 
        _e.g._ \
-       z - ATF Converter EOW x.ipynb \
-       z - ATF Converter EOW x+1.ipynb \
+       z - ATF Converter EOW x.md \
+       z - ATF Converter EOW x+1.md \
        etc.
        
        
