@@ -60,6 +60,7 @@ class Test2(unittest.TestCase):  # pylint: disable=R0904
                     (r'[uU]([sStT])([zZ,])2', 'ú\\1\\2'), (r'[uU]([sStT])([zZ,])3', 'ù\\1\\2')]
 
         target = ['szì', 'líl', 'bí', 't,e4', 'ù', 'ága', 'áRAD', 'géme', 'sig17', 'ù _kù-sig17', 'ra-pí-qí']
+
         self.accents = \
             [(re.compile(regex), repl) for (regex, repl) in accents]
         for (pattern, repl) in self.accents:
