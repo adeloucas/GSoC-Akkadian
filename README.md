@@ -36,13 +36,15 @@ A text file that contains the ATF info for Codex Hammurabi including translation
 
 ### Tests
 
+#### Test 1 - N
+
 Tests that check individual parts of the ATF Converter
 
 #### LICENSE and README.md
 
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
-#### ATF Converter - Summer Start.py
+#### ATF Converter - Summer Start.ipynb
 
 A python file that shows the state of this code as of 4/23/18.
 
@@ -74,10 +76,10 @@ At the heart of cdli is a group of developers, language scientists, machine lear
 
 I will be updating weekly the development of this project, labeled as such until final submission week:
 
-       _e.g._ \
-       z - ATF Converter EOW x.md \
-       z - ATF Converter EOW x+1.md \
-       etc.
+       _e.g._ \
+       z - ATF Converter EOW x.md \
+       z - ATF Converter EOW x+1.md \
+       etc.
 
 This code will follow the proposal developed by the author, reproduced below.
 
