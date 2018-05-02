@@ -16,33 +16,29 @@
 ## e) line 94 -- mistype of text : _ ISZ-QU2-LU A-NA _KU3-BABBER_DAM-GAR3_
 ## f) law 277 line 54 and 56 -- the parenthesis messes it all up
 ## g) e.g. 274 - all broken up
-## ISSUE: Law 15
+## ISSUE: Law 15 
 
-"""
+# next steps:
 
-next steps:
+# a) months -- e.g. law 13 line 17, 19 _iti 6(sign)-kam_
 
-a) months -- e.g. law 13 line 17, 19 _iti 6(sign)-kam_
+#   (r'[iI][tT][iI]\s' ... ? -- I'd rather be able to just say "between ITI and -KAM, capitalize the string)
 
-   (r'[iI][tT][iI]\s' ... ? -- I'd rather be able to just say "between ITI and -KAM, capitalize the string)
+#b) broken signs (#): law 28 line 30; law 30 line 51; ! -59 near the end "a-zu!"
 
-b) broken signs (#): law 28 line 30; law 30 line 51; ! -59 near the end "a-zu!"
+#   Haven't looked into a solution yet
 
-   Haven't looked into a solution yet
+#c) change hypen to periods
 
-c) change hypen to periods
-
-   Issue: don't want it to affect the akkadian
+#   Issue: don't want it to affect the akkadian
 
 ## Additional Bugs: ##
 
-d) 3 akkadian signs between signs 62 - LUGAL_ sha i-na _kalam
-e) line 94 -- mistype of text -> shouldn't be between underscores : _ ISZ-QU2-LU A-NA _KU3-BABBER_DAM-GAR3 _
-f) law 277 line 54 and 56 -- the parenthesis messes it all up
-g) e.g. 274 - all broken up
-h) Law 15
-
-"""
+# d) 3 akkadian signs between signs 62 - LUGAL_ sha i-na _kalam
+# e) line 94 -- mistype of text -> shouldn't be between underscores : _ ISZ-QU2-LU A-NA _KU3-BABBER_DAM-GAR3 _
+# f) law 277 line 54 and 56 -- the parenthesis messes it all up
+# g) e.g. 274 - all broken up
+# h) Law 15
 
 ## Up-to-date program
 
@@ -122,9 +118,9 @@ class ATFConverter(object):
             text = re.subn(pattern, repl, text)[0]
             
         # capitalizes sumerian by finding instances of underscores#
-        for x in re.finditer(r'\_\w*\_', text):
+        for a in re.finditer(r'\_\w*\_', text):
             text = re.sub(r'\_\w*\_', lambda x: x.group(0).upper(), text)
-        for y in re.finditer(r'[\_]\w*[\s-]\w*[\_]', text):
+        for b in re.finditer(r'[\_]\w*[\s-]\w*[\_]', text):
             text = re.sub(r'[\_]\w*[\s-]\w*[\_]', lambda y: y.group(0).upper(), text)
         for c in re.finditer(r'[\_]\w*[\s-]\w*[\s-]\w*[\_]', text):                    
             text = re.sub(r'[\_]\w*[\s-]\w*[\s-]\w*[\_]', lambda c: c.group(0).upper(), text)
