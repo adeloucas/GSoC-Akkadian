@@ -53,7 +53,7 @@ class Test2(unittest.TestCase):  # pylint: disable=R0904
                     (r'[uU]([a-zA-Z][aeiouAEIOU][a-zA-Z][aeiouAEIOU])2', 'ú\\1'), 
                     (r'[uU]([a-zA-Z][aeiouAEIOU][a-zA-Z][aeiouAEIOU])3', 'ù\\1'),
                     (r'[uU]'r'([a-zA-Z][aeiouAEIOU][a-zA-Z])2', 'ú\\1'),
-                    (r'[uU]'r'([a-zA-Z][aeiouAEIOU][a-zA-Z])3', 'ù\\1')
+                    (r'[uU]'r'([a-zA-Z][aeiouAEIOU][a-zA-Z])3', 'ù\\1'),
                     (r'[uU]([a-zA-Z][aeiouAEIOU])2', 'ú\\1'), 
                     (r'[uU]([a-zA-Z][aeiouAEIOU])3', 'ù\\1'),
                     (r'[uU]2', 'ú'), (r'[uU]3', 'ù'), (r'[uU]([a-zA-Z])2', 'ú\\1'), (r'[uU]([a-zA-Z])3', 'ù\\1'),
