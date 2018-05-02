@@ -12,7 +12,7 @@ import re
 class Test2(unittest.TestCase):  # pylint: disable=R0904
     """Class for unittest"""
 
-    def x(self):
+    def test2(self):
         ATF = ['szi3', 'lil2', 'bi2', 't,e4', 'u3', 'aga2', 'ARAD2', 'geme2', 'sig17', 'u3 _ku3-sig17', 'ra-pi2-qi2']
         
         accents =  [(r'[aA]([a-zA-Z][aeiouAEIOU][a-zA-Z][aeiouAEIOU])2', 'á\\1'), 
@@ -44,13 +44,13 @@ class Test2(unittest.TestCase):  # pylint: disable=R0904
                     (r'[uU]([a-zA-Z][aeiouAEIOU])2', 'ú\\1'), (r'[uU]([a-zA-Z][aeiouAEIOU])3', 'ù\\1'),
                     (r'[uU]2', 'ú'), (r'[uU]3', 'ù'), (r'[uU]([a-zA-Z])2', 'ú\\1'), (r'[uU]([a-zA-Z])3', 'ù\\1'),
                     (r'[uU]([sStT])([zZ,])2', 'ú\\1\\2'), (r'[uU]([sStT])([zZ,])3', 'ù\\1\\2')]
-        target = ['szì', 'líl', 'bí', 't,e4', 'ù', 'ága', 'áRAD', 'géme', 'sig17', 'ù _kù-sig17', 'ra-pí-qí']
+        target = ['szì', 'líl', 'bí', 't,e4', 'ù', 'ága', 'ARáD', 'géme', 'sig17', 'ù _kù-sig17', 'ra-pí-qí']
         self.accents = \
-            [(re.compile(regex), repl) for (regex, repl) in accents]    
+            [(re.compile(regex), repl) for (regex, repl) in accents]
         for (pattern, repl) in self.accents:
             ATF = re.subn(pattern, repl, str(ATF))[0]
             
-        self.assertEqual(ATF, target)
+        self.assertEqual(ATF, str(target))
 
 if __name__ == '__main__':
-    unittest.main
+    unittest.main()
