@@ -17,7 +17,6 @@
 ## f) law 277 line 54 and 56 -- the parenthesis messes it all up
 ## g) e.g. 274 - all broken up
 ## ISSUE: Law 15
-
 """
 
 next steps:
