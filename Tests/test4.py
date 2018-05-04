@@ -21,18 +21,19 @@ class Test4(unittest.TestCase):  # pylint: disable=R0904
                 r'_ szu-a-ti i-na _', r'_A-SZA3 SZE-GESZ-I3_', r'_SIPA U8 UDU HI-A_', r'_a-sza3_ be-el _', r'_iti_ x x x _'
                 r'_ it-ti _', r'_MA-NA KU3-BABBAR_']
         CatchSumerian = [(r'[\_]\w*[\_]'),
-                    (r'[\_]\w*[\s-]\w*[\_]'),
-                    (r'[\_]\w*[\s-]\w*[\s-]\w*[\_]'),
-                    (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-                    (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-                    (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),   
-                    (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]')]
+                         (r'[\_]\w*[\s-]\w*[\_]'),
+                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\_]'),
+                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
+                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
+                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),   
+                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]')]
+        # captures instances where akkadian is caught in above.
         CatchAkkadian = [(r'[\_][\s-]\w*[\s-][\_]'),
-                    (r'[\_][\s-]\w*[\s-]\w*[\s-][\_]'),
-                    (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
-                    (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
-                    (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]'),
-                    (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]')]
+                         (r'[\_][\s-]\w*[\s-]\w*[\s-][\_]'),
+                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
+                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
+                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]'),
+                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]')]
         Sumerian = str(CatchSumerian)
         Akkadian = str(CatchAkkadian)
         string = str(ATFreal)
