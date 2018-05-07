@@ -16,6 +16,18 @@ Tyler Kirby
 
 ## Table of Contents
 
+### pyatf
+
+#### ATFConverter.py
+
+This is the main converter class for this project.
+
+### tests
+
+#### tests1-4
+
+Tests that check individual parts of the ATF Converter as initially established.
+
 ### Texts
 
 #### ARM1-Akkadian.txt
@@ -34,19 +46,17 @@ A text file that contains the ATF information of the publication Codex Hammurabi
 
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
-### Tests
+#### ATF Converter - Summer Start.ipynb
 
-#### Test 1 - N
-
-Tests that check individual parts of the ATF Converter
+A python file that shows the state of this code as of 4/23/18.
 
 #### LICENSE and README.md
 
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
-#### ATF Converter - Summer Start.ipynb
+#### z - ATF Converter EOW x.md
 
-A python file that shows the state of this code as of 4/23/18.
+I will be updating weekly the development of this project, labeled as such until final submission week.
 
 ## Organizations involved
 
@@ -72,16 +82,7 @@ The mission of the Cuneiform Digital Library Initiative (CDLI) is to collect, pr
 
 At the heart of cdli is a group of developers, language scientists, machine learning engineers, and cuneiform specialists who develop software infrastructure to process and analyze curated data. To this effect, we are actively developing two projects: Framework Update <https://cdli.ucla.edu/?q=news/cdli-core-update> and Machine Translation and Automated Analysis of Cuneiform Languages <https://cdli-gh.github.io/mtaac/.> As part of these projects we are building a natural language processing platform to empower specialists of ancient languages for undertaking automated annotation and translation of Sumerian language texts thus enabling data driven study of languages, culture, history, economy and politics of the ancient Near Eastern civilizations. As part of this platform we are focusing on data standardization using Linked Open Data to foster best practices in data exchange and integration with other digital humanities and computational philology projects.
 
-## Updates
-
-I will be updating weekly the development of this project, labeled as such until final submission week:
-
-       _e.g._ \
-       z - ATF Converter EOW x.md \
-       z - ATF Converter EOW x+1.md \
-       etc.
-
-This code will follow the proposal developed by the author, reproduced below.
+## This code will follow the proposal developed by the author, reproduced below
 
 ## The Road to CDLI’s Corpora Integration into CLTK: an Undertaking
 

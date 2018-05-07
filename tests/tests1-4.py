@@ -2,7 +2,7 @@ __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
 import unittest
-from tests.logic import ATFConverter
+from pyatf.ATFConverter import ATFConverter
 
 class shts(unittest.TestCase):  # pylint: disable=R0904
 
