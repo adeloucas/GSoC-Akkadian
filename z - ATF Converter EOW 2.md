@@ -19,4 +19,4 @@
 
 1) Correct "sumerian" test
 2) Further tests
-3) Clean up project in preparation for Coding 
+3) Clean up project in preparation for Coding, 14.5 – 6.8
