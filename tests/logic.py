@@ -62,28 +62,27 @@ class ATFConverter(object):
                         (r'([a-zA-Z])13', '\\1₁₃'), (r'([a-zA-Z])14', '\\1₁₄'), (r'([a-zA-Z])15', '\\1₁₅'), 
                         (r'([a-zA-Z])16', '\\1₁₆'),(r'([a-zA-Z])17', '\\1₁₇'), (r'([a-zA-Z])18', '\\1₁₈')]
         
-        determinatives = [(r'{d}', 'ᵈ'), (r'{diš}', '𒁹'),(r'{disz}', '𒁹'), (r'{geš}', 'ᵍᵉˢᶻ'), (r'{gesz}', 'ᵍᵉˢᶻ'),
-                          (r'{iri}', 'ⁱʳⁱ'), (r'{ki}', 'ᵏⁱ'), (r'{kuš}', 'ᵏᶸˢᶻ'), (r'{nisi}', 'ⁿⁱˢⁱ'),  (r'{uruda}', 'ᵘʳᵘᵈᵃ'),
+        determinatives = [(r'{d}', 'ᵈ'), (r'{diš}', '𒁹'), (r'{disz}', '𒁹'), (r'{geš}', 'ᵍᵉˢᶻ'), (r'{gesz}', 'ᵍᵉˢᶻ'),
+                          (r'{iri}', 'ⁱʳⁱ'), (r'{ki}', 'ᵏⁱ'), (r'{kuš}', 'ᵏᶸˢᶻ'), (r'{nisi}', 'ⁿⁱˢⁱ'), (r'{uruda}', 'ᵘʳᵘᵈᵃ'),
                           (r'{lu2}', 'ˡᶸ²'), (r'{lú}', 'ˡᶸ²'), (r'{munus}', 'ᵐᶸⁿᶸˢ'), (r'{še}', 'ˢᶻᵉ'), (r'{uzu}', 'ᶸᶻᶸ'),
-                          (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'),(r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), 
-                          (r'{kusz}', 'ᵏᶸˢᶻ'),  (r'{ansze}', 'ᵃⁿˢᶻᵉ'),  (r'{esz2}', 'ᵉˢᶻ²'),  (r'{gi}', 'ᵍⁱ'),
+                          (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'), (r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), 
+                          (r'{kusz}', 'ᵏᶸˢᶻ'), (r'{ansze}', 'ᵃⁿˢᶻᵉ'), (r'{esz2}', 'ᵉˢᶻ²'), (r'{gi}', 'ᵍⁱ'),
                           (r'{is}', 'ⁱˢ'), (r'{i₇}', 'ⁱ⁷'), (r'{I₇}', 'ⁱ⁷')]
-        
-        sumerian = str([(r'[\_]\w*[\_]'),
-                        (r'[\_]\w*[\s-]\w*[\_]'),
-                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\_]'),
-                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),   
-                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]')])
-        uppercase = sumerian.upper()
 
-#        akkadian = [(r'([\_][\s-]\w*[\s-][\_])', '\\1'.lower),
-#                    (r'([\_][\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
-#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
-#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
-#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
-#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower)]
+        sumerian =     [(r'([\_]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),   
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1')]
+
+        akkadian = [(r'([\_][\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1')]
 
         self.tittles = \
                 [(re.compile(regex), repl) for (regex, repl) in tittles]
@@ -94,11 +93,11 @@ class ATFConverter(object):
         self.determinatives = \
                 [(re.compile(regex), repl) for (regex, repl) in determinatives]
         
-#        self.sumerian = \
-#                [(re.compile(regex), repl) for (regex, repl) in sumerian]
+        self.sumerian = \
+                [(re.compile(regex), lambda sumerian: sumerian.group(0).upper()) for (regex, repl) in sumerian]
 
-#        self.akkadian = \
-#                [(re.compile(regex), repl) for (regex, repl) in akkadian]   
+        self.akkadian = \
+                [(re.compile(regex), lambda akkadian: akkadian.group(0).lower()) for (regex, repl) in akkadian]   
         
         for (pattern, repl) in self.tittles:
             text = re.subn(pattern, repl, str(text))[0]
@@ -109,10 +108,10 @@ class ATFConverter(object):
         for (pattern, repl) in self.determinatives:
             text = re.subn(pattern, repl, str(text))[0]    
 
-        for sumerian in re.finditer(sumerian, text):
-            text = re.subn(sumerian, uppercase, str(text))[0]
+        for (pattern, repl) in self.sumerian:
+            text = re.subn(pattern, repl, str(text))[0]   
 
-#        for (pattern, repl) in self.akkadian:
-#            text = re.subn(pattern, repl, str(text))[0]
+        for (pattern, repl) in self.akkadian:
+            text = re.subn(pattern, repl, str(text))[0]
         
         return text     
