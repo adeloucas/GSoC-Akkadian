@@ -13,10 +13,9 @@
 1) Familiarized myself with VSCode
 2) Organized project per suggestion
 3) Familiarized myself with PEP8 guideline
-4) Get tests working (3/4)
+4) Got tests working
 
 ## Goals for Week 3 (May 7 - May 14)
 
-1) Correct "sumerian" test
-2) Further tests
-3) Clean up project in preparation for Coding, 14.5 – 6.8
+1) Further tests
+2) Clean up project in preparation for Coding, 14.5 – 6.8

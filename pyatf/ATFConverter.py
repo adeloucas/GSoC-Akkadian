@@ -5,8 +5,10 @@ import os
 import unittest
 import re
 
-class ATFConverter(object): 
-    def __init___(self):
+class ATFConverter(object):
+
+    def convert(self, text):
+
         tittles =  [(r's,', 'ṣ'),  (r'S,', 'Ṣ'), (r't,', 'ṭ'), (r'T,', 'Ṭ'), (r'sz', 'š'), (r'SZ', 'Š')]
         
         accents =  [(r'[aA]([a-zA-Z][aeiouAEIOU][a-zA-Z][aeiouAEIOU])2', 'á\\1'), 
@@ -60,12 +62,27 @@ class ATFConverter(object):
                         (r'([a-zA-Z])13', '\\1₁₃'), (r'([a-zA-Z])14', '\\1₁₄'), (r'([a-zA-Z])15', '\\1₁₅'), 
                         (r'([a-zA-Z])16', '\\1₁₆'),(r'([a-zA-Z])17', '\\1₁₇'), (r'([a-zA-Z])18', '\\1₁₈')]
         
-        determinatives = [(r'{d}', 'ᵈ'), (r'{diš}', '𒁹'),(r'{disz}', '𒁹'), (r'{geš}', 'ᵍᵉˢᶻ'), (r'{gesz}', 'ᵍᵉˢᶻ'),
-                          (r'{i7}', 'ⁱ⁷'), (r'{I7}', 'ⁱ⁷'), (r'{iri}', 'ⁱʳⁱ'), (r'{ki}', 'ᵏⁱ'), (r'{kuš}', 'ᵏᶸˢᶻ'), 
+        determinatives = [(r'{d}', 'ᵈ'), (r'{diš}', '𒁹'), (r'{disz}', '𒁹'), (r'{geš}', 'ᵍᵉˢᶻ'), (r'{gesz}', 'ᵍᵉˢᶻ'),
+                          (r'{iri}', 'ⁱʳⁱ'), (r'{ki}', 'ᵏⁱ'), (r'{kuš}', 'ᵏᶸˢᶻ'), (r'{nisi}', 'ⁿⁱˢⁱ'), (r'{uruda}', 'ᵘʳᵘᵈᵃ'),
                           (r'{lu2}', 'ˡᶸ²'), (r'{lú}', 'ˡᶸ²'), (r'{munus}', 'ᵐᶸⁿᶸˢ'), (r'{še}', 'ˢᶻᵉ'), (r'{uzu}', 'ᶸᶻᶸ'),
-                          (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'),(r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), 
-                          (r'{kusz}', 'ᵏᶸˢᶻ'),  (r'{ansze}', 'ᵃⁿˢᶻᵉ'),  (r'{esz2}', 'ᵉˢᶻ²'),  (r'{gi}', 'ᵍⁱ'),
-                          (r'{is}', 'ⁱˢ'),  (r'{nisi}', 'ⁿⁱˢⁱ'),  (r'{uruda}', 'ᵘʳᵘᵈᵃ')]
+                          (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'), (r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), 
+                          (r'{kusz}', 'ᵏᶸˢᶻ'), (r'{ansze}', 'ᵃⁿˢᶻᵉ'), (r'{esz2}', 'ᵉˢᶻ²'), (r'{gi}', 'ᵍⁱ'),
+                          (r'{is}', 'ⁱˢ'), (r'{i₇}', 'ⁱ⁷'), (r'{I₇}', 'ⁱ⁷')]
+
+        sumerian =     [(r'([\_]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1'),   
+                        (r'([\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_])', '\\1')]
+
+        akkadian = [(r'([\_][\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'),
+                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1')]
 
         self.tittles = \
                 [(re.compile(regex), repl) for (regex, repl) in tittles]
@@ -75,37 +92,26 @@ class ATFConverter(object):
 
         self.determinatives = \
                 [(re.compile(regex), repl) for (regex, repl) in determinatives]
+        
+        self.sumerian = \
+                [(re.compile(regex), lambda sumerian: sumerian.group(0).upper()) for (regex, repl) in sumerian]
 
-    def convert(self, text):
-
+        self.akkadian = \
+                [(re.compile(regex), lambda akkadian: akkadian.group(0).lower()) for (regex, repl) in akkadian]   
+        
         for (pattern, repl) in self.tittles:
-            text = re.subn(pattern, repl, text)[0]
+            text = re.subn(pattern, repl, str(text))[0]
 
         for (pattern, repl) in self.accents:
-            text = re.subn(pattern, repl, text)[0]
+            text = re.subn(pattern, repl, str(text))[0]
 
         for (pattern, repl) in self.determinatives:
-            text = re.subn(pattern, repl,text)[0]
+            text = re.subn(pattern, repl, str(text))[0]    
 
-        CatchSumerian = [(r'[\_]\w*[\_]'),
-                         (r'[\_]\w*[\s-]\w*[\_]'),
-                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\_]'),
-                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),   
-                         (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]')]
-        Sumerian = str(CatchSumerian)
+        for (pattern, repl) in self.sumerian:
+            text = re.subn(pattern, repl, str(text))[0]   
 
-        CatchAkkadian = [(r'[\_][\s-]\w*[\s-][\_]'),
-                         (r'[\_][\s-]\w*[\s-]\w*[\s-][\_]'),
-                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
-                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
-                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]'),
-                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]')]
-        Akkadian = str(CatchAkkadian)    
-        
-        for Sumerian in re.finditer(Sumerian, text):
-            text = re.sub(Sumerian, Sumerian.upper(), text)
-            text = re.sub(Akkadian, Akkadian.lower(), text)
+        for (pattern, repl) in self.akkadian:
+            text = re.subn(pattern, repl, str(text))[0]
         
         return text     
