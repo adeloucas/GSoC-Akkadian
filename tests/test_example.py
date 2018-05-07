@@ -27,8 +27,6 @@ class Sumeriancontained(unittest.TestCase):  # pylint: disable=R0904
                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]'),
                         (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]')])
-#        Sumerian = str(CatchSumerian)
-#        Akkadian = str(CatchAkkadian)
         
         for Sumerian in re.finditer(Sumerian, ATF):
             ATF = re.sub(Sumerian, Sumerian.upper(), ATF)

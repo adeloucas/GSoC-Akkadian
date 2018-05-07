@@ -1,11 +1,10 @@
-
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
 import unittest
 from tests.logic import ATFConverter
 
-class shtsconvert(unittest.TestCase):  # pylint: disable=R0904
+class shts(unittest.TestCase):  # pylint: disable=R0904
 
     def test1(self):
         ATF = ATFConverter()
@@ -16,7 +15,7 @@ class shtsconvert(unittest.TestCase):  # pylint: disable=R0904
 
         self.assertEqual(output, target)
 
-class signsconvert(unittest.TestCase):  # pylint: disable=R0904
+class signs(unittest.TestCase):  # pylint: disable=R0904
 
     def test2(self):
         ATF = ATFConverter()

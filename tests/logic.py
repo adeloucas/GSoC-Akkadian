@@ -5,7 +5,7 @@ import os
 import unittest
 import re
 
-class ATFConverter(object): 
+class ATFConverter(object):
 
     def convert(self, text):
 
@@ -68,23 +68,22 @@ class ATFConverter(object):
                           (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'),(r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), 
                           (r'{kusz}', 'ᵏᶸˢᶻ'),  (r'{ansze}', 'ᵃⁿˢᶻᵉ'),  (r'{esz2}', 'ᵉˢᶻ²'),  (r'{gi}', 'ᵍⁱ'),
                           (r'{is}', 'ⁱˢ'), (r'{i₇}', 'ⁱ⁷'), (r'{I₇}', 'ⁱ⁷')]
+        
+        sumerian = str([(r'[\_]\w*[\_]'),
+                        (r'[\_]\w*[\s-]\w*[\_]'),
+                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\_]'),
+                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
+                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
+                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),   
+                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]')])
+        uppercase = sumerian.upper()
 
-#        sumerian = str([(r'[\_]\w*[\_]'),
-#                        (r'[\_]\w*[\s-]\w*[\_]'),
-#                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\_]'),
-#                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-#                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),
-#                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]'),   
-#                        (r'[\_]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\_]')])
-#        SUMERIAN = sumerian.upper()
-
-#        AKKADIAN = str([(r'[\_][\s-]\w*[\s-][\_]'),
-#                        (r'[\_][\s-]\w*[\s-]\w*[\s-][\_]'),
-#                        (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
-#                        (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]'),
-#                        (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]'),
-#                        (r'[\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_]')])
-#        akkadian = AKKADIAN.lower()
+#        akkadian = [(r'([\_][\s-]\w*[\s-][\_])', '\\1'.lower),
+#                    (r'([\_][\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
+#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
+#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
+#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower),
+#                    (r'([\_][\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-]\w*[\s-][\_])', '\\1'.lower)]
 
         self.tittles = \
                 [(re.compile(regex), repl) for (regex, repl) in tittles]
@@ -98,8 +97,8 @@ class ATFConverter(object):
 #        self.sumerian = \
 #                [(re.compile(regex), repl) for (regex, repl) in sumerian]
 
-#        self.AKKADIAN = \
-#                [(re.compile(regex), repl) for (regex, repl) in AKKADIAN]   
+#        self.akkadian = \
+#                [(re.compile(regex), repl) for (regex, repl) in akkadian]   
         
         for (pattern, repl) in self.tittles:
             text = re.subn(pattern, repl, str(text))[0]
@@ -109,13 +108,11 @@ class ATFConverter(object):
 
         for (pattern, repl) in self.determinatives:
             text = re.subn(pattern, repl, str(text))[0]    
-    
-        #for sumerian in re.finditer(sumerian, text):
 
-#        for (pattern, repl) in self.sumerian:
+        for sumerian in re.finditer(sumerian, text):
+            text = re.subn(sumerian, uppercase, str(text))[0]
+
+#        for (pattern, repl) in self.akkadian:
 #            text = re.subn(pattern, repl, str(text))[0]
-
-#        for (pattern, repl) in self.AKKADIAN:
-#            text = re.sub(AKKADIAN, akkadian, str(text))
         
         return text     
