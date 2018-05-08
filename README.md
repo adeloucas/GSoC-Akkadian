@@ -22,31 +22,35 @@ Tyler Kirby
 
 This is the main converter class for this project.
 
+#### TextReader.py
+
+This code allows you to read the current state of this code.
+
 ### tests
 
 #### tests1-4
 
 Tests that check individual parts of the ATF Converter as initially established.
 
-### Texts
-
-#### ARM1-Akkadian.txt
-
-A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
-
-#### ARM1-Transliteration.txt
-
-A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
+### texts
 
 #### Akkadian.txt
 
 A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
 
+#### ARM1-Transliteration.txt
+
+A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
+
+#### ARM1Akkadian.txt
+
+A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
+
 #### Transliteration.txt
 
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
-#### ATF Converter - Summer Start.ipynb
+#### ATF Converter - Summer Start.py
 
 A python file that shows the state of this code as of 4/23/18.
 
@@ -54,7 +58,7 @@ A python file that shows the state of this code as of 4/23/18.
 
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
-#### z - ATF Converter EOW x.md
+#### z - ATF Converter EOW 2.md
 
 I will be updating weekly the development of this project, labeled as such until final submission week.
 
