@@ -20,7 +20,7 @@ class test2(unittest.TestCase):  # pylint: disable=R0904
     def test2(self):
         ATF = ATFConverter()
         text = ['szi3', 'lil2', 'bi2', 't,e4', 'u3', 'aga2', 'ARAD2', 'geme2', 'sig17', 'u3 _ku3-sig17', 'ra-pi2-qi2']
-        target = str(['šì', 'líl', 'bí', 'ṭe₄', 'ù', 'ága', 'áRAD', 'géme', 'sig₁₇', 'ù _KÙ-sig₁₇', 'ra-pí-qí'])
+        target = str(['šì', 'líl', 'bí', 'ṭe₄', 'ù', 'ága', 'áRAD', 'géme', 'sig₁₇', 'ù _kù-sig₁₇', 'ra-pí-qí'])
 
         output = ATF.convert(text)
 
