@@ -4,7 +4,7 @@ __license__ = 'MIT License. See LICENSE.'
 import unittest
 from pyatf.ATFConverter import ATFConverter
 
-class shts(unittest.TestCase):  # pylint: disable=R0904
+class test1(unittest.TestCase):  # pylint: disable=R0904
 
     def test1(self):
         ATF = ATFConverter()
@@ -15,7 +15,7 @@ class shts(unittest.TestCase):  # pylint: disable=R0904
 
         self.assertEqual(output, target)
 
-class signs(unittest.TestCase):  # pylint: disable=R0904
+class test2(unittest.TestCase):  # pylint: disable=R0904
 
     def test2(self):
         ATF = ATFConverter()
@@ -26,7 +26,7 @@ class signs(unittest.TestCase):  # pylint: disable=R0904
 
         self.assertEqual(output, target)
 
-class determinatives(unittest.TestCase):  # pylint: disable=R0904
+class test3(unittest.TestCase):  # pylint: disable=R0904
 
     def test3(self):
         ATF = ATFConverter()
@@ -39,19 +39,21 @@ class determinatives(unittest.TestCase):  # pylint: disable=R0904
 
         self.assertEqual(output, target)
 
-class sumerian(unittest.TestCase):  # pylint: disable=R0904
+class test4(unittest.TestCase):  # pylint: disable=R0904
 
     def test4(self):
         ATF = ATFConverter()
         text = [r'_a-sza3 u8 udu hi-a_', r'_sze siki i3-gesz zu2-lum_', r'_ i-yu-ti-in _', r'_ sza szu-ba-at-_', 
                 r'_ szu-a-ti i-na _', r'_a-sza3 sze-gesz-i3_', r'_sipa u8 udu hi-a_', r'_a-sza3_ be-el _', r'_iti_ x x x _'
-                r'_ it-ti _',r'_ma-na ku3-babbar_']
+                r'_ it-ti _',r'_ma-na ku3-babbar_', r'_ga#-usz2_', r'_lú#_',
+                r'_{geš#}má#-hi-a gal_', r'_lú#-meš_']
         target = str([r'_A-ŠÀ U₈ UDU HI-A_', r'_ŠE SIKI Ì-GEŠ ZÚ-LUM_', r'_ i-yu-ti-in _', r'_ ša šu-ba-at-_', 
                       r'_ šu-a-ti i-na _', r'_A-ŠÀ ŠE-GEŠ-Ì_', r'_SIPA U₈ UDU HI-A_', r'_A-ŠÀ_ be-el _', r'_ITI_ x x x _'
-                      r'_ it-ti _', r'_MA-NA KÙ-BABBAR_'])
+                      r'_ it-ti _', r'_MA-NA KÙ-BABBAR_', r'_GA#-ÚŠ_', r'_LÚ#_',
+                    r'_ᵍᵉˢᶻ#MÁ#-HI-A GAL_', r'_LÚ#-MEŠ_'])
 
         output = ATF.convert(text)
-
+        self.maxDiff = None
         self.assertEqual(output, target)
 
 if __name__ == '__main__':
