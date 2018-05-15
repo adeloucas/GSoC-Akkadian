@@ -16,11 +16,19 @@ Tyler Kirby
 
 ## Table of Contents
 
-### pyatf
+### main
+
+#### archive
+
+Contains 'ATF Converter - Summer Start.py', a python file that shows the beginning of this code from 4/23/18.
 
 #### ATFConverter.py
 
 This is the main converter class for this project.
+
+#### notes.md
+
+Notes on noted bugs in the code.
 
 #### TextReader.py
 
@@ -28,7 +36,7 @@ This code allows you to read the current state of this code.
 
 ### tests
 
-#### tests1-4
+#### test.py
 
 Tests that check individual parts of the ATF Converter as initially established.
 
@@ -38,10 +46,6 @@ Tests that check individual parts of the ATF Converter as initially established.
 
 A text file that contains the ATF information of the publication Codex Hammurabi. Information can be found in the file.
 
-#### ARM1-Transliteration.txt
-
-A text file that contains the ATF info for publication ARM 01.001. Information can be found in the file.
-
 #### ARM1Akkadian.txt
 
 A text file that contains the ATF information of the publication ARM 01. Information can be found in the file.
@@ -50,15 +54,11 @@ A text file that contains the ATF information of the publication ARM 01. Informa
 
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
-#### ATF Converter - Summer Start.py
-
-A python file that shows the state of this code as of 4/23/18.
-
 #### LICENSE and README.md
 
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
 
-#### z - ATF Converter EOW 2.md
+#### z - ATF Converter EOW 3.md
 
 I will be updating weekly the development of this project, labeled as such until final submission week.
 
@@ -131,13 +131,13 @@ I will be dedicating 20 hours per week to this project. Below is a table breakin
 • Familiarize myself with collections library functions \
 • Total hours = 80 hours
 
-### Community Bonding, 23.4 – 14.5, IN PROGRESS
+#### Community Bonding, 23.4 – 14.5, COMPLETED
 
 (3 weeks) \
 • Develop and Complete Part 1, Converter \
 • Total hours = 60 hours
 
-#### Coding, 14.5 – 6.8, not started
+### Coding, 14.5 – 6.8, IN PROGRESS
 
 (12 weeks) \
 • Develop and Complete Parts 2 and 3, Normalization and Implementation \
