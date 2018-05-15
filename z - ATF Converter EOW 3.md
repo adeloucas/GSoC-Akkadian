@@ -17,9 +17,9 @@
 
 ## Week 3 (May 7 - May 14)
 
-1) Furthered tests: ~99.8% accurate (12,823 out of possible 12,850 lines)
-    a) 3 error lines in Hammurabi,
-    b) 24 error lines in ARM1
+1) Furthered tests: ~99.8% accurate (12,823 out of possible 12,850 lines) \
+    a) 3 error lines in Hammurabi, \
+    b) 24 error lines in ARM1 
 2) Continued to clean up project
 
 ## Goals for Week 3 (May 14 - May 21)
