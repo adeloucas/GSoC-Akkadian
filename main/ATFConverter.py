@@ -6,9 +6,9 @@ import unittest
 import re
 
 class ATFConverter(object):
-
+    """Transliterates ATF data from CDLI into readable unicode"""
     def __init__(self):
-
+        """Initialization for ATFConverter, reads replacement tuple"""
         tittles =  [(r's,', 'ṣ'),  (r'S,', 'Ṣ'), (r't,', 'ṭ'), (r'T,', 'Ṭ'), (r'sz', 'š'), (r'SZ', 'Š')]
         
         accents =  [(r'[aA]([a-zA-Z][aeiouAEIOU][a-zA-Z][aeiouAEIOU])2', 'á\\1'), 
@@ -67,7 +67,7 @@ class ATFConverter(object):
                           (r'{lu2}', 'ˡᶸ²'), (r'{lú}', 'ˡᶸ²'), (r'{munus}', 'ᵐᶸⁿᶸˢ'), (r'{še}', 'ˢᶻᵉ'), (r'{uzu}', 'ᶸᶻᶸ'),
                           (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'), (r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), (r'{lú#}', 'ˡᶸ²#'),
                           (r'{kusz}', 'ᵏᶸˢᶻ'), (r'{ansze}', 'ᵃⁿˢᶻᵉ'), (r'{esz2}', 'ᵉˢᶻ²'), (r'{gi}', 'ᵍⁱ'),
-                          (r'{is}', 'ⁱˢ'), (r'{i₇}', 'ⁱ⁷'), (r'{I₇}', 'ⁱ⁷'), (r'{geš#}', 'ᵍᵉˢᶻ#'), (r'(aš)', '(𒀸)'),
+                          (r'{is}', 'ⁱˢ'), (r'{i₇}', 'ⁱ⁷'), (r'{I₇}', 'ⁱ⁷'), (r'{geš#}', 'ᵍᵉˢᶻ#'), (r'\(aš\)', '(𒀸)'),
                           (r'\(bùr\)', '(𒌋)'), (r'\(bán\)', '(𒑏)'), (r'\(barig\)', '(𒁀𒌷𒂵)'), (r'\(géš\)', '(𒁹)')]
 
         sumerian = [#_w_
@@ -112,7 +112,7 @@ class ATFConverter(object):
                 [(re.compile(regex), lambda akkadian: akkadian.group(0).lower()) for (regex, repl) in akkadian] 
 
     def convert(self, text):
-          
+        """Converts characters into unicode"""   
         for (pattern, repl) in self.tittles:
             text = re.subn(pattern, repl, str(text))[0]
 
