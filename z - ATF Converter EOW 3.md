@@ -26,6 +26,6 @@
 
 1) Recapture testing group for Sumerian and Akkadian - OK
 2) Solve for last 27 lines - NO
-3) Clean up Github Repository - THURSDAY
-4) Restructure ATFConverter per Tyler's suggestion - THURSDAY
+3) Clean up Github Repository - OK
+4) Restructure ATFConverter per Tyler's suggestion - OK
 5) Begin research for part 2 of project, normalization - FRIDAY / SATURDAY / SUNDAY

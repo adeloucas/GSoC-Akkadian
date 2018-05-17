@@ -6,9 +6,9 @@ import unittest
 import re
 
 class ATFConverter(object):
-
+    """Transliterates ATF data from CDLI into readable unicode"""
     def __init__(self):
-
+        """Initialization for ATFConverter, reads replacement tuple"""
         tittles =  [(r's,', 'ṣ'),  (r'S,', 'Ṣ'), (r't,', 'ṭ'), (r'T,', 'Ṭ'), (r'sz', 'š'), (r'SZ', 'Š')]
         
         accents =  [(r'[aA]([a-zA-Z][aeiouAEIOU][a-zA-Z][aeiouAEIOU])2', 'á\\1'), 
@@ -112,7 +112,7 @@ class ATFConverter(object):
                 [(re.compile(regex), lambda akkadian: akkadian.group(0).lower()) for (regex, repl) in akkadian] 
 
     def convert(self, text):
-          
+        """Converts characters into unicode"""   
         for (pattern, repl) in self.tittles:
             text = re.subn(pattern, repl, str(text))[0]
 
