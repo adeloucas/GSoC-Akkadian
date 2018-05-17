@@ -86,7 +86,7 @@ The mission of the Cuneiform Digital Library Initiative (CDLI) is to collect, pr
 
 At the heart of cdli is a group of developers, language scientists, machine learning engineers, and cuneiform specialists who develop software infrastructure to process and analyze curated data. To this effect, we are actively developing two projects: Framework Update <https://cdli.ucla.edu/?q=news/cdli-core-update> and Machine Translation and Automated Analysis of Cuneiform Languages <https://cdli-gh.github.io/mtaac/.> As part of these projects we are building a natural language processing platform to empower specialists of ancient languages for undertaking automated annotation and translation of Sumerian language texts thus enabling data driven study of languages, culture, history, economy and politics of the ancient Near Eastern civilizations. As part of this platform we are focusing on data standardization using Linked Open Data to foster best practices in data exchange and integration with other digital humanities and computational philology projects.
 
-## This code will follow the proposal developed by the author, reproduced below
+### This code will follow the proposal developed by the author, reproduced below
 
 ## The Road to CDLI’s Corpora Integration into CLTK: an Undertaking
 

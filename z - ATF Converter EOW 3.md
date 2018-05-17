@@ -24,8 +24,8 @@
 
 ## Goals for Week 3 (May 14 - May 21)
 
-1) Recapture testing group for Sumerian and Akkadian
-2) Solve for last 27 lines
-3) Clean up Github Repository
-4) Restructure ATFConverter per Tyler's suggestion
-5) Begin research for part 2 of project, normalization
+1) Recapture testing group for Sumerian and Akkadian - OK
+2) Solve for last 27 lines - NO
+3) Clean up Github Repository - THURSDAY
+4) Restructure ATFConverter per Tyler's suggestion - THURSDAY
+5) Begin research for part 2 of project, normalization - FRIDAY / SATURDAY / SUNDAY
