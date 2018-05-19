@@ -5,7 +5,7 @@ syllable surrounded by square brackets.
 
 #TODO: fails on: ['hammurabi', 'u', 'išmeānim']
 
-from Willis_Akkadian.syllabifier import Syllabifier
+from Normalizer.Willis_Akkadian.syllabifier import Syllabifier
 
 __author__ = ['M. Willis Monroe <willismonroe@gmail.com>']
 __license__ = 'MIT License. See LICENSE.'

@@ -1,5 +1,5 @@
 #from cltk.tokenize.word import WordTokenizer
-from lemmatizers.French_Lemmatizer import regex
+from Normalizer.lemmatizers.French_Lemmatizer import regex
 import os
 import importlib.machinery
 

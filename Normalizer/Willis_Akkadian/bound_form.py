@@ -5,9 +5,9 @@ Return a the bound form of a normalized Akkadian noun.
 __author__ = ['M. Willis Monroe <willismonroe@gmail.com>']
 __license__ = 'MIT License. See LICENSE.'
 
-from Willis_Akkadian.syllabifier import Syllabifier
-from Willis_Akkadian.stem import Stemmer
-from Willis_Akkadian.cv_pattern import CVPattern
+from Normalizer.Willis_Akkadian.syllabifier import Syllabifier
+from Normalizer.Willis_Akkadian.stem import Stemmer
+from Normalizer.Willis_Akkadian.cv_pattern import CVPattern
 
 
 class BoundForm(object):
