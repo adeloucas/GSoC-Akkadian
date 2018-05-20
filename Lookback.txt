@@ -1,1 +1,3 @@
-[('ṣīrum', {'case': 'nominative', 'number': 'singular'}), ('ṣīram', {'case': 'accusative', 'number': 'singular'}), ('ṣīrim', {'case': 'genitive', 'number': 'singular'}), ('ṣīrān', {'case': 'nominative', 'number': 'dual'}), ('ṣīrīn', {'case': 'oblique', 'number': 'dual'}), ('ṣīrātum', {'case': 'nominative', 'number': 'plural'}), ('ṣīrātim', {'case': 'oblique', 'number': 'plural'})]
+Stem [singular: nom, acc, gen; dual: nom, obl; plur: nom, obl]
+ṣīr ['ṣīrum', 'ṣīram', 'ṣīrim', 'ṣīrān', 'ṣīrīn', 'ṣīrū', 'ṣīrī']
+erṣet ['erṣetum', 'erṣetam', 'erṣetim', 'erṣetān', 'erṣetīn', 'erṣātum', 'erṣātim']
