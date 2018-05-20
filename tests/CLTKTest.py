@@ -1,10 +1,10 @@
 import unittest
 
-from Normalizer.Willis_Akkadian.bound_form import BoundForm as AkkadianBoundForm
-from Normalizer.Willis_Akkadian.cv_pattern import CVPattern as AkkadianCVPattern
-from Normalizer.Willis_Akkadian.declension import NaiveDecliner as AkkadianNaiveDecliner
-from Normalizer.Willis_Akkadian.stem import Stemmer as AkkadianStemmer
-from Normalizer.Willis_Akkadian.syllabifier import Syllabifier as AkkadianSyllabifier
+from CLTK.bound_form import BoundForm as AkkadianBoundForm
+from CLTK.cv_pattern import CVPattern as AkkadianCVPattern
+from CLTK.declension import NaiveDecliner as AkkadianNaiveDecliner
+from CLTK.stem import Stemmer as AkkadianStemmer
+from CLTK.syllabifier import Syllabifier as AkkadianSyllabifier
 
 class test1(unittest.TestCase):  # pylint: disable=R0904
 

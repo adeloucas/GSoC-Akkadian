@@ -14,6 +14,6 @@
 
 #### This same process should be repeated pretty easily for verbs; the radical converter already setup (i.e. iprus -> iR₁R₂uR₃)
 
-## Willis Mentorship
+### Willis' Akkadian
 
-### List and dictionary comprehension are really important (OrderedDict, enumerate(), the functions in the collections library, etc.)
+#### This section borrows CLTK's Akkadian tools; this material will be deleted and will link to the original files on Github upon creation of tool

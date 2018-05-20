@@ -2,7 +2,6 @@ __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
 import os
-import unittest
 import re
 
 class ATFConverter(object):

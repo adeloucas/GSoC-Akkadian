@@ -5,9 +5,9 @@ Decline an Akkadian noun.
 __author__ = ['M. Willis Monroe <willismonroe@gmail.com>']
 __license__ = 'MIT License. See LICENSE.'
 
-from Normalizer.Willis_Akkadian.stem import Stemmer
-from Normalizer.Willis_Akkadian.stem import ENDINGS
-from Normalizer.Willis_Akkadian.stress import AKKADIAN
+from CLTK.stem import Stemmer
+from CLTK.stem import ENDINGS
+from CLTK.stress import AKKADIAN
 
 
 class NaiveDecliner(object):

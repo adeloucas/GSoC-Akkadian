@@ -3,7 +3,7 @@ __license__ = 'MIT License. See LICENSE.'
 
 import unittest
 from ATFConverter.ATFConverter import ATFConverter
-from Normalizer.Willis_Akkadian.declension import NaiveDecliner
+from CLTK.declension import NaiveDecliner
 
 class test1(unittest.TestCase):  # pylint: disable=R0904
 

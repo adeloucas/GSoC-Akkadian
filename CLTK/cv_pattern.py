@@ -5,7 +5,7 @@ Return a CV patterned string based on the word.
 __author__ = ['M. Willis Monroe <willismonroe@gmail.com>']
 __license__ = 'MIT License. See LICENSE.'
 
-from Normalizer.Willis_Akkadian.syllabifier import AKKADIAN
+from CLTK.syllabifier import AKKADIAN
 
 
 class CVPattern(object):
