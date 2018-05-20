@@ -2,9 +2,9 @@ import unittest
 from CLTK.normalizerfeeder import NaiveDecliner as AkkadianNaiveDecliner
 from CLTK.stem import Stemmer as AkkadianStemmer
 
-class test1(unittest.TestCase):  # pylint: disable=R0904
+class test3(unittest.TestCase):  # pylint: disable=R0904
 
-    def test1(self):
+    def test_stemmer(self):
         decliner = AkkadianNaiveDecliner()
         stemmer = AkkadianStemmer()
         word = "iltum"

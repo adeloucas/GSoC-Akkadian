@@ -6,42 +6,63 @@ from ATFConverter.ATFConverter import ATFConverter
 
 class test1(unittest.TestCase):  # pylint: disable=R0904
 
-    def test1(self):
+    def test_convert_tittles(self):
         ATF = ATFConverter()
         text = [(r's,'), (r'S,'), (r't,'), (r'T,'), (r'sz'), (r'SZ'), (r's,a'), (r'as,-bat')]
         target = str(['ṣ', 'Ṣ', 'ṭ', 'Ṭ', 'š', 'Š', 'ṣa', 'aṣ-bat'])
 
-        output = ATF.convert(text)
+        output = ATF.consonants(text)
 
         self.assertEqual(output, target)
 
-class test2(unittest.TestCase):  # pylint: disable=R0904
+    def test_get_number_from_sign(self):
+        con = ATFConverter()
+        signs = ["a", "a1", "be2", "bad3", "buru14"]
+        target = [0, 1, 2, 3, 14]
 
-    def test2(self):
-        ATF = ATFConverter()
-        text = ['szi3', 'lil2', 'bi2', 't,e4', 'u3', 'aga2', 'ARAD2', 'geme2', 'sig17', 'u3 _ku3-sig17', 'ra-pi2-qi2']
-        target = str(['šì', 'líl', 'bí', 'ṭe₄', 'ù', 'ága', 'áRAD', 'géme', 'sig₁₇', 'ù _kù-sig₁₇', 'ra-pí-qí'])
-
-        output = ATF.convert(text)
+        output = [con.get_number_from_sign(s)[1] for s in signs]
 
         self.assertEqual(output, target)
 
-class test3(unittest.TestCase):  # pylint: disable=R0904
+    def test_single_sign(self):
+        con = ATFConverter()
+        signs = ["a", "a1", "a2", "a3", "be2", "be3", "bad2", "bad3"]
+        target = ["a", "a", "a₂", "a₃", "be₂", "be₃", "bad₂", "bad₃"]
 
-    def test3(self):
+        output = con.process(signs)
+
+        self.assertEqual(output, target)
+
+    def test_accents(self):
+        con = ATFConverter(two_three=False)
+        signs = ["a", "a2", "a3", "be2", "bad3", "buru14"]
+        target = ["a", "á", "à", "bé", "bàd", "buru₁₄"]
+
+        output = con.process(signs)
+
+        self.assertEqual(output, target)
+
+    def test_unknown_token(self):
+        con = ATFConverter()
+        text = ["a2", "☉", "be3"]
+        target = ["a₂", "☉", "be₃"]
+
+        output = con.process(text)
+
+        self.assertEqual(output, target)
+
+    def test_determinatives(self):
         ATF = ATFConverter()
         text = ['{d}', '{iri}', '{lú}', '{lu2}', '{diš}', '{disz}', '{geš}', '{gesz}', '{munus}', '{še}', 
                 '{sze}', '{uzu}', '{kuš}', '{kusz}', '{ki}', r'(u)', r'(diš)', r'(disz)', r'{i7}', r'{I7}']
         target = str(['ᵈ', 'ⁱʳⁱ', 'ˡᶸ²', 'ˡᶸ²', '𒁹', '𒁹', 'ᵍᵉˢᶻ', 'ᵍᵉˢᶻ', 'ᵐᶸⁿᶸˢ', 'ˢᶻᵉ',
                       'ˢᶻᵉ', 'ᶸᶻᶸ', 'ᵏᶸˢᶻ', 'ᵏᶸˢᶻ', 'ᵏⁱ', '(𒌋)', '(𒁹)', '(𒁹)','ⁱ⁷', 'ⁱ⁷'])
 
-        output = ATF.convert(text)
-
+        output = ATF.determination(text)
+        self.maxDiff = None
         self.assertEqual(output, target)
 
-class test4(unittest.TestCase):  # pylint: disable=R0904
-
-    def test4(self):
+    def test_sumerian(self):
         ATF = ATFConverter()
         text = [r'_lugal_',  r'_hé-gál_',  r'_ušumgal lugal_-rí',  r'_še_ ù _kù-babbar_',   r'lu _gu₄_ lu _udu_',  
                 r'lu _gu₄_ lu _udu_ lu _anše_ lu _šáh_',  r'_|maš.en.gag|_',  r'_iti 6(𒁹)-kam_',  
@@ -69,7 +90,7 @@ class test4(unittest.TestCase):  # pylint: disable=R0904
                 r'_1(𒌋)# GÚ# KÙ-SIG₁₇_', r'a-na _5(𒁹) ˡᶸ²ÁRAD-MEŠ_ i-yu-ti-in _1(𒁹)-ÀM_ ᵏᶸˢᶻna-da-tim# _2(𒁹)-ÀM_ ᵏᶸˢᶻme-še-[ni]', 
                 r'_ᵈ#IŠKUR#_', r'_GÚ# [KÙ]-BABBAR_ te-er-ha-at _DUMU-MUNUS_', r'_INIM?-ᵈIŠKUR#?_', 
                 r'[_ÁRAD_] [a]-bi-im _U₄ 6(𒁹)-KAM ZAL_-[ma]'])
-        output = ATF.convert(text)
+        output = ATF.sumerianization(text)
         self.maxDiff = None
         self.assertEqual(output, target)
 

@@ -6,7 +6,7 @@ from CLTK.declension import NaiveDecliner as AkkadianNaiveDecliner
 from CLTK.stem import Stemmer as AkkadianStemmer
 from CLTK.syllabifier import Syllabifier as AkkadianSyllabifier
 
-class test1(unittest.TestCase):  # pylint: disable=R0904
+class test2(unittest.TestCase):  # pylint: disable=R0904
 
     def test_akkadian_bound_form(self):
         """Test Akkadian bound form method"""
