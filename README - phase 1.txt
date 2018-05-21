@@ -11,8 +11,9 @@ To-do
 
 Last issues
 
-# Current Hammurabi Line Issues : 3 #
+# Current Hammurabi Line Issues : 4 #
 
+58. lu _GU4_ lu _udu_ lu _ANSZE_ lu _SZAH2_
 28. a-na _1((𒀸)) še gur-e 5(𒁹) silà še_
 100. _áb gu₄ hi-a ᵍᵉˢᶻmar-gíd-da_
 81. lu _ÁRAD_-SÚ Ù LU _GÉME_-sú

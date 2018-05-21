@@ -6,6 +6,7 @@ import re
 from unicodedata import normalize
 
 VOWELS = 'aeiou'
+
 determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}': 'ᵍᵉˢᶻ', r'{gesz}': 'ᵍᵉˢᶻ',
                   r'{iri}': 'ⁱʳⁱ', r'{ki}': 'ᵏⁱ', r'{kuš}': 'ᵏᶸˢᶻ', r'{nisi}': 'ⁿⁱˢⁱ', r'{uruda}': 'ᵘʳᵘᵈᵃ',
                   r'{lu2}': 'ˡᶸ²', r'{lú}': 'ˡᶸ²', r'{munus}': 'ᵐᶸⁿᶸˢ', r'{še}': 'ˢᶻᵉ', r'{uzu}': 'ᶸᶻᶸ',
@@ -13,7 +14,9 @@ determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}'
                   r'{kusz}': 'ᵏᶸˢᶻ', r'{ansze}': 'ᵃⁿˢᶻᵉ', r'{esz2}': 'ᵉˢᶻ²', r'{gi}': 'ᵍⁱ',
                   r'{is}': 'ⁱˢ', r'{i7}': 'ⁱ⁷', r'{I7}': 'ⁱ⁷', r'{geš#}': 'ᵍᵉˢᶻ#', r'(aš)': '(𒀸)',
                   r'(bùr)': '(𒌋)', r'(bán)': '(𒑏)', r'(barig)': '(𒁀𒌷𒂵)', r'(géš)': '(𒁹)'}
+
 tittles =  {r's,': 'ṣ',  r'S,': 'Ṣ', r't,': 'ṭ', r'T,': 'Ṭ', r'sz': 'š', r'SZ': 'Š'}
+
 sumword =  r'[\w\d\[\]\<\>\(\)\?\#\!\|\{\}.]+'
 sumspace = r'[\[\]\<\>\(\)\?\#\!\|\s\-]'
 akkspace = r'[\[\]\<\>\(\)\?\#\!\s\-]'
@@ -29,7 +32,9 @@ sumerian = [#_w_
             #_w w w w w_
             (r'([\_]'+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+r'[\_])', '\\1'),
             #_w w w w w w_
-            (r'([\_]'+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+r'[\_])', '\\1')]                     
+            (r'([\_]'+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+sumspace+sumword+r'[\_])', '\\1')
+            ]
+                        
 akkadian = [#_ w _
             (r'([\_]'+akkspace+akkword+akkspace+r'[\_])', '\\1'),
             #_ w w _
@@ -39,8 +44,8 @@ akkadian = [#_ w _
             #_ w [_ (ex: 40. _GU₄_ KI-MA [_GU₄_])
             (r'([\_][\s]'+akkword+r'[\s][\[][\_])', '\\1'),
             #_] w w [_ (ex: 37. šum-ma# [_GU₄_] Ù LU [_UDU)
-            (r'([\_][\]][\s]'+akkword+r'[\s]'+akkword+r'[\s][\[][\_])', '\\1')] 
-
+            (r'([\_][\]][\s]'+akkword+r'[\s]'+akkword+r'[\s][\[][\_])', '\\1')
+            ] 
 class ATFConverter(object):
     """Transliterates ATF data from CDLI into readable unicode"""
     def __init__(self, two_three=True):
