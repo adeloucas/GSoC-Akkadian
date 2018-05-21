@@ -7,15 +7,15 @@ from unicodedata import normalize
 
 VOWELS = 'aeiou'
 
-determinatives = [(r'{d}', 'ᵈ'), (r'{diš}', '𒁹'), (r'{disz}', '𒁹'), (r'{geš}', 'ᵍᵉˢᶻ'), (r'{gesz}', 'ᵍᵉˢᶻ'),
-                  (r'{iri}', 'ⁱʳⁱ'), (r'{ki}', 'ᵏⁱ'), (r'{kuš}', 'ᵏᶸˢᶻ'), (r'{nisi}', 'ⁿⁱˢⁱ'), (r'{uruda}', 'ᵘʳᵘᵈᵃ'),
-                  (r'{lu2}', 'ˡᶸ²'), (r'{lú}', 'ˡᶸ²'), (r'{munus}', 'ᵐᶸⁿᶸˢ'), (r'{še}', 'ˢᶻᵉ'), (r'{uzu}', 'ᶸᶻᶸ'),
-                  (r'\(u\)', '(𒌋)'), (r'\(diš\)', '(𒁹)'), (r'\(disz\)', '(𒁹)'), (r'{sze}', 'ˢᶻᵉ'), (r'{lú#}', 'ˡᶸ²#'),
-                  (r'{kusz}', 'ᵏᶸˢᶻ'), (r'{ansze}', 'ᵃⁿˢᶻᵉ'), (r'{esz2}', 'ᵉˢᶻ²'), (r'{gi}', 'ᵍⁱ'),
-                  (r'{is}', 'ⁱˢ'), (r'{i7}', 'ⁱ⁷'), (r'{I7}', 'ⁱ⁷'), (r'{geš#}', 'ᵍᵉˢᶻ#'), (r'\(aš\)', '(𒀸)'),
-                  (r'\(bùr\)', '(𒌋)'), (r'\(bán\)', '(𒑏)'), (r'\(barig\)', '(𒁀𒌷𒂵)'), (r'\(géš\)', '(𒁹)')]
+determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}': 'ᵍᵉˢᶻ', r'{gesz}': 'ᵍᵉˢᶻ',
+                  r'{iri}': 'ⁱʳⁱ', r'{ki}': 'ᵏⁱ', r'{kuš}': 'ᵏᶸˢᶻ', r'{nisi}': 'ⁿⁱˢⁱ', r'{uruda}': 'ᵘʳᵘᵈᵃ',
+                  r'{lu2}': 'ˡᶸ²', r'{lú}': 'ˡᶸ²', r'{munus}': 'ᵐᶸⁿᶸˢ', r'{še}': 'ˢᶻᵉ', r'{uzu}': 'ᶸᶻᶸ',
+                  r'(u)': '(𒌋)', r'(diš)': '(𒁹)', r'(disz)': '(𒁹)', r'{sze}': 'ˢᶻᵉ', r'{lú#}': 'ˡᶸ²#',
+                  r'{kusz}': 'ᵏᶸˢᶻ', r'{ansze}': 'ᵃⁿˢᶻᵉ', r'{esz2}': 'ᵉˢᶻ²', r'{gi}': 'ᵍⁱ',
+                  r'{is}': 'ⁱˢ', r'{i7}': 'ⁱ⁷', r'{I7}': 'ⁱ⁷', r'{geš#}': 'ᵍᵉˢᶻ#', r'(aš)': '(𒀸)',
+                  r'(bùr)': '(𒌋)', r'(bán)': '(𒑏)', r'(barig)': '(𒁀𒌷𒂵)', r'(géš)': '(𒁹)'}
 
-tittles =  [(r's,', 'ṣ'),  (r'S,', 'Ṣ'), (r't,', 'ṭ'), (r'T,', 'Ṭ'), (r'sz', 'š'), (r'SZ', 'Š')]
+tittles =  {r's,': 'ṣ',  r'S,': 'Ṣ', r't,': 'ṭ', r'T,': 'Ṭ', r'sz': 'š', r'SZ': 'Š'}
 
 sumerian = [#_w_
             (r'([\_][\w\d\[\]\<\>\(\)\?\#\!\|.]+[\_])', '\\1'),
@@ -46,10 +46,8 @@ class ATFConverter(object):
     """Transliterates ATF data from CDLI into readable unicode"""
     def __init__(self, two_three=True):
         self.two_three = two_three
-        self.determinatives = \
-                [(re.compile(regex), repl) for (regex, repl) in determinatives]
-        self.tittles = \
-                [(re.compile(regex), repl) for (regex, repl) in tittles]
+        self.determinatives = determinatives
+        self.tittles = tittles
         self.sumerian = \
                 [(re.compile(regex), lambda sumerian: sumerian.group(0).upper()) for (regex, repl) in sumerian]
         self.akkadian = \
@@ -105,17 +103,13 @@ class ATFConverter(object):
         return output
 
     def determination(self, text):
-
-        for (pattern, repl) in self.determinatives:
-            text = re.subn(pattern, repl, str(text))[0] 
-
-        return text 
+        for key in determinatives:
+            text = text.replace(key, determinatives[key])
+        return text
 
     def consonants(self, text):
-
-        for (pattern, repl) in self.tittles:
-            text = re.subn(pattern, repl, str(text))[0]
-
+        for key in tittles:
+            text = text.replace(key, tittles[key])
         return text 
 
     def sumerianization(self, text):
