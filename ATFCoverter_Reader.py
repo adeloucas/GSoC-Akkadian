@@ -1,8 +1,10 @@
-from ATFConverter.ATFConverter_attempt_to_condense import ATFConverter
+from ATFConverter.ATFConverter import ATFConverter
 
-File = open(r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\Akkadian.txt","r", encoding = "utf8")
-original = File.read()
-normalize = ATFConverter()
-normalized = normalize.sumerianization(original)
-print(normalized[0:10000])
-File.close()
+with open(r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\Akkadian.txt","r", encoding = "utf8") as File:
+#    original = File.read()
+    original = ['1.', 'i3', 'nu', 'an', 's,i', 'ru', 'um', '2.', 'lugal', 'd', 'a', 'nun', 'na', 'ki', '3.', 'd', 'en', 'lil2', '4.', 'be',
+'el', 'sza', 'me', 'e', '5.', 'u3', 'er', 's,e', 'tim', '6.', 'sza', 'i', 'im', '7.', 'szi', 'ma', 'at', 'kalam', '8.', 'a',
+'na', 'd', 'marduk', '9.', 'dumu', 're', 'esz', 'ti', 'im', '10.', 'sza', 'd', 'en', 'ki', '11.', 'd', 'en', 'lil2', 'ut', '12.', 'kisz', 'ni', 'szi3', '13.', 'i', 'szi', 'mu', 'szum', '14.', 'in', 'i', 'gi4', 'gi4', '15.', 'u2', 'szar', 'bi2', 'u3', 'szu', '16.', 'babila', 'ki', '17.', 'szum', 'szu', 's,i', 'ra', 'am', 'ib', 'bi', 'u3', '18.', 'in', 'ki', 'ib', 'ra', 'tim', '19.', 'u2', 'sza', 't,e4', 'ru', 'szu', '20.', 'i', 'na', 'li', 'ib', 'bi', 'szu', '21.', 'szar', 'ru', 'tam', 'da', 'ri2', 'tam', '22.', 'sza', 'ki', 'ma', 'sza', 'me', 'e', '23.', 'u3', 'er', 's,e', 'tim', '24.', 'isz', 'da', 'sza', '25.', 'szu', 'ur2', 'szu', 'da', '26.', 'u2', 'ki', 'in', 'nu', 'szum', '27.', 'i', 'nu', 'mi', 'szu', '28.', 'disz', 'ha', 'am', 'mu', 'ra', 'pi2', '29.', 'ru', 'ba', 'am', '30.', 'na', "a'", 'dam', '31.', 'pa', 'li', 'ih', 'i3', 'li2', 'ia', 'ti', '32.', 'mi', 'sza', 'ra', 'am', '33.', 'i', 'na', 'ma', 'tim', '34.', 'a', 'na', 'szu', 'pi2', 'i', 'im', '35.', 'ra', 'ga', 'am', 'u3', 's,e', 'nam', '36.', 'a', 'na', 'hu', 'ul', 'lu', 'qi2', 'im', '37.', 'dan', 'nu', 'um', '38.', 'en', 'sza', 'am', '39.', 'a', 'na', 'la', 'ha', 'ba', 'li', 'im', '40.', 'ki', 'ma', 'd', 'utu', '41.', 'a', 'na', 'sag', 'ge6', '42.', 'wa', 's,e', 'e', 'em', 'ma', '43.', 'ma', 'tim', '44.', 'nu', 'wu', 'ri', 'im', '45.', 'an', '46.', 'u3', 'd', 'en', 'lil2', '47.', 'a', 'na', 'szi', 'ir', 'ni', 'szi', '48.', 't,u2', 'ub', 'bi', 'im', '49.', 'szu', 'mi', 'ib', 'bu', 'u2', '50.', 'disz', 'ha', 'a']
+    normalize = ATFConverter()
+    normalized = normalize.process(original)
+    print(original[805:1000])

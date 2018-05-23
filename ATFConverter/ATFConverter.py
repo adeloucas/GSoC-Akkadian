@@ -61,8 +61,10 @@ class ATFConverter(object):
     def get_number_from_sign(self, sign):
         for i, c in enumerate(sign):
             if c.isdigit():
-                return (sign[:i], int(sign[i:]))
+                return (sign[:i], int(sign[i:])) 
         return (sign, 0)
+        #this doesn't work:
+        #   if c.isdigit() not in ignore    # -> r'[\d]+[\.]' (e.g. lines 1., 2., not sza3, arad2)
 
     def convert_sign(self, sign):
         # Check if there's a number at the end

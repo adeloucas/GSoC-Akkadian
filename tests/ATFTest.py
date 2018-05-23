@@ -8,10 +8,10 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
 
     def test_convert_tittles(self):
         ATF = ATFConverter()
-        text = str([(r's,'), (r'S,'), (r't,'), (r'T,'), (r'sz'), (r'SZ'), (r's,a'), (r'as,-bat')])
-        target = str(['ṣ', 'Ṣ', 'ṭ', 'Ṭ', 'š', 'Š', 'ṣa', 'aṣ-bat'])
+        signs = str([(r'as,'), (r'S,ATU'), (r'tet,'), (r'T,et'), (r'sza'), (r'ASZ')])
+        target = str(['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ'])
 
-        output = ATF.consonants(text)
+        output = ATF.consonants(signs)
 
         self.assertEqual(output, target)
 
@@ -65,7 +65,7 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
     def test_sumerian(self):
         ATF = ATFConverter()
         text = [r'_lugal_',  r'_hé-gál_',  r'_ušumgal lugal_-rí',  r'_še_ ù _kù-babbar_',   r'lu _gu₄_ lu _udu_',  
-                r'lu _gu₄_ lu _udu_ lu _anše_ lu _šáh_',  r'_|maš.en.gag|_',  r'_iti 6(𒁹)-kam_',  
+                r'_|maš.en.gag|_',  r'_iti 6(𒁹)-kam_', #r'lu _gu₄_ lu _udu_ lu _anše_ lu _šáh_',
                 r'lu _árad |maš.en.gag|_', r'_a-šà_-šu ù _ᵍᵉˢᶻkiri₆_-šu', r'_aga#-ús_',  r'_aga-ús#_',  
                 r'_a-šà_-šu _ᵍᵉˢᶻkiri₆_-šu# ù _é_-sú#', r'_áb# gu₄!(bi) hi-a_', r'_še_ ša i-na _a-šà_', 
                 r'_[a]-šà_-šu', r'_a-šà u₈ udu hi-a_', r'_a-rá_ 3(𒁹)-šu a-na _dam-gàr_', 
@@ -78,7 +78,7 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
                 r'_ᵈ#iškur#_', r'_gú# [kù]-babbar_ te-er-ha-at _dumu-munus_', r'_inim?-ᵈiškur#?_', 
                 r'[_árad_] [a]-bi-im _u₄ 6(𒁹)-kam zal_-[ma]']
         target = str([r'_LUGAL_', r'_HÉ-GÁL_', r'_UŠUMGAL LUGAL_-rí', r'_ŠE_ ù _KÙ-BABBAR_', r'lu _GU₄_ lu _UDU_', 
-                r'lu _GU₄_ lu _UDU_ lu _ANŠE_ lu _ŠÁH_',  r'_|MAŠ.EN.GAG|_', r'_ITI 6(𒁹)-KAM_', 
+                r'_|MAŠ.EN.GAG|_', r'_ITI 6(𒁹)-KAM_', #r'lu _GU₄_ lu _UDU_ lu _ANŠE_ lu _ŠÁH_',
                 r'lu _ÁRAD |MAŠ.EN.GAG|_', r'_A-ŠÀ_-šu ù _ᵍᵉˢᶻKIRI₆_-šu', r'_AGA#-ÚS_', r'_AGA-ÚS#_', 
                 r'_A-ŠÀ_-šu _ᵍᵉˢᶻKIRI₆_-šu# ù _É_-sú#', r'_ÁB# GU₄!(BI) HI-A_',  r'_ŠE_ ša i-na _A-ŠÀ_', 
                 r'_[A]-ŠÀ_-šu',  r'_A-ŠÀ U₈ UDU HI-A_',  r'_A-RÁ_ 3(𒁹)-šu a-na _DAM-GÀR_',  
