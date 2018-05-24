@@ -9,6 +9,7 @@ from nltk.tokenize import RegexpTokenizer
 
 tokenizer = RegexpTokenizer(r'[[\[\]\<\>\(\)\?\#\!\s\-\$\@\{\}\|^\_]|\d*\.|\d\'\.', gaps=True)
 output = []
+token_output = []
 VOWELS = 'aeiou'
 determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}': 'ᵍᵉˢᶻ', r'{gesz}': 'ᵍᵉˢᶻ',
                   r'{iri}': 'ⁱʳⁱ', r'{ki}': 'ᵏⁱ', r'{kuš}': 'ᵏᶸˢᶻ', r'{nisi}': 'ⁿⁱˢⁱ', r'{uruda}': 'ᵘʳᵘᵈᵃ',
@@ -128,8 +129,8 @@ class Tokenizer(object):
 
         for token in text:
             try:
-                output.append(tokenizer.tokenize(token))
+                token_output.append(tokenizer.tokenize(token))
             except KeyError:
                 print("No conversion rule for: {}".format(token))
                 output.append("ERROR: ({})".format(token))
-        return output
+        return token_output
