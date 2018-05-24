@@ -4,7 +4,11 @@ __license__ = 'MIT License. See LICENSE.'
 import os
 import re
 from unicodedata import normalize
+import nltk
+from nltk.tokenize import RegexpTokenizer
 
+tokenizer = RegexpTokenizer(r'[[\[\]\<\>\(\)\?\#\!\s\-\$\@\{\}\|^\_]|\d*\.|\d\'\.', gaps=True)
+output = []
 VOWELS = 'aeiou'
 determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}': 'ᵍᵉˢᶻ', r'{gesz}': 'ᵍᵉˢᶻ',
                   r'{iri}': 'ⁱʳⁱ', r'{ki}': 'ᵏⁱ', r'{kuš}': 'ᵏᶸˢᶻ', r'{nisi}': 'ⁿⁱˢⁱ', r'{uruda}': 'ᵘʳᵘᵈᵃ',
@@ -108,11 +112,23 @@ class ATFConverter(object):
         Expects a list of tokens, will return the list converted from
         ATF format to print-format
         """
-        output = []
 
         for token in text_string:
             try:
-                output.append(self.convert_num(token))#, self.determination(token)])
+                output.append(self.convert_num(token))
+            except KeyError:
+                print("No conversion rule for: {}".format(token))
+                output.append("ERROR: ({})".format(token))
+        return output
+
+class Tokenizer(object):
+    """Creates tokens from .txt"""
+
+    def tokenizer(self, text):
+
+        for token in text:
+            try:
+                output.append(tokenizer.tokenize(token))
             except KeyError:
                 print("No conversion rule for: {}".format(token))
                 output.append("ERROR: ({})".format(token))

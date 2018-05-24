@@ -3,23 +3,17 @@ __license__ = 'MIT License. See LICENSE.'
 
 import unittest
 from ATFConverter.ATFConverter import ATFConverter
-from ATFConverter.Tokenizer import Tokenizer
+from ATFConverter.ATFConverter import Tokenizer
 
 class test1(unittest.TestCase):  # pylint: disable=R0904
 
-
-    def test_sample_tokenizer(self):
-        Token = Tokenizer()
-        Hamtest = ['i3', 'nu', 'an', 's,i', 'ru', 'um', 'lugal', 'd', 'a', 'nun', 'na', 'ki', 'd', 
-        'en', 'lil2', 'be', 'el', 'sza', 'me', 'e', 'u3', 'er', 's,e', 'tim', 'sza', 'i', 'im', 'szi', 
-        'ma', 'at', 'kalam', 'a', 'na', 'd', 'marduk', 'dumu', 're', 'esz', 'ti', 'im', 'sza', 'd', 'en', 
-        'ki']
-        with open(r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\Akkadian.txt","r", encoding = "utf8") as File:
-            original = File.read()
-            text_string = original
-            output = Token.Hammurabi_tokenize_test(text_string)
-            self.maxDiff = None
-            self.assertEqual(output, Hamtest)
+    def test_tokenizer(self):
+        tokenize = Tokenizer()
+        Hamtest = ['1. i3-nu an s,i-ru-um', '\n2. _lugal_ {d}a-nun-na-ki', '\n3. {d}en-lil2', '\n4. be-el sza-me-e', '\n5. u3 er-s,e-tim', '\n6. sza-i-im', '\n7. szi-ma-at _kalam_', '\n8. a-na {d}marduk', '\n9. _dumu_ re-esz-ti-im', '\n10. sza {d}en-ki']
+        goal = [['i3', 'nu', 'an', 's,i', 'ru', 'um'], ['lugal', 'd', 'a', 'nun', 'na', 'ki'], ['d', 'en', 'lil2'], ['be', 'el', 'sza', 'me', 'e'], ['u3', 'er', 's,e', 'tim'], ['sza', 'i', 'im'], ['szi', 'ma', 'at', 'kalam'], ['a', 'na', 'd', 'marduk'], ['dumu', 're', 'esz', 'ti', 'im'], ['sza', 'd', 'en', 'ki']] 
+        output = tokenize.tokenizer(Hamtest)
+        self.maxDiff = None
+        self.assertEqual(output, goal)
 
     def test_convert_tittles(self):
         ATF = ATFConverter()
@@ -29,38 +23,38 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(output, target)
 
     def test_get_number_from_sign(self):
-        con = ATFConverter()
+        ATF = ATFConverter()
         signs = ["a", "a1", "be2", "bad3", "buru14"]
         target = [0, 1, 2, 3, 14]
 
-        output = [con.get_number_from_sign(s)[1] for s in signs]
+        output = [ATF.get_number_from_sign(s)[1] for s in signs]
 
         self.assertEqual(output, target)
 
     def test_single_sign(self):
-        con = ATFConverter()
+        ATF = ATFConverter()
         signs = ["a", "a1", "a2", "a3", "be2", "be3", "bad2", "bad3"]
         target = ["a", "a", "a₂", "a₃", "be₂", "be₃", "bad₂", "bad₃"]
 
-        output = con.process(signs)
+        output = ATF.process(signs)
 
         self.assertEqual(output, target)
 
     def test_accents(self):
-        con = ATFConverter(two_three=False)
+        ATF = ATFConverter(two_three=False)
         signs = ["a", "a2", "a3", "be2", "bad3", "buru14"]
         target = ["a", "á", "à", "bé", "bàd", "buru₁₄"]
 
-        output = con.process(signs)
+        output = ATF.process(signs)
 
         self.assertEqual(output, target)
 
     def test_unknown_token(self):
-        con = ATFConverter()
-        text = ["a2", "☉", "be3"]
+        ATF = ATFConverter()
+        signs = ["a2", "☉", "be3"]
         target = ["a₂", "☉", "be₃"]
 
-        output = con.process(text)
+        output = ATF.process(signs)
 
         self.assertEqual(output, target)
 

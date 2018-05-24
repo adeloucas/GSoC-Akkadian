@@ -1,3 +1,0 @@
-Stem [singular: nom, acc, gen; dual: nom, obl; plur: nom, obl]
-ṣīr ['ṣīrum', 'ṣīram', 'ṣīrim', 'ṣīrān', 'ṣīrīn', 'ṣīrū', 'ṣīrī']
-erṣet ['erṣetum', 'erṣetam', 'erṣetim', 'erṣetān', 'erṣetīn', 'erṣātum', 'erṣātim']
