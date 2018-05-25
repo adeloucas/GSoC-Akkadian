@@ -1,19 +1,13 @@
-from ATFConverter.ATFConverter import Tokenizer
-from ATFConverter.ATFConverter import ATFConverter
+from ATFConverter.Tokenizer import Tokenizer
 
 sign_conversion = Tokenizer()
-convert = ATFConverter()
 
-with open(r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt","r+", encoding = "utf8") as File:
+with open(r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt","r+", encoding = "utf8") as File:
 
-    text2 = File.readlines()
-    text_selection2 = text2[452:454]
-    tokenized2 = sign_conversion.tokenizer(text_selection2)
-    quest = str(tokenized2)
-    conversion = convert.process(quest)
-
-    print(text_selection2)
+    text = File.readlines()
+    text_selection = text[3042:3054]
+    text_selection2 = text[3013:3026]
+    tokenized = sign_conversion.linetokenizer(text_selection2)
+    print(text_selection)
     print()
-    print(tokenized2)
-    print()
-    print(conversion)
+    print(tokenized)

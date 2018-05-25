@@ -3,17 +3,9 @@ __license__ = 'MIT License. See LICENSE.'
 
 import unittest
 from ATFConverter.ATFConverter import ATFConverter
-from ATFConverter.ATFConverter import Tokenizer
+from ATFConverter.Tokenizer import Tokenizer
 
 class test1(unittest.TestCase):  # pylint: disable=R0904
-
-    def test_tokenizer(self):
-        tokenize = Tokenizer()
-        Hamtest = ['1. i3-nu an s,i-ru-um', '\n2. _lugal_ {d}a-nun-na-ki', '\n3. {d}en-lil2', '\n4. be-el sza-me-e', '\n5. u3 er-s,e-tim', '\n6. sza-i-im', '\n7. szi-ma-at _kalam_', '\n8. a-na {d}marduk', '\n9. _dumu_ re-esz-ti-im', '\n10. sza {d}en-ki']
-        goal = [['i3', 'nu', 'an', 's,i', 'ru', 'um'], ['lugal', 'd', 'a', 'nun', 'na', 'ki'], ['d', 'en', 'lil2'], ['be', 'el', 'sza', 'me', 'e'], ['u3', 'er', 's,e', 'tim'], ['sza', 'i', 'im'], ['szi', 'ma', 'at', 'kalam'], ['a', 'na', 'd', 'marduk'], ['dumu', 're', 'esz', 'ti', 'im'], ['sza', 'd', 'en', 'ki']] 
-        output = tokenize.tokenizer(Hamtest)
-        self.maxDiff = None
-        self.assertEqual(output, goal)
 
     def test_convert_tittles(self):
         ATF = ATFConverter()
@@ -32,7 +24,7 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(output, target)
 
     def test_single_sign(self):
-        ATF = ATFConverter()
+        ATF = ATFConverter(two_three=True)
         signs = ["a", "a1", "a2", "a3", "be2", "be3", "bad2", "bad3"]
         target = ["a", "a", "a₂", "a₃", "be₂", "be₃", "bad₂", "bad₃"]
 
@@ -50,7 +42,7 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(output, target)
 
     def test_unknown_token(self):
-        ATF = ATFConverter()
+        ATF = ATFConverter(two_three=True)
         signs = ["a2", "☉", "be3"]
         target = ["a₂", "☉", "be₃"]
 
