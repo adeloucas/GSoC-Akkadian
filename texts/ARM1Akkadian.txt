@@ -8805,5 +8805,3 @@ Transliteration:
 @reverse
 1. li-ba-ru-nim-ma
 2. szu-bi-lam
-
-
