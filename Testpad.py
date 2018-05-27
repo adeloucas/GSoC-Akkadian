@@ -5,7 +5,7 @@ Tokenizer = Tokenizer()
 
 text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt'
 lines = Tokenizer.line_tokenizer(text)
-sample = lines[1049:1060]
+sample = lines[1049:1052]
 signs = Tokenizer.sign_tokenizer(sample)
 print(sample)
 print()

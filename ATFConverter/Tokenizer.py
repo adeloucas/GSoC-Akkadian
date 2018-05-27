@@ -34,7 +34,7 @@ class Tokenizer(object):
     def sign_tokenizer(self, text):
         """Utilizes RegexpTokenizer to return sign breakdown of lines in text"""
         token_output = []
-        every_sign = RegexpTokenizer(r'[\s\-\_\#\!\?\[\]\{\}]|^\d*\.|\d\'\.', gaps=True)
+        every_sign = RegexpTokenizer(r'[\s\-\_\#\!\?\[\]\{\}\(\)]|^\d*\.|\d\'\.', gaps=True)
 
         for line in text: 
             if re.match(r'^\d*\.|\d\'\.', line): 
