@@ -13,7 +13,7 @@ determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}'
                   r'{kusz}': 'ᵏᶸˢᶻ', r'{ansze}': 'ᵃⁿˢᶻᵉ', r'{esz2}': 'ᵉˢᶻ²', r'{gi}': 'ᵍⁱ',
                   r'{is}': 'ⁱˢ', r'{i7}': 'ⁱ⁷', r'{I7}': 'ⁱ⁷', r'{geš#}': 'ᵍᵉˢᶻ#', r'(aš)': '(𒀸)',
                   r'(bùr)': '(𒌋)', r'(bán)': '(𒑏)', r'(barig)': '(𒁀𒌷𒂵)', r'(géš)': '(𒁹)'}
-tittles =  {r's,': 'ṣ',  r'S,': 'Ṣ', r't,': 'ṭ', r'T,': 'Ṭ', r'sz': 'š', r'SZ': 'Š'}
+tittles = {r's,': 'ṣ',  r'S,': 'Ṣ', r't,': 'ṭ', r'T,': 'Ṭ', r'sz': 'š', r'SZ': 'Š'}
 
 class ATFConverter(object):
     """Transliterates ATF data from CDLI into readable unicode"""
