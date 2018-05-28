@@ -4,6 +4,7 @@ __license__ = 'MIT License. See LICENSE.'
 import os
 import re
 from unicodedata import normalize
+from ATFConverter.Tokenizer import Tokenizer
 
 VOWELS = 'aeiou'
 determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}': 'ᵍᵉˢᶻ', r'{gesz}': 'ᵍᵉˢᶻ',
@@ -21,7 +22,12 @@ class ATFConverter(object):
         self.two_three = two_three
         self.determinatives = determinatives
         self.tittles = tittles
-   
+
+    def convert_consonant(self, sign):
+        for key in tittles:
+            sign = sign.replace(key, tittles[key])
+        return sign
+
     def convert_number_to_subscript(self, num):
         subscript = ''
         for c in str(num):
@@ -59,11 +65,6 @@ class ATFConverter(object):
     def determination(self, sign):
         for key in determinatives:
             sign = sign.replace(key, determinatives[key])
-        return sign
-
-    def convert_consonant(self, sign):
-        for key in tittles:
-            sign = sign.replace(key, tittles[key])
         return sign
 
     def process(self, text_string):

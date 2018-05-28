@@ -30,22 +30,20 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
         self.maxDiff = None
         self.assertEqual(output, goal)
 
-    def test_word_tokenizer(self):
-        text = r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
-        lines = Tokenizer.line_tokenizer(text)
-        output = Tokenizer.word_tokenizer(lines)
+    def test_words(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        output = Tokenizer.words(lines)
         goal = [['[u2?-wa?-a?-ru?]', 'at-ta', 'e2-[kal2-la-ka', '_e2_-ka', 'wu?-e?-er?]'],
                 ['[...]', 'u2-ul#', 'szi#?-[...]'], ['[...]', 'x', '[...]'], ['[...]', 'x', '[...]'],
                 ['u3#', 'ta-szi-ma-at#', '[...]'], ['x-x-tim', 'gesztin?', 'x', '[...]'], ['a-na', 'a-ad-da-a'],
                 ['qi2-bi2-ma#'], ['um-ma', 'ia-as2-ma-ah-{d}iszkur'], ['_dumu_-ka-a-ma'],
                 ['an-nu-um-ma', 'ki-ma', 'na-asz-pa-ar-ti'], ['a-[ad]-da-a', '4(u)', '_lu2', 'szu-ku6', 'mesz_']]
         self.maxDiff = None
-        self.assertEqual(output[3042:3054], goal)
+        self.assertEqual(output, goal)
 
-    def test_sign_tokenizer(self):
-        text = r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
-        lines = Tokenizer.line_tokenizer(text)
-        output = Tokenizer.sign_tokenizer(lines)
+    def test_signs(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        output = Tokenizer.signs(lines)
         goal = [['u2', 'wa', 'a', 'ru', 'at', 'ta', 'e2', 'kal2', 'la', 'ka', 'e2', 'ka', 'wu', 'e', 'er'], 
         ['...', 'u2', 'ul', 'szi', '...'], ['...', 'x', '...'], ['...', 'x', '...'], 
         ['u3', 'ta', 'szi', 'ma', 'at', '...'], ['x', 'x', 'tim', 'gesztin', 'x', '...'], 
@@ -54,27 +52,37 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
         ['an', 'nu', 'um', 'ma', 'ki', 'ma', 'na', 'asz', 'pa', 'ar', 'ti'], 
         ['a', 'ad', 'da', 'a', '4', 'u', 'lu2', 'szu', 'ku6', 'mesz']]
         self.maxDiff = None
-        self.assertEqual(output[3042:3054], goal)
+        self.assertEqual(output, goal)
 
-    def test_determinatives_tokenizer(self):
-        text = r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
-        lines = Tokenizer.line_tokenizer(text)
-        output = Tokenizer.determinatives_tokenizer(lines[3042:3054])
+    def test_determinatives(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        output = Tokenizer.determinatives(lines)
         goal = ['{d}']
         self.maxDiff = None
         self.assertEqual(output, goal)
 
-    def test_numbers_tokenizer(self):
-        text = r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
-        lines = Tokenizer.line_tokenizer(text)
-        output = Tokenizer.numbers_and_number_signs_tokenizer(lines[3042:3054])
+    def test_numbers(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        output = Tokenizer.numbers(lines)
         goal = [('4', '(u)')]
         self.maxDiff = None
         self.assertEqual(output, goal)
 
-    def test_sumerian_tokenizer(self):
-        text = r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
-        lines = Tokenizer.line_tokenizer(text)
-        output = Tokenizer.sumerian_tokenizer(lines[3042:3054])
+    def test_sumerian(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        output = Tokenizer.sumerian(lines)
         goal = ['e2', 'dumu', 'lu2 szu-ku6 mesz']
         self.assertEqual(output, goal)
+
+    def test_sumerian_words(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        sumerian = Tokenizer.sumerian(lines)
+        output = Tokenizer.sumerian_words(sumerian)
+        goal = [['e2'], ['dumu'], ['lu2', 'szu-ku6', 'mesz']]
+        self.assertEqual(output, goal)
+
+    def test_sumerian_signs(self):
+        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n', '23. [...] x [...]\n', '1. [...] x [...]\n', '2. u3# ta-szi-ma-at# [...]\n', '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n', '2. qi2-bi2-ma# \n', '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n', '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n', '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
+        sumerian = Tokenizer.sumerian(lines)
+        output = Tokenizer.sumerian_signs(sumerian)
+        goal = [['e2'], ['dumu'], ['lu2', 'szu', 'ku6', 'mesz']]
