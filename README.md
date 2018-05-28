@@ -16,9 +16,9 @@ Tyler Kirby
 
 ## Table of Contents
 
-### main
+### ATFConverter
 
-#### archive
+#### __archive__
 
 Contains 'ATF Converter - Summer Start.py', a python file that shows the beginning of this code from 4/23/18.
 
@@ -26,19 +26,33 @@ Contains 'ATF Converter - Summer Start.py', a python file that shows the beginni
 
 This is the main converter class for this project.
 
-#### notes.md
+### CLTK
 
-Notes on noted bugs in the code.
+#### Lemmatizers
 
-#### TextReader.py
+Contains Sample Lemmatizers from CLTK
 
-This code allows you to read the current state of this code.
+#### bound_form, cv_pattern, declension, stem, stress, syllabifier.py
+
+CLTK classes made by Dr. Willis Monroe
+
+#### normalizerfeeder.py
+
+Adjustment to declension for the purpose of filling "lookback.txt"
 
 ### tests
 
-#### test.py
+#### ATFTest.py
 
 Tests that check individual parts of the ATF Converter as initially established.
+
+#### CLTKTest.py
+
+Tests that check individual parts of the CLTK classes.
+
+#### NormalizerTest.py
+
+Tests Normalizer.
 
 ### texts
 
@@ -54,17 +68,29 @@ A text file that contains the ATF information of the publication ARM 01. Informa
 
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
-#### LICENSE and README.md
+### ATFConverter_Reader.py
 
-LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
+This code allows you to read the current state of phase one.
 
-#### z - ATF Converter EOW 3.md
+### Lookback.txt
+
+Text file that dumps information from Normalizer.py
+
+### Normalizer.py
+
+This code will eventually create a lookback document of assorted nouns and verbs (see part 2, normalization below)
+
+### Project Updates EOW 4.md
 
 I will be updating weekly the development of this project, labeled as such until final submission week.
 
+### LICENSE and README.md
+
+LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
+
 ## Organizations involved
 
-### CLTK
+### Classical Language Tool Kit (CLTK)
 
 GSoC Profile: <https://summerofcode.withgoogle.com/organizations/4928035770335232/>
 

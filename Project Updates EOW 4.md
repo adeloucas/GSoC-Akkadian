@@ -19,13 +19,21 @@
 
 1) Furthered tests: ~99.8% accurate (12,823 out of possible 12,850 lines) \
     a) 3 error lines in Hammurabi, \
-    b) 24 error lines in ARM1 
+    b) 24 error lines in ARM1
 2) Continued to clean up project
 
-## Goals for Week 3 (May 14 - May 21)
+## Goals for Week 4 (May 14 - May 21)
 
-1) Recapture testing group for Sumerian and Akkadian
-2) Solve for last 27 lines
-3) Clean up Github Repository
-4) Restructure ATFConverter per Tyler's suggestion
-5) Begin research for part 2 of project, normalization
+1) Recaptured testing group for Sumerian and Akkadian
+2) Solve for last 27 lines - Did Not Complete
+3) Cleaned up Github Repository
+4) Restructured ATFConverter per Tyler's suggestion
+5) Began research for part 2 of project, normalization
+
+## Goals for Week 5 (May 21 - 28)
+
+1) Begin setup for "lookup lemmatizer"
+2) Establish test for decliner based off nouns in Hammurabi and ARM1
+3) Refine until noun forms are stable
+4) Reproduce for verbs
+5) Solve for last 27 lines
