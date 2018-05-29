@@ -14,7 +14,8 @@ determinatives = {r'{d}': 'ᵈ', r'{diš}': '𒁹', r'{disz}': '𒁹', r'{geš}'
                   r'{kusz}': 'ᵏᶸˢᶻ', r'{ansze}': 'ᵃⁿˢᶻᵉ', r'{esz2}': 'ᵉˢᶻ²', r'{gi}': 'ᵍⁱ',
                   r'{is}': 'ⁱˢ', r'{i7}': 'ⁱ⁷', r'{I7}': 'ⁱ⁷', r'{geš#}': 'ᵍᵉˢᶻ#', r'(aš)': '(𒀸)',
                   r'(bùr)': '(𒌋)', r'(bán)': '(𒑏)', r'(barig)': '(𒁀𒌷𒂵)', r'(géš)': '(𒁹)'}
-tittles = {r's,': 'ṣ',  r'S,': 'Ṣ', r't,': 'ṭ', r'T,': 'Ṭ', r'sz': 'š', r'SZ': 'Š'}
+tittles = {r's,': chr(0x1E63), r'sz': chr(0x0161),  r't,': chr(0x1E6D),
+           r'S,': chr(0x1E62), r'SZ': chr(0x0160), r'T,': chr(0x1E6C)}
 
 class ATFConverter(object):
     """Transliterates ATF data from CDLI into readable unicode"""
@@ -23,9 +24,24 @@ class ATFConverter(object):
         self.determinatives = determinatives
         self.tittles = tittles
 
+    def convert_sumerian(self, sumerian):
+        "Takes Sumerian from Tokenizer, uppercases it, and replaces hyphens for periods."
+        output = []
+        for line in sumerian:
+            output.append(re.subn('-', '.', line.upper())[0])
+        return output
+
+    def convert_determinatives(self, sign):
+        "Uses dictionary to reformat determinatives."
+        for key in determinatives:
+            sign = [d.replace(key, determinatives[key]) for d in sign]
+        return sign
+
     def convert_consonant(self, sign):
+        "Uses dictionary to replace ATF convention for unicode characters."
         for key in tittles:
-            sign = sign.replace(key, tittles[key])
+            sign = [c.replace(key, tittles[key]) for c in sign]
+            #sign = sign.replace(key, tittles[key])
         return sign
 
     def convert_number_to_subscript(self, num):
@@ -62,11 +78,6 @@ class ATFConverter(object):
                     break
             return new_sign[:i] + normalize('NFC', new_vowel) + new_sign[i+1:]
 
-    def determination(self, sign):
-        for key in determinatives:
-            sign = sign.replace(key, determinatives[key])
-        return sign
-
     def process(self, text_string):
         """
         Expects a list of tokens, will return the list converted from
@@ -76,5 +87,6 @@ class ATFConverter(object):
         output = []
 
         for token in text_string:
-            output.append(self.convert_num(self.convert_consonant(token)))
+            output.append(self.convert_num(token))
+            #output.append(self.convert_num(self.convert_consonant(token)))
         return output

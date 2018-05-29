@@ -74,12 +74,10 @@ class Tokenizer(object):
             sumerian_output.append(signs.group())
         for signs in akkadian.finditer(str(line_tokenizer)):
             sumerian_output.remove(signs.group())
-        #sumerian_output = str(sumerian_output).upper() #to go in ATFConverter
-        #sumerian_output = re.subn('-', '.', str(sumerian_output)) #to go in ATFConverter
         return sumerian_output
 
     def sumerian_words(self, sumerian):
-        "Returns a break down of Sumerian words found in list of Sumerian."
+        "Returns a breakdown of Sumerian words found in list of Sumerian."
         output = []
         word = RegexpTokenizer(r'[\s]', gaps=True)
 
@@ -88,7 +86,7 @@ class Tokenizer(object):
         return output
 
     def sumerian_signs(self, sumerian):
-        "Returns a break down of Sumerian signs found in a list of Sumerian."
+        "Returns a breakdown of Sumerian signs found in a list of Sumerian."
         output = []
         sign = RegexpTokenizer(r'[\-]', gaps=True)
 

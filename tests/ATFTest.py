@@ -9,8 +9,8 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
 
     def test_convert_tittles(self):
         ATF = ATFConverter()
-        signs = str([(r'as,'), (r'S,ATU'), (r'tet,'), (r'T,et'), (r'sza'), (r'ASZ')])
-        target = str(['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ'])
+        signs = ['as,', 'S,ATU', 'tet,', 'T,et', 'sza', 'ASZ']
+        target = ['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ']
         output = ATF.convert_consonant(signs)
         self.assertEqual(output, target)
 
@@ -48,13 +48,21 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
 
     def test_determinatives(self):
         ATF = ATFConverter()
-        text = str(['{d}', '{iri}', '{lú}', '{lu2}', '{diš}', '{disz}', '{geš}', '{gesz}', '{munus}', '{še}',
-                '{sze}', '{uzu}', '{kuš}', '{kusz}', '{ki}', r'(u)', r'(diš)', r'(disz)', r'{i7}', r'{I7}'])
-        target = str(['ᵈ', 'ⁱʳⁱ', 'ˡᶸ²', 'ˡᶸ²', '𒁹', '𒁹', 'ᵍᵉˢᶻ', 'ᵍᵉˢᶻ', 'ᵐᶸⁿᶸˢ', 'ˢᶻᵉ',
-                      'ˢᶻᵉ', 'ᶸᶻᶸ', 'ᵏᶸˢᶻ', 'ᵏᶸˢᶻ', 'ᵏⁱ', '(𒌋)', '(𒁹)', '(𒁹)','ⁱ⁷', 'ⁱ⁷'])
+        text = ['{d}', '{iri}', '{lú}', '{lu2}', '{diš}', '{disz}', '{geš}', '{gesz}', '{munus}', '{še}',
+                '{sze}', '{uzu}', '{kuš}', '{kusz}', '{ki}', r'(u)', r'(diš)', r'(disz)', r'{i7}', r'{I7}']
+        target = ['ᵈ', 'ⁱʳⁱ', 'ˡᶸ²', 'ˡᶸ²', '𒁹', '𒁹', 'ᵍᵉˢᶻ', 'ᵍᵉˢᶻ', 'ᵐᶸⁿᶸˢ', 'ˢᶻᵉ',
+                      'ˢᶻᵉ', 'ᶸᶻᶸ', 'ᵏᶸˢᶻ', 'ᵏᶸˢᶻ', 'ᵏⁱ', '(𒌋)', '(𒁹)', '(𒁹)','ⁱ⁷', 'ⁱ⁷']
 
-        output = ATF.determination(text)
+        output = ATF.convert_determinatives(text)
         self.maxDiff = None
+        self.assertEqual(output, target)
+
+    def test_sumerian(self):
+        ATF = ATFConverter()
+        text = ['1(disz) lu2', 'lu2#-mesz dumu-mesz', '1(u)# gu2# ku3-sig17', 'dumu#-mesz', 'tug2', 'u4 1(disz)-kam', 'iti', 'iti', 'u4 3(u)-kam ba-zal', 'nar', 'lu2', 'dumu e2']
+        target = ['1(DISZ) LU2', 'LU2#.MESZ DUMU.MESZ', '1(U)# GU2# KU3.SIG17', 'DUMU#.MESZ', 'TUG2', 'U4 1(DISZ).KAM', 'ITI', 'ITI', 'U4 3(U).KAM BA.ZAL', 'NAR', 'LU2', 'DUMU E2']
+
+        output = ATF.convert_sumerian(text)
         self.assertEqual(output, target)
 
 if __name__ == '__main__':

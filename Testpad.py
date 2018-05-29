@@ -8,16 +8,19 @@ ATFConverter = ATFConverter()
 string = Tokenizer.string_tokenizer(s)
 sample = Tokenizer.line_tokenizer(text)
 line = sample[304:404]
+convert = ATFConverter.convert_consonant(line)
 
-word = Tokenizer.words(string)
+word = Tokenizer.words(convert)
 sign = Tokenizer.signs(string)
 number = Tokenizer.numbers(string)
 determinatives = Tokenizer.determinatives(line)
 sumerian = Tokenizer.sumerian(line)
+sumerian_words = Tokenizer.sumerian_words(sumerian)
 sumerian_sign = Tokenizer.signs(sumerian)
 
-print(string)
-#print(word)
-print(sign)
-#print(number)
+test = ATFConverter.convert_determinatives(determinatives)
+
+print(line)
+print(word)
+print(test)
 
