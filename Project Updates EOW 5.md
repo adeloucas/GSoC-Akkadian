@@ -45,8 +45,8 @@
 ## Goals for Week 6 (May 28 - June 4)
 
 1) Refine Tokenizer
-2) Adjust ATFConverter:
-    a) get_number_from_sign = ignore numbers if not at the end of sign (e.g. 1(disz))
-    b) convert_num = display numbers unassociated with signs ('1', '5' currently reads '', '₅')
-    c) process = get to work on Tokenizer.word()
+2) Adjust ATFConverter: \
+    a) get_number_from_sign = ignore numbers if not at the end of sign (e.g. 1(disz)) \
+    b) convert_num = display numbers unassociated with signs ('1', '5' currently reads '', '₅') \
+    c) process = get to work on Tokenizer.word() \
     d) determination = get to work on Tokenizer.determinatives()
