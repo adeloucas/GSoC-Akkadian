@@ -12,8 +12,10 @@ Andrew Deloucas \
 ### Mentors
 
 Willis Monroe \
+       https://github.com/willismonroe
 Tyler Kirby
-
+       https://github.com/TylerKirby
+       
 ## Table of Contents
 
 ### ATFConverter
@@ -26,7 +28,11 @@ Contains 'ATF Converter - Summer Start.py', a python file that shows the beginni
 
 This is the main converter class for this project.
 
-### CLTK
+#### Tokenizer.py
+
+This is the main tokenizer class for this project.
+
+### Archive - Phase 2 False Start -- to be moved to __archive__
 
 #### Lemmatizers
 
@@ -44,15 +50,11 @@ Adjustment to declension for the purpose of filling "lookback.txt"
 
 #### ATFTest.py
 
-Tests that check individual parts of the ATF Converter as initially established.
+Tests that check individual parts of the ATFConverter as initially established.
 
-#### CLTKTest.py
+#### TokenTest.py
 
-Tests that check individual parts of the CLTK classes.
-
-#### NormalizerTest.py
-
-Tests Normalizer.
+Tests that check individual parts of the Tokenizer as initially established.
 
 ### texts
 
@@ -68,25 +70,17 @@ A text file that contains the ATF information of the publication ARM 01. Informa
 
 A text file that contains the ATF info for Codex Hammurabi including translation. Information can be found in the file.
 
-### ATFConverter_Reader.py
-
-This code allows you to read the current state of phase one.
-
-### Lookback.txt
-
-Text file that dumps information from Normalizer.py
-
-### Normalizer.py
-
-This code will eventually create a lookback document of assorted nouns and verbs (see part 2, normalization below)
-
-### Project Updates EOW 4.md
+### Project Updates EOW 5.md
 
 I will be updating weekly the development of this project, labeled as such until final submission week.
 
 ### LICENSE and README.md
 
 LICENCE and README.md are both supplied by Github. README.md will be actively edited by Andrew Deloucas during the duration of GSoC 2018.
+
+### Testpad.py
+
+Personal scratchpad for the project.
 
 ## Organizations involved
 
