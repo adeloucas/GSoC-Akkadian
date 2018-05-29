@@ -49,4 +49,5 @@
     a) get_number_from_sign = ignore numbers if not at the end of sign (e.g. 1(disz)) \
     b) convert_num = display numbers unassociated with signs ('1', '5' currently reads '', '₅') \
     c) process = get to work on Tokenizer.word() \
-    d) determination = get to work on Tokenizer.determinatives()
+    d) determination = get to work on Tokenizer.determinatives() \
+    e) add Sumerian ATFConversion -- uppercase and period (see Tokenizer.sumerian())
