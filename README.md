@@ -14,7 +14,7 @@ Andrew Deloucas \
 Willis Monroe \
        https://github.com/willismonroe \
 Tyler Kirby \
-       https://github.com/TylerKirby \
+       https://github.com/TylerKirby
        
 ## Table of Contents
 
