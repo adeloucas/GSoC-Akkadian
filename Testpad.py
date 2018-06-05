@@ -10,12 +10,20 @@ text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt'
 s = "10. _e2_ qa-t,u2-na-nim#{ki2} _gege3_ \n"
 string = Tokenizer.string_tokenizer(s)
 sample = Tokenizer.line_tokenizer(text)
+
 """Deconstructs text"""
-lines = sample[0:20]
+lines = sample[198:200]
 words = Tokenizer.words(lines)
-signs = Tokenizer.signs(lines)
+signs = Tokenizer.signs_for_breakdown(lines)
+##input this into the function##
 word_process = [ATFConverter.process(line) for line in signs]
-breakdown = [ATFConverter.cdli_language_breakdown(line) for line in word_process]
+breakdown = [ATFConverter.cdli_language_breakdown(line[1:-2]) for line in word_process]
+
+reconstruct = ATFConverter.word_reconstruction(breakdown)
+reconstructed_words = Tokenizer.words(reconstruct)
+
+sumerian_test = ATFConverter.sumerian_reconstruct(breakdown)
+
 """"Readers or Converters"""
 determinatives = Tokenizer.determinatives(lines)
 determinatives = ATFConverter.convert_determinatives(determinatives)
@@ -24,16 +32,13 @@ sumerian = Tokenizer.sumerian(lines)
 sumerian = ATFConverter.convert_sumerian(sumerian)
 sumerian_words = Tokenizer.sumerian_words(sumerian)
 sumerian_signs = Tokenizer.sumerian_signs(sumerian)
+checker = ATFConverter.breakdown_reviewer(lines, breakdown, reconstructed_words, words)
 
-"""reviewer"""
-output = []
-for line in breakdown:
-    sign = [sign[0] for sign in line]
-    language = [language[1] for language in line]
-    output.append(sign)
-list1 = list(zip(lines, words, output, breakdown))
-checker = '\n\n'.join('\n'.join(str(line) for line in x) for x in list1)
+print(sumerian_test)
+print()
 print(checker)
+
+#print('\n'.join(reconstruct))
 
 
 #print(signs)

@@ -42,6 +42,15 @@ class Tokenizer(object):
 
         return sign_output
 
+    def signs_for_breakdown(self, line_tokenizer):
+        """Utilizes NLTK's RegexpTokenizer to break down lines into individuals signs to be rebuilt into words after analysis."""
+        sign_output = []
+        sign_tokenizer = RegexpTokenizer(r'[\#\!\?\[\]\<\>|]|^\d*\.|\d\'\.|(\-)|(\s)|(_{\w*})|({\w*.})', gaps=True)
+        for line in line_tokenizer:
+            sign_output.append(sign_tokenizer.tokenize(str(line)))
+
+        return sign_output
+
     def determinatives(self, line_tokenizer):
         """Returns determinatives found in a list."""
         determinatives_output = []

@@ -57,10 +57,14 @@ class ATFConverter(object):
                 if sign[-1] == '_':
                     """_x2_"""
                     if sign[-2].isdigit():
+                        if sign[-3:].isdigit():             #for _buru14_ (not working)
+                            return (sign, int(sign[-3:]))
                         return (sign, int(sign[-2]))
                     return (sign, 0)
                 """_x2"""
                 if sign[-1].isdigit():
+                    if sign[-2:].isdigit():             ##Should be implemented on every level -- for double digits! ('_sa10')
+                        return (sign, int(sign[-2:]))
                     return (sign, int(sign[-1]))
                 return (sign, 0)
             """x_"""
@@ -70,6 +74,12 @@ class ATFConverter(object):
                     return (sign, int(sign[-2]))
                 return (sign, 0)
             """u2, a2,"""
+            #if sign[0].isalpha and sign[-1].isdigit and sign[0] == sign[-2]:
+            #    return (sign, int(sign[1]))
+            if sign == 'i3':
+                return (sign, int(sign[1]))
+            if sign == 'e2':
+                return (sign, int(sign[1]))
             if sign == 'a1':
                 return (sign, int(sign[1]))
             if sign == 'a2':
@@ -79,6 +89,8 @@ class ATFConverter(object):
             if sign == 'u2':
                 return (sign, int(sign[1]))
             if sign == 'u3':
+                return (sign, int(sign[1]))
+            if sign == 'u4':
                 return (sign, int(sign[1]))
             """determinatives"""
             if sign[0] == '{':
@@ -118,6 +130,8 @@ class ATFConverter(object):
         """Converts number registered in get_number_from_sign."""
         # Check if there's a number at the end
         new_sign, num = self.get_number_from_sign(sign)
+        if num == '-':
+            return new_sign
         if num < 2:  # "ab" -> "ab"
             return new_sign.replace(str(num), self.convert_number_to_subscript(num))
         if num > 3:  # "buru14" -> "buru₁₄"
@@ -150,9 +164,15 @@ class ATFConverter(object):
         language = "akkadian"
         output = []
         for sign in words:
+            #"""-"""
+            if sign == "-":
+                output.append(('-', "hyphen"))
+            #""" """
+            elif sign == " ":
+                output.append((' ', "space"))
             #"""_"""
-            if sign == "_":
-                output.append(('_', "CDLI marker"))
+            elif sign == "_":
+                output.append(('_', "underscore"))
                 language = "akkadian"
             #"""_x_"""
             elif sign[0] == "_" and sign[-1] == "_":
@@ -168,13 +188,13 @@ class ATFConverter(object):
             #"""_x"""
             elif sign[0] == "_":
                 language = "sumerian"
-                output.append((sign[1:],language))
+                output.append((sign[1:], language))
             #"""x)"""
             elif sign[-1] == ")":
-                output.append((sign,"number"))
+                output.append((sign, "number"))
             #"""x}"""
             elif sign[-1] == "}":
-                output.append((sign,"determinative"))
+                output.append((sign, "determinative"))
             #"""x_"""
             elif sign[-1] == "_":
                 output.append((sign[:-1], "sumerian"))
@@ -184,9 +204,32 @@ class ATFConverter(object):
                 output.append((sign, language))
             #"""x"""
             else:
-                output.append((sign,language))
+                output.append((sign, language))
         return output
 
-    def word_reconstruction(self, words, breakdown):
-        """takes the newly created tuples from cdli_language_breadown and inserts sign"""
-        #from Tokenizer.words, creates and uses a list to switch signs with breakdown
+    def sumerian_reconstruct(self, breakdown):   #Change to "when language = sumerian..."
+        """Takes Sumerian from breakdown, uppercases it, and replaces hyphens for periods."""
+        output = []
+        for line in breakdown:
+            reconstruct = [sign[0] for sign in line]
+            d = dict(line)
+            for value in d.values():
+                key = d.keys()
+                if value == 'sumerian':
+                    output.append('sum'.upper())    #.get(d.key_of_this_value)??
+                else:
+                    output.append('y')
+        return output
+
+    def word_reconstruction(self, breakdown):
+        """Using signs_for_breakdown for breakdown, reconstructs words that have hyphens connecting them."""
+        output = []
+        for line in breakdown:
+            reconstruct = [sign[0] for sign in line]
+            output.append(''.join(reconstruct))
+        return output
+
+    def breakdown_reviewer(self, lines, words, reconstruct, breakdown):
+        output = list(zip(lines, words, reconstruct, breakdown))
+        checker = '\n\n'.join('\n'.join(str(line) for line in x) for x in output)
+        return checker
