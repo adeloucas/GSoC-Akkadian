@@ -2,7 +2,6 @@ __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
 from unicodedata import normalize
-import re
 
 VOWELS = 'aeiou'
 tittles = {r's,': chr(0x1E63), r'sz': chr(0x0161),  r't,': chr(0x1E6D),
@@ -184,21 +183,7 @@ class ATFConverter(object):
         return output
 
     def sumerian_converter(self, language_reader):
-        output = []
-        for line in language_reader:
-            for sign in line: #if i list line, then this doesn't work; if i don't list line, it works but lines are mashed together into one string
-                if sign[0] == 'sumerian':
-                    test = re.subn(sign[1], sign[1].upper(), str(sign))[0]
-                    output.append(eval(test))
-                else:
-                    output.append(sign)
-        return output
-
-    def lang_recon(self, language_converter):
-        output = []
-        for line in language_converter:
-            for sign in line:
-                output.append(sign[1])
+        output = [[eval(str(sign).replace(sign[1], sign[1].upper())) if sign[0] == 'sumerian' else sign for sign in line] for line in language_reader]
         return output
 
     def reader_reconstruction(self, sign_tokenizer_space_and_hyphen_incl):
