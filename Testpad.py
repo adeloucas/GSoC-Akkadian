@@ -12,7 +12,7 @@ s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im \n 9. u3 a-na su2-nu-
 """Deconstructs Text"""
 string = Tokenizer.string_tokenizer(s)
 sample = Tokenizer.line_tokenizer(text)
-lines = sample[0:1000]
+lines = sample[0:2]
 #Word Tokenizer
 """Deconstructs Text"""
 words = Tokenizer.word_tokenizer(lines)
@@ -52,6 +52,14 @@ print(signs_and_markers)
 print(successful_test_reconstructed_lines)
 #print(reconstructed_words)
 #print(reconstructed_signs)
+print()
+print(successful_test_sign_process)
+print(signs_and_markers)
+print("Language converter")
+test = ATFConverter.sumerian_converter(signs_and_markers)
+print(test)
+#print(ATFConverter.lang_recon(test))
+
 
 """
 *** Manual Input ***
