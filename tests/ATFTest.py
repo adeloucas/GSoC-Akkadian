@@ -59,6 +59,36 @@ class test1(unittest.TestCase):  # pylint: disable=R0904
         output = [ATF.language_reader(line) for line in text]
         self.assertEqual(output, target)
 
+    def test_underscore_remover(self):
+        ATF = ATFConverter()
+        signs = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
+                 ('space', ' '), ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'), ('underscore', '_'),
+                 ('space', ' '), ('akkadian', 'i'), ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
+                 ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'), ('hyphen', '-'), ('sumerian', 'a'),
+                 ('hyphen', '-'), ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
+        target = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
+                 ('space', ' '), ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'), ('underscore', ''),
+                 ('space', ' '), ('akkadian', 'i'), ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
+                 ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'), ('hyphen', '-'), ('sumerian', 'a'),
+                 ('hyphen', '-'), ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
+        output = ATF.underscore_remover(signs)
+        self.assertEqual(output, target)
+
+    def test_sumerian_converter(self):
+        ATF = ATFConverter()
+        signs = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
+                 ('space', ' '), ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'), ('underscore', '_'),
+                 ('space', ' '), ('akkadian', 'i'), ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
+                 ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'), ('hyphen', '-'), ('sumerian', 'a'),
+                 ('hyphen', '-'), ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
+        target = [[('sumerian', 'U₄'), ('space', ' '), ('number', '2(diš)'), ('hyphen', '-'), ('sumerian', 'KAM'),
+                 ('space', ' '), ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'KAM'), ('underscore', '_'),
+                 ('space', ' '), ('akkadian', 'i'), ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
+                 ('sumerian', 'É'), ('hyphen', '-'), ('sumerian', 'HI'), ('hyphen', '-'), ('sumerian', 'A'),
+                 ('hyphen', '-'), ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
+        output = ATF.sumerian_converter(signs)
+        self.assertEqual(output, target)
+
     def test_reconstruction(self):
         ATF = ATFConverter(two_three=False)
         text = [[('sumerian', 'a'), ('sumerian', 'šà'), ('sumerian', 'hi'), ('sumerian', 'a'), ('akkadian', 'ša'),

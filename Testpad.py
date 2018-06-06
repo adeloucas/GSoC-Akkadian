@@ -12,7 +12,7 @@ s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im \n 9. u3 a-na su2-nu-
 """Deconstructs Text"""
 string = Tokenizer.string_tokenizer(s)
 sample = Tokenizer.line_tokenizer(text)
-lines = sample[155:400]
+lines = sample[150:180]
 #Word Tokenizer
 """Deconstructs Text"""
 words = Tokenizer.word_tokenizer(lines)
@@ -52,10 +52,10 @@ print(words)
 print(successful_test_signs)
 print(successful_test_sign_process)
 print(signs_and_markers)
-print()
-print(successful_test_reconstructed_lines)
-print()
-print('\n'.join(reconstruction))
+#print()
+#print(successful_test_reconstructed_lines)
+#print()
+#print('\n'.join(reconstruction))
 #print(reconstructed_words)
 #print(reconstructed_signs)
 #print(sumerian_conversion)
