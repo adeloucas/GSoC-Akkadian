@@ -12,7 +12,7 @@ s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im \n 9. u3 a-na su2-nu-
 """Deconstructs Text"""
 string = Tokenizer.string_tokenizer(s)
 sample = Tokenizer.line_tokenizer(text)
-lines = sample[0:20]
+lines = sample[155:400]
 #Word Tokenizer
 """Deconstructs Text"""
 words = Tokenizer.word_tokenizer(lines)
@@ -28,7 +28,8 @@ successful_test_sign_process = [ATFConverter.process(line) for line in successfu
 """Analyzes Text"""
 solo_signs = [ATFConverter.language_reader(line) for line in failed_test_sign_process]
 signs_and_markers = [ATFConverter.language_reader(line[1:-2]) for line in successful_test_sign_process]
-sumerian_conversion = ATFConverter.sumerian_converter(signs_and_markers)
+underscore_removal = ATFConverter.underscore_remover(signs_and_markers)
+sumerian_conversion = ATFConverter.sumerian_converter(underscore_removal)
 #Reader Reconstruction
 """Reconstructs Text"""
 failed_test_reconstructed_lines = ATFConverter.reader_reconstruction(solo_signs)
@@ -41,19 +42,20 @@ reconstructed_signs = Tokenizer.sign_tokenizer(successful_test_reconstructed_lin
 
 print(lines)
 print("***")
-print(words)
-print(failed_test_signs)
-print(failed_test_sign_process)
-print(solo_signs)
-print(failed_test_reconstructed_lines)
-print("***")
+#print(words)
+#print(failed_test_signs)
+#print(failed_test_sign_process)
+#print(solo_signs)
+#print(failed_test_reconstructed_lines)
+#print("***")
 print(words)
 print(successful_test_signs)
 print(successful_test_sign_process)
 print(signs_and_markers)
 print()
 print(successful_test_reconstructed_lines)
-print(reconstruction)
+print()
+print('\n'.join(reconstruction))
 #print(reconstructed_words)
 #print(reconstructed_signs)
 #print(sumerian_conversion)
