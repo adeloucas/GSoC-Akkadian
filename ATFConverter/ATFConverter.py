@@ -1,10 +1,10 @@
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
+import re
 from unicodedata import normalize
-from ATFConverter.Tokenizer import Tokenizer
 
-VOWELS = 'aeiou'
+VOWELS = 'aeiouAEIOU'
 tittles = {r's,': chr(0x1E63), r'sz': chr(0x0161),  r't,': chr(0x1E6D),
            r'S,': chr(0x1E62), r'SZ': chr(0x0160), r'T,': chr(0x1E6C)}
 
@@ -26,6 +26,14 @@ class ATFConverter(object):
         for c in str(num):
             subscript += chr(0x2080 + int(c))
         return subscript
+
+    def __get_number_from_sign2__(self, sign):
+        match = re.search("\d{1,3}$", sign)
+        if match is None:
+            number = 0
+        else:
+            number = match[0]
+        return (sign, int(number))
 
     def __get_number_from_sign__(self, sign):
         """Reads sign number in order to be converted."""
@@ -53,13 +61,15 @@ class ATFConverter(object):
                 if sign[-1] == '_':
                     """_x2_"""
                     if sign[-2].isdigit():
-                        if sign[-3:].isdigit():
+                        if sign[-3].isdigit():
                             return (sign, int(sign[-3:]))
                         return (sign, int(sign[-2]))
                     return (sign, 0)
                 """_x2"""
                 if sign[-1].isdigit():
                     if sign[-2:].isdigit():
+                        if sign[-3].isdigit():
+                            return (sign, int(sign[-3:]))
                         return (sign, int(sign[-2:]))
                     return (sign, int(sign[-1]))
                 return (sign, 0)
@@ -67,6 +77,8 @@ class ATFConverter(object):
             if sign[-1] =='_':
                 """x2_"""
                 if sign[-2].isdigit():
+                    if sign[-3].isdigit():
+                        return (sign, int(sign[-3:-1]))
                     return (sign, int(sign[-2]))
                 return (sign, 0)
             """determinatives"""
@@ -75,6 +87,8 @@ class ATFConverter(object):
                 if sign[-1] == '}':
                     """{x2}"""
                     if sign[-2].isdigit():
+                        if sign[-3].isdigit():
+                            return (sign, int(sign[-3:-2]))
                         return (sign, int(sign[-2]))
                     return (sign, 0)
             """_\d"""
@@ -82,16 +96,22 @@ class ATFConverter(object):
                 """2(diš)"""
                 if sign[-1] == ")":
                     if sign[-2].isdigit():
+                        if sign[-3].isdigit():
+                            return (sign, int(sign[-3:-2]))
                         return (sign, int(sign[-2]))
                     return (sign, 0)
                 """2{kiš}"""
                 if sign[-1] == "}":
                     if sign[-2].isdigit():
+                        if sign[-3].isdigit():
+                            return (sign, int(sign[-3:-2]))
                         return (sign, int(sign[-2]))
                     return (sign, 0)
             if sign[1].isdigit():
                 """_3(u2)"""
                 if sign[-2].isdigit():
+                    if sign[-3].isdigit():
+                        return (sign, int(sign[-3:-2]))
                     return (sign, int(sign[-2]))
                 """_3(u)"""
                 if sign[-1:] == ")":
@@ -181,6 +201,14 @@ class ATFConverter(object):
             #x
             else:
                 output.append((language, sign))
+        return output
+
+    def underscore_remover(self, language_reader):
+        output = [[eval(str(sign).replace(sign[1], '')) if sign[0] == 'underscore' else sign for sign in line] for line in language_reader]
+        return output
+
+    def sumerian_converter(self, underscore_remover):
+        output = [[eval(str(sign).replace(sign[1], sign[1].upper())) if sign[0] == 'sumerian' else sign for sign in line] for line in underscore_remover]
         return output
 
     def reader_reconstruction(self, sign_tokenizer_space_and_hyphen_incl):
