@@ -103,12 +103,20 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-Archive - Phase 2 False Start/*
+#ATF Project
+/Archive - Phase 2 False Start
+Archive - Phase 2 False Start/
+/CLTK
+CTLK/
+/lemmatizers
+lemmatizers/
 /.cache
 .cache/
 /.idea
 .idea/
 /__pyache__
 __pyache__/
-/.cache/v/cache
-.cache/v/cache/
+/v
+v/
+/cache
+cache/
