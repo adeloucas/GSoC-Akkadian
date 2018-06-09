@@ -5,14 +5,14 @@ ATFConverter = ATFConverter(two_three=False)
 
 #Text Feeders
 """Captures text samples"""
-text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt'
+text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt'
 s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im \n 9. u3 a-na su2-nu-qi2-im u2-ul i-re-ed-de-e \n " \
     "10. _a-sza3-hi-a_ szi-na-ti ta-za-az tu-sa3-na-aq-ma \n"
 #Line Tokenizer
 """Deconstructs Text"""
 string = Tokenizer.string_tokenizer(s)
 sample = Tokenizer.line_tokenizer(text)
-lines = sample[150:180]
+lines = sample[0:100]
 #Word Tokenizer
 """Deconstructs Text"""
 words = Tokenizer.word_tokenizer(lines)
@@ -48,10 +48,10 @@ print("***")
 #print(solo_signs)
 #print(failed_test_reconstructed_lines)
 #print("***")
-print(words)
-print(successful_test_signs)
-print(successful_test_sign_process)
-print(signs_and_markers)
+#print(words)
+#print(successful_test_signs)
+#print(successful_test_sign_process)
+#print(signs_and_markers)
 #print()
 #print(successful_test_reconstructed_lines)
 #print()
