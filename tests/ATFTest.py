@@ -6,7 +6,7 @@ from ATFConverter.ATFConverter import ATFConverter
 
 class test1(unittest.TestCase):  # pylint: disable=R0904
 
-    def test_convert_tittles(self):
+    def test_convert_consonant(self):
         ATF = ATFConverter()
         signs = ['as,', 'S,ATU', 'tet,', 'T,et', 'sza', 'ASZ']
         target = ['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ']
