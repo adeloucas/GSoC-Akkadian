@@ -1,6 +1,7 @@
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
+import re
 from unicodedata import normalize
 
 VOWELS = 'aeiouAEIOU'
@@ -25,6 +26,14 @@ class ATFConverter(object):
         for c in str(num):
             subscript += chr(0x2080 + int(c))
         return subscript
+
+    def __get_number_from_sign2__(self, sign):
+        match = re.search("\d{1,3}$", sign)
+        if match is None:
+            number = 0
+        else:
+            number = match[0]
+        return (sign, int(number))
 
     def __get_number_from_sign__(self, sign):
         """Reads sign number in order to be converted."""
