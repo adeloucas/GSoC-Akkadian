@@ -3,7 +3,8 @@ This file tests methods in atf_converter.py.
 """
 
 import unittest
-from ATFConverter.atf_converter import ATFConverter
+from ATFConverter.atf_converter import ATFConverter # pylint: disable =import-error
+
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -61,39 +62,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         signs = ["a2", "☉", "be3"]
         target = ["a₂", "☉", "be₃"]
         output = atf.process(signs)
-        self.assertEqual(output, target)
-
-    def test_language_reader(self):
-        """
-        Tests language_reader.
-        """
-        atf = ATFConverter(two_three=False)
-        text = [['_u4', '5(disz)', 'kam_', 'i', 'na', 'ra', 'pi2', 'qi2', 'im',
-                 '{ki}'], ['um', 'ma', '_{d}', 'utu_', 'szi', '_{d}',
-                           'iszkur_', 'a', 'bu', 'ka', 'a', 'ma'],
-                ['_{lu2}', 'muhaldim', 'mesz_', 'ap', 'qi2', 'id', 'ma'],
-                ['_3(u)', 'ansze', 'sze', 'gesz', 'i_', 'a', 'na', '_i3',
-                 'ba_']]
-        target = [[('sumerian', 'u4'), ('number', '5(disz)'),
-                   ('sumerian', 'kam'), ('akkadian', 'i'),
-                   ('akkadian', 'na'), ('akkadian', 'ra'),
-                   ('akkadian', 'pi2'), ('akkadian', 'qi2'),
-                   ('akkadian', 'im'), ('determinative', '{ki}')],
-                  [('akkadian', 'um'), ('akkadian', 'ma'),
-                   ('determinative', '{d}'), ('sumerian', 'utu'),
-                   ('akkadian', 'szi'), ('determinative', '{d}'),
-                   ('sumerian', 'iszkur'), ('akkadian', 'a'),
-                   ('akkadian', 'bu'), ('akkadian', 'ka'), ('akkadian', 'a'),
-                   ('akkadian', 'ma')],
-                  [('determinative', '{lu2}'), ('sumerian', 'muhaldim'),
-                   ('sumerian', 'mesz'), ('akkadian', 'ap'),
-                   ('akkadian', 'qi2'), ('akkadian', 'id'),
-                   ('akkadian', 'ma')],
-                  [('number', '3(u)'), ('sumerian', 'ansze'),
-                   ('sumerian', 'sze'), ('sumerian', 'gesz'),
-                   ('sumerian', 'i'), ('akkadian', 'a'),
-                   ('akkadian', 'na'), ('sumerian', 'i3'), ('sumerian', 'ba')]]
-        output = [atf.language_reader(line) for line in text]
         self.assertEqual(output, target)
 
     def test_underscore_remover(self):
