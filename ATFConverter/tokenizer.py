@@ -12,7 +12,7 @@ cltk/cltk/tree/master/cltk/tokenize).
 """
 
 import re
-from nltk.tokenize import RegexpTokenizer
+from nltk.tokenize import RegexpTokenizer   # pylint: disable=import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -20,7 +20,7 @@ __license__ = 'MIT License. See LICENSE.'
 
 class Tokenizer(object):
     """
-    The Tokenizer has the option of preserving damage marked by CDLI.
+    The tokenizer has the option of preserving damage marked by CDLI.
     ATF-format signs denoting damage and their meaning:
         # = Signs which are damaged
         [] = Signs which are completely broken away
@@ -30,6 +30,9 @@ class Tokenizer(object):
         ? = Indicates correction
         * = Indicates a collated reading
 
+    Likewise, the tokenizer has the option of preserving metadata stored in
+    the ATF file.
+
     For in depth reading on ATF-formatting for CDLI and ORACC:
         Oracc ATF Primer = http://oracc.museum.upenn.edu/doc/help/editinginatf/
         primer/index.html
@@ -38,12 +41,13 @@ class Tokenizer(object):
         ATF Inline = http://oracc.museum.upenn.edu/doc/help/editinginatf/
         primer/inlinetutorial/index.html
     """
-    def __init__(self, preserve_damage=False):
+    def __init__(self, preserve_damage=False, preserve_metadata=False):
         """
-        :param preserve_damage: turns on or off preserve damage.
+        :param preserve_damage: turns on or off damage markers in text.
+        :param preserve_metadata: turns on or off metadata in text.
         """
         self.damage = preserve_damage
-        # self.metadata = preserve_metadata
+        self.metadata = preserve_metadata
 
     @staticmethod
     def string_tokenizer(untokenized_string: str, include_blanks=False):
@@ -60,8 +64,8 @@ class Tokenizer(object):
         :param include_blanks: instances of empty lines
         :return: lines as strings in list
         """
-        assert isinstance(untokenized_string, str), 'Incoming argument must ' \
-                                                    'be a string.'
+        assert isinstance(untokenized_string, str), \
+            'Incoming argument must be a string.'
         if include_blanks:
             tokenized_lines = untokenized_string.splitlines()
         else:
@@ -71,20 +75,18 @@ class Tokenizer(object):
 
     def line_tokenizer(self, text):
         """
-        Makes a list of lines from a .txt file; outputs only line numbered
-        lines (ignores metadata).
+        From a .txt file, outputs lines as string in list.
 
         input:  21. u2-wa-a-ru at-ta e2-kal2-la-ka _e2_-ka wu-e-er
                 22. ... u2-ul szi-...
                 23. ... x ...
         output:['21. u2-wa-a-ru at-ta e2-kal2-la-ka _e2_-ka wu-e-er',
                 '22. ... u2-ul szi-...',
-                '23. ... x ...',
+                '23. ... x ...',]
 
         :param: .txt file containing untokenized string
         :return: lines as strings in list
         """
-        # create data / no_data = True / False for this
         line_output = []
 
         with open(text, mode='r+', encoding='utf8') as file:
@@ -92,8 +94,10 @@ class Tokenizer(object):
             assert isinstance(text, str), 'Incoming argument must be a string.'
         for line in lines:
             # Strip out damage characters
-            if not self.damage:  # Add '*', 'xn'(?)
-                line = ''.join(c for c in line if c not in "#[]?!")
+            if not self.damage:  # Add 'xn' -- missing sign or number?
+                line = ''.join(c for c in line if c not in "#[]?!*")
+            if self.metadata:
+                line_output.append(line.strip())
             if re.match(r'^\d*\.|\d\'\.', line):
                 line_output.append(line.strip())
         return line_output
@@ -209,8 +213,8 @@ class Tokenizer(object):
         :return: words as strings in list
         """
         word_tokenizer = RegexpTokenizer(r'[\s]|^\d*\.|\d\'\.', gaps=True)
-        word_output = [word_tokenizer.tokenize(line)
-                       for line in line_tokenizer]
+        word_output = \
+            [word_tokenizer.tokenize(line) for line in line_tokenizer]
         return word_output
 
     @staticmethod
@@ -227,11 +231,11 @@ class Tokenizer(object):
         :param: list: line_tokenizer
         :return: signs as strings in list
         """
-        sign_tokenizer = RegexpTokenizer(r'[\s\-\#\!\?\[\]\<\>|]'
-                                         r'|^\d*\.|\d\'\.|(_{\w*})|({\w*.})',
-                                         gaps=True)
-        sign_output = [sign_tokenizer.tokenize(str(line))
-                       for line in line_tokenizer]
+        sign_tokenizer = \
+            RegexpTokenizer(r'[\s\-\#\!\?\[\]\<\>|]|^\d*\.|\d\'\.|'
+                            r'(_{\w*})|({\w*.})', gaps=True)
+        sign_output = \
+            [sign_tokenizer.tokenize(str(line)) for line in line_tokenizer]
         return sign_output
 
     @staticmethod
@@ -250,9 +254,74 @@ class Tokenizer(object):
         :param: list: line_tokenizer
         :return: signs as strings in list
         """
-        sign_tokenizer = RegexpTokenizer(r'[\#\!\?\[\]\<\>|]'
-                                         r'|^\d*\.|\d\'\.|(\-)|(\s)|'
-                                         r'(_{\w*})|({\w*.})', gaps=True)
-        sign_output = [sign_tokenizer.tokenize(str(line))
-                       for line in line_tokenizer]
+        sign_tokenizer = \
+            RegexpTokenizer(r'[\#\!\?\[\]\<\>|]|^\d*\.|\d\'\.|(\-)|(\s)|'
+                            r'(_{\w*})|({\w*.})', gaps=True)
+        sign_output = \
+            [sign_tokenizer.tokenize(str(line)) for line in line_tokenizer]
         return sign_output
+
+    @staticmethod
+    def sign_language(line):
+        """
+        Flags signs by language or whether it is a determinative / number, when
+        it encounters ATF Conventions. Prints without ATF Conventions.
+
+        input: ['um', 'ma', '_{d}', 'utu_', 'szi', '_{d}', 'iszkur_', 'a',
+                'bu', 'ka', 'a', 'ma']
+        output: [('akkadian', 'um'), ('akkadian', 'ma'),
+                 ('determinative', '{d}'), ('sumerian', 'utu'),
+                 ('akkadian', 'szi'), ('determinative', '{d}'),
+                 ('sumerian', 'iszkur'), ('akkadian', 'a'),
+                 ('akkadian', 'bu'), ('akkadian', 'ka'),
+                 ('akkadian', 'a'), ('akkadian', 'ma')]
+
+        :param line: list of signs in line, string
+        :return: list of tuples akin to sign_tokenizer (sign, function or
+        language)
+        """
+        language = "akkadian"
+        output = []
+        for sign in line:
+            # -
+            if sign == "-":
+                output.append(("hyphen", '-'))
+            #
+            elif sign == " ":
+                output.append(("space", ' '))
+            # _
+            elif sign == "_":
+                output.append(("underscore", '_'))
+                language = "akkadian"
+            # _x_
+            elif sign[0] == "_" and sign[-1] == "_":
+                output.append(("sumerian", sign[1:-1]))
+            # _x}
+            elif sign[0] == "_" and sign[-1] == "}":
+                output.append(("determinative", sign[1:]))
+                language = "sumerian"
+            # _x)
+            elif sign[0] == '_' and sign[-1] == ')':
+                output.append(("number", sign[1:],))
+                language = "sumerian"
+            # _x
+            elif sign[0] == "_":
+                language = "sumerian"
+                output.append((language, sign[1:]))
+            # x)
+            elif sign[-1] == ")":
+                output.append(("number", sign))
+            # x}
+            elif sign[-1] == "}":
+                output.append(("determinative", sign))
+            # x_
+            elif sign[-1] == "_":
+                output.append(("sumerian", sign[:-1]))
+                language = "akkadian"
+            # x2
+            elif sign[-1].isdigit():
+                output.append((language, sign))
+            # x
+            else:
+                output.append((language, sign))
+        return output

@@ -248,74 +248,9 @@ class ATFConverter(object):
         return output
 
     @staticmethod
-    def language_reader(line):
+    def underscore_remover(sign_language):
         """
-        Flags signs by language or whether it is a determinative / number, when
-        it encounters ATF Conventions. Prints without ATF Conventions.
-
-        input: ['um', 'ma', '_{d}', 'utu_', 'szi', '_{d}', 'iszkur_', 'a',
-                'bu', 'ka', 'a', 'ma']
-        output: [('akkadian', 'um'), ('akkadian', 'ma'),
-                 ('determinative', '{d}'), ('sumerian', 'utu'),
-                 ('akkadian', 'szi'), ('determinative', '{d}'),
-                 ('sumerian', 'iszkur'), ('akkadian', 'a'),
-                 ('akkadian', 'bu'), ('akkadian', 'ka'),
-                 ('akkadian', 'a'), ('akkadian', 'ma')]
-
-        :param line: list of signs in line, string
-        :return: list of tuples akin to sign_tokenizer (sign, function or
-        language)
-        """
-        language = "akkadian"
-        output = []
-        for sign in line:
-            # -
-            if sign == "-":
-                output.append(("hyphen", '-'))
-            #
-            elif sign == " ":
-                output.append(("space", ' '))
-            # _
-            elif sign == "_":
-                output.append(("underscore", '_'))
-                language = "akkadian"
-            # _x_
-            elif sign[0] == "_" and sign[-1] == "_":
-                output.append(("sumerian", sign[1:-1]))
-            # _x}
-            elif sign[0] == "_" and sign[-1] == "}":
-                output.append(("determinative", sign[1:]))
-                language = "sumerian"
-            # _x)
-            elif sign[0] == '_' and sign[-1] == ')':
-                output.append(("number", sign[1:],))
-                language = "sumerian"
-            # _x
-            elif sign[0] == "_":
-                language = "sumerian"
-                output.append((language, sign[1:]))
-            # x)
-            elif sign[-1] == ")":
-                output.append(("number", sign))
-            # x}
-            elif sign[-1] == "}":
-                output.append(("determinative", sign))
-            # x_
-            elif sign[-1] == "_":
-                output.append(("sumerian", sign[:-1]))
-                language = "akkadian"
-            # x2
-            elif sign[-1].isdigit():
-                output.append((language, sign))
-            # x
-            else:
-                output.append((language, sign))
-        return output
-
-    @staticmethod
-    def underscore_remover(language_reader):
-        """
-        Removes underscore from the language_reader.
+        Removes underscore from sign_language.
 
         input: [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
                  ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
@@ -334,18 +269,18 @@ class ATFConverter(object):
                  ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
                  ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]
 
-        :param language_reader: list of tuples
+        :param sign_language: list of tuples
         :return: list of tuples
         """
         output = [[eval(str(sign).replace(sign[1], '')) if
                    sign[0] == 'underscore' else sign for sign in line] for line
-                  in language_reader]
+                  in sign_language]
         return output
 
     @staticmethod
-    def sumerian_converter(language_reader):
+    def sumerian_converter(sign_language):
         """
-        Capitalizes Sumerian words in language_reader.
+        Capitalizes Sumerian words in sign_language.
 
         input: [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
                 ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
@@ -365,12 +300,12 @@ class ATFConverter(object):
                  ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
 
 
-        :param language_reader: list of tuples
+        :param sign_language: list of tuples
         :return: list of tuples
         """
         output = [[eval(str(sign).replace(sign[1], sign[1].upper())) if
                    sign[0] == 'sumerian' else sign for sign in line]
-                  for line in language_reader]
+                  for line in sign_language]
         return output
 
     @staticmethod
@@ -392,7 +327,7 @@ class ATFConverter(object):
         output: ['a-šà-hi-a ša a-ah {d}buranun-na a-na za-zi-im']
 
         :param sign_tokenizer_space_and_hyphen: Does not work for
-        sign_tokenizer2.
+        sign_tokenizer.
         :return: list of lines as strings
         """
         output = [''.join([sign[1] for sign in line])
