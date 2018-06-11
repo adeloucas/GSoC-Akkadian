@@ -1,5 +1,5 @@
-from ATFConverter.Tokenizer import Tokenizer
-from ATFConverter.ATFConverter import ATFConverter
+from ATFConverter.tokenizer import Tokenizer
+from ATFConverter.atf_converter import ATFConverter
 Tokenizer = Tokenizer()
 ATFConverter = ATFConverter(two_three=False)
 
@@ -15,11 +15,11 @@ sample = Tokenizer.line_tokenizer(text)
 lines = sample[0:100]
 #Word Tokenizer
 """Deconstructs Text"""
-words = Tokenizer.word_tokenizer(lines)
+words = Tokenizer.word_tokenizer2(lines)
 #Sign Tokenizer
 """Deconstructs Text"""
-failed_test_signs = Tokenizer.sign_tokenizer(lines)
-successful_test_signs = Tokenizer.sign_tokenizer_space_and_hyphen_incl(lines)
+failed_test_signs = Tokenizer.sign_tokenizer2(lines)
+successful_test_signs = Tokenizer.sign_tokenizer2_space_and_hyphen_incl(lines)
 #ATF Converter
 """Converts Text"""
 failed_test_sign_process = [ATFConverter.process(line) for line in failed_test_signs]
@@ -27,7 +27,7 @@ successful_test_sign_process = [ATFConverter.process(line) for line in successfu
 #Language Reader
 """Analyzes Text"""
 solo_signs = [ATFConverter.language_reader(line) for line in failed_test_sign_process]
-signs_and_markers = [ATFConverter.language_reader(line[1:-2]) for line in successful_test_sign_process]
+signs_and_markers = [ATFConverter.language_reader(line) for line in successful_test_sign_process]
 underscore_removal = ATFConverter.underscore_remover(signs_and_markers)
 sumerian_conversion = ATFConverter.sumerian_converter(underscore_removal)
 #Reader Reconstruction
@@ -37,8 +37,8 @@ successful_test_reconstructed_lines = ATFConverter.reader_reconstruction(signs_a
 reconstruction = ATFConverter.reader_reconstruction(sumerian_conversion)
 #Output
 """Tokenizes Reconstructed Text"""
-reconstructed_words = Tokenizer.word_tokenizer(successful_test_reconstructed_lines)
-reconstructed_signs = Tokenizer.sign_tokenizer(successful_test_reconstructed_lines)
+reconstructed_words = Tokenizer.word_tokenizer2(successful_test_reconstructed_lines)
+reconstructed_signs = Tokenizer.sign_tokenizer2(successful_test_reconstructed_lines)
 
 print(lines)
 print("***")
@@ -51,7 +51,7 @@ print("***")
 #print(words)
 #print(successful_test_signs)
 #print(successful_test_sign_process)
-#print(signs_and_markers)
+print(signs_and_markers)
 #print()
 #print(successful_test_reconstructed_lines)
 #print()
