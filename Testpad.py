@@ -1,13 +1,12 @@
-from ATFConverter.Tokenizer import Tokenizer
-from ATFConverter.ATFConverter import ATFConverter
-Tokenizer = Tokenizer()
+from ATFConverter.tokenizer import Tokenizer
+from ATFConverter.atf_converter import ATFConverter
+Tokenizer = Tokenizer(preserve_damage=False, preserve_metadata=False)
 ATFConverter = ATFConverter(two_three=False)
 
 #Text Feeders
 """Captures text samples"""
-text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt'
-s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im \n 9. u3 a-na su2-nu-qi2-im u2-ul i-re-ed-de-e \n " \
-    "10. _a-sza3-hi-a_ szi-na-ti ta-za-az tu-sa3-na-aq-ma \n"
+text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt'
+s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im"
 #Line Tokenizer
 """Deconstructs Text"""
 string = Tokenizer.string_tokenizer(s)
@@ -15,19 +14,21 @@ sample = Tokenizer.line_tokenizer(text)
 lines = sample[0:100]
 #Word Tokenizer
 """Deconstructs Text"""
-words = Tokenizer.word_tokenizer(lines)
+line_words = Tokenizer.word_tokenizer(s)
+words2 = Tokenizer.word_tokenizer2(lines)
 #Sign Tokenizer
 """Deconstructs Text"""
-failed_test_signs = Tokenizer.sign_tokenizer(lines)
-successful_test_signs = Tokenizer.sign_tokenizer_space_and_hyphen_incl(lines)
+line_signs = Tokenizer.sign_tokenizer(line_words[0])
+failed_test_signs = Tokenizer.sign_tokenizer2(lines)
+successful_test_signs = Tokenizer.sign_tokenizer_space_and_hyphen(lines)
 #ATF Converter
 """Converts Text"""
 failed_test_sign_process = [ATFConverter.process(line) for line in failed_test_signs]
 successful_test_sign_process = [ATFConverter.process(line) for line in successful_test_signs]
 #Language Reader
 """Analyzes Text"""
-solo_signs = [ATFConverter.language_reader(line) for line in failed_test_sign_process]
-signs_and_markers = [ATFConverter.language_reader(line[1:-2]) for line in successful_test_sign_process]
+solo_signs = [Tokenizer.sign_language(line) for line in failed_test_sign_process]
+signs_and_markers = [Tokenizer.sign_language(line)[1:] for line in successful_test_sign_process]
 underscore_removal = ATFConverter.underscore_remover(signs_and_markers)
 sumerian_conversion = ATFConverter.sumerian_converter(underscore_removal)
 #Reader Reconstruction
@@ -37,12 +38,14 @@ successful_test_reconstructed_lines = ATFConverter.reader_reconstruction(signs_a
 reconstruction = ATFConverter.reader_reconstruction(sumerian_conversion)
 #Output
 """Tokenizes Reconstructed Text"""
-reconstructed_words = Tokenizer.word_tokenizer(successful_test_reconstructed_lines)
-reconstructed_signs = Tokenizer.sign_tokenizer(successful_test_reconstructed_lines)
+reconstructed_words = Tokenizer.word_tokenizer2(successful_test_reconstructed_lines)
+reconstructed_signs = Tokenizer.sign_tokenizer2(successful_test_reconstructed_lines)
 
-print(lines)
-print("***")
-#print(words)
+#print(sample)
+#print("***")
+#print(line_words)
+#print(line_signs)
+#print(words2)
 #print(failed_test_signs)
 #print(failed_test_sign_process)
 #print(solo_signs)
@@ -55,10 +58,11 @@ print("***")
 #print()
 #print(successful_test_reconstructed_lines)
 #print()
-#print('\n'.join(reconstruction))
+print('\n'.join(reconstruction))
 #print(reconstructed_words)
 #print(reconstructed_signs)
 #print(sumerian_conversion)
+#print(reconstruction)
 
 """
 *** Manual Input ***
