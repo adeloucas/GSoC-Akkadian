@@ -3,6 +3,7 @@ This file tests methods in tokenizer.py.
 """
 
 import unittest
+import os
 from ATFConverter.tokenizer import Tokenizer    # pylint: disable=import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
@@ -35,8 +36,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests line_tokenizer.
         """
-        file = \
-            r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt"
+        file = os.path.join('texts', 'Akkadian.txt')
         output = TOKENIZER.line_tokenizer(file)
         goal = ['2. i-na-ad-di-in',
                 '3. szum-ma a-wi-lum',
