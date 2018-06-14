@@ -104,8 +104,8 @@ venv.bak/
 .mypy_cache/
 
 #ATF Project
-/Archive - Phase 2 False Start
-Archive - Phase 2 False Start/
+/__archive__
+__archive__/
 /CLTK
 CTLK/
 /lemmatizers
@@ -114,6 +114,7 @@ lemmatizers/
 .cache/
 /.idea
 .idea/
+.vscode
 /__pyache__
 __pyache__/
 /v
