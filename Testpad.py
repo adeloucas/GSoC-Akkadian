@@ -1,6 +1,6 @@
 from ATFConverter.tokenizer import Tokenizer
 from ATFConverter.atf_converter import ATFConverter
-Tokenizer = Tokenizer(preserve_damage=False, preserve_metadata=True)
+Tokenizer = Tokenizer(preserve_damage=False, preserve_metadata=False)
 ATFConverter = ATFConverter(two_three=False)
 
 #Text Feeders
@@ -28,7 +28,7 @@ successful_test_sign_process = [ATFConverter.process(line) for line in successfu
 #Language Reader
 """Analyzes Text"""
 solo_signs = [Tokenizer.sign_language(line) for line in failed_test_sign_process]
-signs_and_markers = [Tokenizer.sign_language(line) for line in successful_test_sign_process]
+signs_and_markers = [Tokenizer.sign_language(line)[1:] for line in successful_test_sign_process]
 underscore_removal = ATFConverter.underscore_remover(signs_and_markers)
 sumerian_conversion = ATFConverter.sumerian_converter(underscore_removal)
 #Reader Reconstruction
@@ -41,7 +41,7 @@ reconstruction = ATFConverter.reader_reconstruction(sumerian_conversion)
 reconstructed_words = Tokenizer.word_tokenizer2(successful_test_reconstructed_lines)
 reconstructed_signs = Tokenizer.sign_tokenizer2(successful_test_reconstructed_lines)
 
-print(sample)
+#print(sample)
 #print("***")
 #print(line_words)
 #print(line_signs)
@@ -58,10 +58,11 @@ print(sample)
 #print()
 #print(successful_test_reconstructed_lines)
 #print()
-#print('\n'.join(reconstruction))
+print('\n'.join(reconstruction))
 #print(reconstructed_words)
 #print(reconstructed_signs)
 #print(sumerian_conversion)
+#print(reconstruction)
 
 """
 *** Manual Input ***

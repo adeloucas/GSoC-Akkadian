@@ -96,9 +96,9 @@ class Tokenizer(object):
             # Strip out damage characters
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
-            if self.metadata:
+            if self.metadata:   # Make this unaffected by process, etc.
                 line_output.append(line.strip())
-            if re.match(r'^\d*\.|\d\'\.', line):
+            elif re.match(r'^\d*\.|\d\'\.', line):
                 line_output.append(line.strip())
         return line_output
 

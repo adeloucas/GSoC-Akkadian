@@ -272,9 +272,9 @@ class ATFConverter(object):
         :param sign_language: list of tuples
         :return: list of tuples
         """
-        output = [[eval(str(sign).replace(sign[1], '')) if
-                   sign[0] == 'underscore' else sign for sign in line] for line
-                  in sign_language]
+        output = [[(sign[0], sign[1].replace(sign[1], '')) if
+                   sign[0] == 'underscore' else
+                   sign for sign in line] for line in sign_language]
         return output
 
     @staticmethod
@@ -303,9 +303,8 @@ class ATFConverter(object):
         :param sign_language: list of tuples
         :return: list of tuples
         """
-        output = [[eval(str(sign).replace(sign[1], sign[1].upper())) if
-                   sign[0] == 'sumerian' else sign for sign in line]
-                  for line in sign_language]
+        output = [[(sign[0], sign[1].upper()) if sign[0] == 'sumerian' else
+                   sign for sign in line] for line in sign_language]
         return output
 
     @staticmethod
