@@ -1,4 +1,5 @@
 from ATFConverter.cdli_import import Import
+import os
 
 IMPORT = Import()
 

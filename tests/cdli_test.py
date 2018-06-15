@@ -20,22 +20,20 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         Tests __read_file__.
         """
         cdli = Import()
-        # file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
-        file = \
-            r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
+        file = os.path.join('..', 'texts', 'Akkadian.txt')
         output = cdli.__read_file__(file)
-        goal = ['19. [tu]-uk#-ki# a-la-ki-ia i-na ma#-[ri{ki}]',
-                '20. [sze?]-mi an-ni-tam ta-asz-[pu-ra-am]',
-                '21. [asz-szum sza] ta#-asz-pu-ra-am dam-qa#-[...]',
-                '22. [...] i-na ma-ri{ki#}',
-                '23. [...] i#-na su2-ub#-ri-im{ki}',
-                '24. [... i-na sa]-ga-ra-tim{ki}',
-                '25. [...] an-nu-tim',
-                '@reverse',
-                "1'. [...]-na",
-                "2'. [_iti_] a#-ia#-ri# [...] _u4# 4(disz)#-kam_",
-                "3'. _u4# 5(disz)-kam_ pa-ha#-[ar] s,a-bi#-im",
-                "4'. u3 _u4 5(disz)-kam_ a-la-ak-ma"]
+        goal = ['24. _{gesz}ma2_ dan-na-tam',
+                '25. a-na be-el _{gesz}ma2_',
+                '26. i-na-ad-di-in',
+                '@law 236',
+                '27. szum-ma a-wi-lum',
+                '28. _{gesz}ma2_-szu',
+                '29. a-na _ma2-lah5_',
+                '30. a-na ig-ri-im',
+                '31. id-di-in-ma',
+                '32. _ma2-lah5_ i-gi-ma',
+                '33. _{gesz}ma2_ ut,-t,e4-bi',
+                '34. u3 lu uh2-ta-al-li-iq']
         self.assertEqual(output[3042:3054], goal)
 
 

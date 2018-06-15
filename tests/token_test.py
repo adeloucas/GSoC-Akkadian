@@ -37,9 +37,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests line_tokenizer.
         """
-        # file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
-        file = \
-            r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt"
+        file = os.path.join('..', 'texts', 'Akkadian.txt')
         output = TOKENIZER.line_tokenizer(file)
         goal = ['2. i-na-ad-di-in',
                 '3. szum-ma a-wi-lum',
