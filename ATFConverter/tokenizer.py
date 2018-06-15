@@ -199,7 +199,7 @@ class Tokenizer(object):
         return signs_output
 
     @staticmethod
-    def word_tokenizer2(line_tokenizer):
+    def print_word_tokenizer(line_tokenizer):
         """
         Looks at strings in a list (from line_tokenizer) and breaks lines down
         by words. Includes damages.
@@ -218,28 +218,7 @@ class Tokenizer(object):
         return word_output
 
     @staticmethod
-    def sign_tokenizer2(line_tokenizer):
-        """
-        Utilizes NLTK's RegexpTokenizer to break down lines into individuals
-        signs. Excludes special characters.
-
-        input: ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]
-        \n']
-        output: [['u2', 'wa', 'a', 'ru', 'at', 'ta', 'e2', 'kal2', 'la', 'ka',
-        '_e2_', 'ka', 'wu', 'e', 'er']]
-
-        :param: list: line_tokenizer
-        :return: signs as strings in list
-        """
-        sign_tokenizer = \
-            RegexpTokenizer(r'[\s\-\#\!\?\[\]\<\>|]|^\d*\.|\d\'\.|'
-                            r'(_{\w*})|({\w*.})', gaps=True)
-        sign_output = \
-            [sign_tokenizer.tokenize(str(line)) for line in line_tokenizer]
-        return sign_output
-
-    @staticmethod
-    def sign_tokenizer_space_and_hyphen(line_tokenizer):
+    def print_sign_tokenizer(line_tokenizer):
         """
         Utilizes NLTK's RegexpTokenizer to break down lines into individuals
         signs to be rebuilt into words. Includes
@@ -262,7 +241,7 @@ class Tokenizer(object):
         return sign_output
 
     @staticmethod
-    def sign_language(line):
+    def print_sign_language(line):
         """
         Flags signs by language or whether it is a determinative / number, when
         it encounters ATF Conventions. Prints without ATF Conventions.
@@ -318,9 +297,6 @@ class Tokenizer(object):
             elif sign[-1] == "_":
                 output.append(("sumerian", sign[:-1]))
                 language = "akkadian"
-            # x2
-            elif sign[-1].isdigit():
-                output.append((language, sign))
             # x
             else:
                 output.append((language, sign))

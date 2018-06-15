@@ -10,6 +10,7 @@ __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 TOKENIZER = Tokenizer(preserve_damage=False, preserve_metadata=False)
 
+
 class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
     Tests.
@@ -36,7 +37,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests line_tokenizer.
         """
-        file = os.path.join('texts', 'Akkadian.txt')
+        #file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
+        file = \
+            r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt"
         output = TOKENIZER.line_tokenizer(file)
         goal = ['2. i-na-ad-di-in',
                 '3. szum-ma a-wi-lum',
@@ -86,7 +89,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                  '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n',
                  '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n',
                  '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
-        output = TOKENIZER.word_tokenizer2(lines)
+        output = TOKENIZER.print_word_tokenizer(lines)
         goal = [['[u2?-wa?-a?-ru?]', 'at-ta', 'e2-[kal2-la-ka', '_e2_-ka',
                  'wu?-e?-er?]'],
                 ['[...]', 'u2-ul#', 'szi#?-[...]'], ['[...]', 'x', '[...]'],
@@ -113,36 +116,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
              '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n',
              '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n',
              '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
-        output = TOKENIZER.sign_tokenizer2(lines)
-        goal = [['u2', 'wa', 'a', 'ru', 'at', 'ta', 'e2', 'kal2', 'la', 'ka',
-                 '_e2_', 'ka', 'wu', 'e', 'er'],
-                ['...', 'u2', 'ul', 'szi', '...'], ['...', 'x', '...'],
-                ['...', 'x', '...'],
-                ['u3', 'ta', 'szi', 'ma', 'at', '...'],
-                ['x', 'x', 'tim', 'gesztin', 'x', '...'],
-                ['a', 'na', 'a', 'ad', 'da', 'a'],
-                ['qi2', 'bi2', 'ma'],
-                ['um', 'ma', 'ia', 'as2', 'ma', 'ah', '{d}', 'iszkur'],
-                ['_dumu_', 'ka', 'a', 'ma'],
-                ['an', 'nu', 'um', 'ma', 'ki', 'ma', 'na', 'asz', 'pa', 'ar',
-                 'ti'],
-                ['a', 'ad', 'da', 'a', '4(u)', '_lu2', 'szu', 'ku6', 'mesz_']]
-        self.assertEqual(output, goal)
-
-    def test_sign_tokenizer_hyphen(self):
-        """
-        Tests sign_tokenizer_space_and_hyphen.
-        """
-        lines = ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka '
-                 'wu?-e?-er?]\n', '22. [...] u2-ul# szi#?-[...]\n',
-                 '23. [...] x [...]\n', '1. [...] x [...]\n',
-                 '2. u3# ta-szi-ma-at# [...]\n',
-                 '3. x-x-tim gesztin? x [...]\n', '1. a-na a-ad-da-a \n',
-                 '2. qi2-bi2-ma# \n',
-                 '3. um-ma ia-as2-ma-ah-{d}iszkur \n', '4. _dumu_-ka-a-ma \n',
-                 '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti \n',
-                 '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_ \n']
-        output = TOKENIZER.sign_tokenizer_space_and_hyphen(lines)
+        output = TOKENIZER.print_sign_tokenizer(lines)
         goal = [[' ', 'u2', '-', 'wa', '-', 'a', '-', 'ru', ' ', 'at', '-',
                  'ta', ' ', 'e2', '-', 'kal2', '-', 'la', '-', 'ka', ' ',
                  '_e2_', '-', 'ka', ' ', 'wu', '-', 'e', '-', 'er', '\n'],
@@ -196,7 +170,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                    ('sumerian', 'sze'), ('sumerian', 'gesz'),
                    ('sumerian', 'i'), ('akkadian', 'a'),
                    ('akkadian', 'na'), ('sumerian', 'i3'), ('sumerian', 'ba')]]
-        output = [TOKENIZER.sign_language(line) for line in text]
+        output = [TOKENIZER.print_sign_language(line) for line in text]
         self.assertEqual(output, target)
 
 

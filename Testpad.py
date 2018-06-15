@@ -1,79 +1,11 @@
-from ATFConverter.tokenizer import Tokenizer
-from ATFConverter.atf_converter import ATFConverter
-Tokenizer = Tokenizer(preserve_damage=False, preserve_metadata=False)
-ATFConverter = ATFConverter(two_three=False)
+from ATFConverter.cdli_import import Import
 
-#Text Feeders
-"""Captures text samples"""
-text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt'
-s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im"
-#Line Tokenizer
-"""Deconstructs Text"""
-string = Tokenizer.string_tokenizer(s)
-sample = Tokenizer.line_tokenizer(text)
-lines = sample[0:100]
-#Word Tokenizer
-"""Deconstructs Text"""
-line_words = Tokenizer.word_tokenizer(s)
-words2 = Tokenizer.word_tokenizer2(lines)
-#Sign Tokenizer
-"""Deconstructs Text"""
-line_signs = Tokenizer.sign_tokenizer(line_words[0])
-failed_test_signs = Tokenizer.sign_tokenizer2(lines)
-successful_test_signs = Tokenizer.sign_tokenizer_space_and_hyphen(lines)
-#ATF Converter
-"""Converts Text"""
-failed_test_sign_process = [ATFConverter.process(line) for line in failed_test_signs]
-successful_test_sign_process = [ATFConverter.process(line) for line in successful_test_signs]
-#Language Reader
-"""Analyzes Text"""
-solo_signs = [Tokenizer.sign_language(line) for line in failed_test_sign_process]
-signs_and_markers = [Tokenizer.sign_language(line)[1:] for line in successful_test_sign_process]
-underscore_removal = ATFConverter.underscore_remover(signs_and_markers)
-sumerian_conversion = ATFConverter.sumerian_converter(underscore_removal)
-#Reader Reconstruction
-"""Reconstructs Text"""
-failed_test_reconstructed_lines = ATFConverter.reader_reconstruction(solo_signs)
-successful_test_reconstructed_lines = ATFConverter.reader_reconstruction(signs_and_markers)
-reconstruction = ATFConverter.reader_reconstruction(sumerian_conversion)
-#Output
-"""Tokenizes Reconstructed Text"""
-reconstructed_words = Tokenizer.word_tokenizer2(successful_test_reconstructed_lines)
-reconstructed_signs = Tokenizer.sign_tokenizer2(successful_test_reconstructed_lines)
+IMPORT = Import()
 
-#print(sample)
-#print("***")
-#print(line_words)
-#print(line_signs)
-#print(words2)
-#print(failed_test_signs)
-#print(failed_test_sign_process)
-#print(solo_signs)
-#print(failed_test_reconstructed_lines)
-#print("***")
-#print(words)
-#print(successful_test_signs)
-#print(successful_test_sign_process)
-#print(signs_and_markers)
-#print()
-#print(successful_test_reconstructed_lines)
-#print()
-print('\n'.join(reconstruction))
-#print(reconstructed_words)
-#print(reconstructed_signs)
-#print(sumerian_conversion)
-#print(reconstruction)
+file = \
+    r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
 
-"""
-*** Manual Input ***
-sample = Tokenizer.line_tokenizer(text)
-lines = sample[245:251]
-*** Program ***
-words = Tokenizer.word_tokenizer(lines)
-signs = Tokenizer.sign_tokenizer_space_and_hyphen_incl(words)
-process = [ATFConverter.process(line, line) for line in signs]
-analysis = [ATFConverter.language_reader(line[1:-2]) for line in process]
-lines = ATFConverter.reader_reconstruction(analysis)
-words = Tokenizer.word_tokenizer(lines)
-return words
-"""
+first = IMPORT.__read_file__(file)
+print(first)
+
+
