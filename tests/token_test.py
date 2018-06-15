@@ -37,7 +37,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests line_tokenizer.
         """
-        #file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
+        # file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
         file = \
             r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\Akkadian.txt"
         output = TOKENIZER.line_tokenizer(file)
@@ -76,7 +76,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 ("pur", "akkadian"), ("ram", "akkadian")]
         self.assertEqual(output, goal)
 
-    def test_word_tokenizer2(self):
+    def test_print_word_tokenizer(self):
         """
         Tests word_tokenizer2.
         """
@@ -102,7 +102,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 ['a-[ad]-da-a', '4(u)', '_lu2', 'szu-ku6', 'mesz_']]
         self.assertEqual(output, goal)
 
-    def test_sign_tokenizer2(self):
+    def test_print_sign_tokenizer(self):
         """
         Tests sign_tokenizer2.
         """
@@ -141,7 +141,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                  ' ', '_lu2', ' ', 'szu', '-', 'ku6', ' ', 'mesz_', ' ', '\n']]
         self.assertEqual(output, goal)
 
-    def test_sign_language(self):
+    def test_print_sign_language(self):
         """
         Tests sign_language.
         """

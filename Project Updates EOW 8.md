@@ -34,19 +34,11 @@ lines) \
 
 ## Week 5 (May 21 - May 28)
 
-1) Begin setup for "lookup lemmatizer" - Scratched until after June 15
-(Week 8)
-2) Establish test for decliner based off nouns in Hammurabi and ARM1 -
-Scratched until after June 15 (Week 8)
-3) Refine until noun forms are stable - Scratched until after June 15
-(Week 8)
-4) Reproduce for verbs - Scratched until after June 15 (Week 8)
----
-5) Solved last 27 lines
-6) Created Tokenizers for text 
-7) Defined scope for next three weeks in meeting with Tyler and Willis:
+1) Solved last 27 lines
+2) Created Tokenizers for text
+3) Defined scope for next three weeks in meeting with Tyler and Willis: \
 Refine Tokenizer and enable ATFConverter use.
-8) Moved into PyCharm
+4) Moved into PyCharm
 
 ## Week 6 (May 28 - June 4)
 
@@ -60,7 +52,7 @@ Refine Tokenizer and enable ATFConverter use.
 3) Utilized .gitignore for hiding files
 4) Altered for list comprehension over simply for-loops
 
-## Week 8 (June 11 - 18)
+## Week 8 (June 11 - June 18)
 
 1) Mentor Check-in
 2) Survey 1
@@ -70,3 +62,19 @@ Refine Tokenizer and enable ATFConverter use.
 a) Establish Lemmatizer for normalization \
 b) Establish Pretty Printing  \
 c) Establish CDLI Corpus Reader
+
+## Week 9 (June 18 - June 25)
+
+## Week 10 (June 25 - July 2)
+
+## Week 11 (July 2 - July 9)
+
+## Week 12 (July 9 - July 16)
+
+## Week 13 (July 16 - July 23)
+
+## Week 14 (July 23 - July 30)
+
+## Week 15 (July 30 - Aug 6)
+
+## Week 16 (Aug 6 - Aug 13)

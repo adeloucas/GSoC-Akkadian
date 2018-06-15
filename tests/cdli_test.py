@@ -20,7 +20,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         Tests __read_file__.
         """
         cdli = Import()
-        #file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
+        # file = os.path.join('texts', 'Akkadian.txt')    # broken - errno 2...
         file = \
             r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
         output = cdli.__read_file__(file)

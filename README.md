@@ -25,6 +25,18 @@ Github: https://github.com/TylerKirby
 
 This is the main converter class for this project.
 
+#### cdli_import.py
+
+This is the main import class for this project.
+
+#### lemmatizer.py
+
+This is the main lemmatization class for this project.
+
+#### pretty_print.py
+
+This is the printing class for this project.
+
 #### tokenizer.py
 
 This is the main tokenizer class for this project.
@@ -33,13 +45,19 @@ This is the main tokenizer class for this project.
 
 #### atf_test.py
 
-Tests that check individual parts of the atf_converter as initially
-established.
+Tests that check individual parts of the atf_converter class.
+
+#### cdli_test.py
+
+Tests that check individual parts of the cdli_import class.
+
+### pretty_test.py
+
+Tests that check individual parts of the pretty_print class.
 
 #### token_test.py
 
-Tests that check individual parts of the tokenizer as initially
-established.
+Tests that check individual parts of the tokenizer class.
 
 ### texts
 
