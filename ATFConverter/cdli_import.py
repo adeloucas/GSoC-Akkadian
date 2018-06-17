@@ -21,7 +21,7 @@ __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
 
-class Import(object):
+class FileImport(object):
     """
     The goal of this class is to take a file downloaded from CDLI's website
     (https://cdli.ucla.edu/search/download_data_new.php?data_type=all)
@@ -49,12 +49,65 @@ class Import(object):
             return line_output
 
     @staticmethod
-    def discern_tablets(__read_file__):
+    def __discern_texts__(__read_file__):
         """
-        Using the __read_file__ function, this process separates out tablets
+        Using the __read_file__ function, this process recognizes tablets
         based off of metadata in the file.
-        :param __read_file__: List of strings made up of individual lines of
-        file downloaded from CDLI.
-        :return: list that separates out disparate texts into lists of strings
-        made up of individual lines of file downloaded from CDLI.
+        :param __read_file__: This is the text file that you downloaded from
+        CDLI.
+        :return: List that notes disparate texts in the downloaded file.
         """
+        output = [line for line in __read_file__ if line.startswith('&')]
+        return output
+
+    @staticmethod
+    def __split_texts__(__read_file__):
+        """
+        Using __read_file__, this process separates out tablets based off of
+        metadata in the file.
+        :param __read_file__: This is the text file that you downloaded from
+        CDLI.
+        :return: List that separates out disparate texts into lists of strings.
+        """
+        output = []
+        for line in __read_file__:
+            if line.startswith('Primary'):
+                yield output
+                output = []
+            output.append(line)
+        yield output    # issue: prints "[[]" before list
+
+    def text_contents(self, __read_file__):
+        """
+        Using the __read_file__ function, this process utilizes discern_texts
+        and split_texts in order to create a dictionary of texts from the file.
+
+        i.e. either "ARM 01, 001" or "&P254202" for key; the text for value.
+
+        :param __read_file__: This is the text file that you downloaded from
+        CDLI.
+        :return: Dictionary of separated texts in a file with either the
+        CDLI number or published name of text as key & said text as its value.
+        """
+
+        key = self.__discern_texts__(__read_file__)
+        value = list(self.__split_texts__(__read_file__))
+        texts = zip(key, value[1:])
+        text_dict = dict(texts)
+
+        return text_dict
+
+class GithubImport(object):
+    """
+    The goal of this class is to take documentation from CDLI's source data
+    (https://github.com/cdli-gh/data) imported into the CLTK
+    (https://github.com/cltk/cltk/wiki/How-to-add-a-corpus-to-the-CLTK).
+    In using this, one can access the most up-to-date ATF documents without
+    constantly and manually refreshing their files of said documents.
+
+    Definitely WIP and needs more thought.
+    """
+    #def __init__(self):
+    #    """
+    #    :param: empty.
+    #    """
