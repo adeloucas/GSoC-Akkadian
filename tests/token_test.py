@@ -25,12 +25,14 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                '\n' '6. asz-szum t,e4#-em# {d}utu-illat-su2\n'\
                '7. u3 ia#-szu-ub-dingir sza a-na la i-[zu]-zi-im\n'
         output = TOKENIZER.string_tokenizer(text, include_blanks=False)
-        goal = ['20. u2-sza-bi-la-kum', '1. a-na ia-as2-ma-ah-{d}iszkur#',
-                '2. qi2-bi2-ma', '3. um-ma {d}utu-szi-{d}iszkur',
+        goal = ['20. u2-sza-bi-la-kum',
+                '1. a-na ia-as2-ma-ah-{d}iszkur',
+                '2. qi2-bi2-ma',
+                '3. um-ma {d}utu-szi-{d}iszkur',
                 '4. a-bu-ka-a-ma',
-                '5. t,up-pa-[ka] sza#-[tu]-sza-bi-lam esz-me',
-                '6. asz-szum t,e4#-em# {d}utu-illat-su2',
-                '7. u3 ia#-szu-ub-dingir sza a-na la i-[zu]-zi-im']
+                '5. t,up-pa-ka sza-tu-sza-bi-lam esz-me',
+                '6. asz-szum t,e4-em {d}utu-illat-su2',
+                '7. u3 ia-szu-ub-dingir sza a-na la i-zu-zi-im']
         self.assertEqual(output, goal)
 
     def test_line_tokenizer(self):

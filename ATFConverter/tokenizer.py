@@ -49,8 +49,8 @@ class Tokenizer(object):
         self.damage = preserve_damage
         self.metadata = preserve_metadata
 
-    @staticmethod
-    def string_tokenizer(untokenized_string: str, include_blanks=False):
+
+    def string_tokenizer(self, untokenized_string: str, include_blanks=False):
         """
         This function is based off CLTK's line tokenizer. Use this for strings
         rather than .txt files.
@@ -64,6 +64,7 @@ class Tokenizer(object):
         :param include_blanks: instances of empty lines
         :return: lines as strings in list
         """
+        line_output = []
         assert isinstance(untokenized_string, str), \
             'Incoming argument must be a string.'
         if include_blanks:
@@ -71,7 +72,15 @@ class Tokenizer(object):
         else:
             tokenized_lines = [line for line in untokenized_string.splitlines()
                                if line != r'\\n']
-        return tokenized_lines
+        for line in tokenized_lines:
+            # Strip out damage characters
+            if not self.damage:  # Add 'xn' -- missing sign or number?
+                line = ''.join(c for c in line if c not in "#[]?!*")
+            if self.metadata:   # Make this unaffected by process, etc.
+                line_output.append(line.strip())
+            elif re.match(r'^\d*\.|\d\'\.', line):
+                line_output.append(line.strip())
+        return line_output
 
     def line_tokenizer(self, text):
         """

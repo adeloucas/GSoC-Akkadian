@@ -21,7 +21,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         cdli = FileImport()
         file = os.path.join('..', 'texts', 'Akkadian.txt')
-        output = cdli.__read_file__(file)
+        output = cdli.read_file(file)
         final = output[3042:3054]
         goal = ['24. _{gesz}ma2_ dan-na-tam',
                 '25. a-na be-el _{gesz}ma2_',
@@ -38,6 +38,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(final, goal)
 
     def test_discern_texts(self):
+        """
+        Tests __discern_texts__.
+        """
         cdli = FileImport()
         text = \
             ["Primary publication: ARM 01, 001",
@@ -57,6 +60,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(output, goal)
 
     def test_split_texts(self):
+        """
+        Tests __split_texts__.
+        """
         cdli = FileImport()
         text = \
             ["Primary publication: ARM 01, 001",
@@ -87,6 +93,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         self.assertEqual(list(output), goal)
 
     def text_text_contents(self):
+        """
+        Tests text_contents.
+        """
         cdli = FileImport()
         text = \
             ["Primary publication: ARM 01, 001",
@@ -117,6 +126,81 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                      "Author(s): Dossin, Georges",
                      "&P254203 = ARM 01, 002"]}
         self.assertEqual(output, goal)
+
+    def test_texts_within_file(self):
+        """
+        Tests texts_within_file.
+        """
+        cdli = FileImport()
+        file = os.path.join('..', 'texts', 'Akkadian.txt')
+        text = cdli.read_file(file)
+        goal = "&P249253 = RIME 4.03.06.add21, ex. 01"
+        output = cdli.texts_within_file(text)
+        self.assertEqual(output, goal)
+
+    def test_text_print(self):
+        """
+        Tests text_print.
+        """
+        cdli = FileImport()
+        file = os.path.join('..', 'texts', 'Akkadian.txt')
+        text = cdli.read_file(file)
+        content = cdli.text_contents(text[0:50])
+        output = cdli.text_print(content,
+                                 '&P249253 = RIME 4.03.06.add21, ex. 01')
+        goal = \
+"""Primary publication: RIME 4.03.06.add21, ex. 01
+Author(s): Frayne, Douglas R.
+Publication date: 1990
+Secondary publication(s): Bergmann, Eugen, Codex Hammurapi
+Collection: Louvre Museum, Paris, France
+Museum no.: Sb 00008
+Accession no.:
+Provenience: Susa (mod. Shush)
+Excavation no.:
+Period: Old Babylonian (ca. 1900-1600 BC)
+Dates referenced: Hammurapi.00.00.00
+Object type: other (see object remarks)
+Remarks: stele
+Material: stone: basalt
+Language: Akkadian
+Genre: Royal/Monumental
+Sub-genre: witness
+CDLI comments:
+Catalogue source: 20041012 cdliadmin
+ATF source: Roth, Martha
+Translation:
+UCLA Library ARK: 21198/zz001t8p9j
+Composite no.: Q006387
+Seal no.:
+CDLI no.: P249253
+Transliteration:
+&P249253 = RIME 4.03.06.add21, ex. 01
+#atf: lang akk
+@object stele
+@surface a
+@column 1
+@prologue
+1. i3-nu an s,i-ru-um
+2. _lugal_ {d}a-nun-na-ki
+3. {d}en-lil2
+4. be-el sza-me-e
+5. u3 er-s,e-tim
+6. sza-i-im
+7. szi-ma-at _kalam_
+8. a-na {d}marduk
+9. _dumu_ re-esz-ti-im
+10. sza {d}en-ki
+11. {d}en-lil2-ut
+12. kisz ni-szi3
+13. i-szi-mu-szum
+14. in i-gi4-gi4
+15. u2-szar-bi2-u3-szu
+16. babila{ki}
+17. szum-szu s,i-ra-am ib-bi-u3
+18. in ki-ib-ra-tim"""
+        self.assertEqual(output, goal)
+
 
 if __name__ == '__main__':
     unittest.main()
