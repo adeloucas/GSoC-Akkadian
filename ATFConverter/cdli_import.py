@@ -17,6 +17,8 @@ or not it is Code of Hammurabi, a collection of texts such as ARM01, or
 whatever your search function desires.
 """
 
+import os
+import re
 from cltk.corpus.utils.importer import CorpusImporter
 corpus_importer = CorpusImporter('akkadian')
 corpus_importer.import_corpus('cdli_corpus')
@@ -135,10 +137,13 @@ class CDLIImport(object):
     (https://github.com/cdli-gh/data), or otherwise be able to pull any one
     text from CDLI with the CDLI_number.
     """
-    #def __init__(self):
-    #    """
-    #    :param: empty.
-    #    """
+    def __init__(self):
+        """
+        :param: empty.
+        """
+        self.import_text(cdli_number) = import_text(cdli_number)
+        self.__search_file__(text, cdli_number) = \
+            __search_file__(text, cdli_number)
 
     @staticmethod
     def __search_cdli__(cdli_number):
@@ -148,18 +153,32 @@ class CDLIImport(object):
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return: text of file
         """
+        line_output = []
+        with open(cldi_corpus, mode='r+', encoding='utf8') as text:
+            for line in text:
+                if re.match(cdli_number):
+                    line_output.append(line)
+        # continuing appending line for line until struck with an '&' or break
 
     @staticmethod
-    def __search_file__(cdli_number):
+    def __search_file__(text, cdli_number):
         """
         Takes cdli_number from __text_select__ and captures match in
         your friendly neighborhood text file.
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return: text of file
         """
+        line_output = []
+        file = os.path.join('texts', text)  # account for many locations?
+        with open(file, mode='r+', encoding='utf8') as text:
+            for line in text:
+                if re.match(cdli_number):
+                    line_output.append(line)
+                return line_output
+        # continuing appending line for line until struck with an empty line
+    # this is due to metadata existing where it doesn't exist in cdli_corpus(?)
 
-    @staticmethod
-    def __text_select__(source, cdli_number):
+    def import_text(self, cdli_number):
         """
         Using the cdli_number of a text as a call number, selects text that
         matches the cdli_number.
@@ -167,26 +186,20 @@ class CDLIImport(object):
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return:
         """
-
-    def __text_dictionary__(self):
-        """
-        Creates a dictionary where the key is text from file and value is text
-        from CDLI.
-        """
+        output = [self.__search_cdli__(cdli_number)]
+        return output
 
     def update_text(self, text_file, cdli_number):
         """
-        Matches __text_select__ and key from __text_dictionary__ and replaces
-        key with value in text.
+        Matches __search_file__ and replaces text with __search_cdli__
         :param text_file: downloaded file from CDLI
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return:
         """
-
-    def import_text(self, cdli_number):
-        """
-        Using the cdli_number of a text as a call number, selects text that
-        matches the cdli_number and prints the text.
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return:
-        """
+        cdli_text = self.import_text(cdli_number)
+        file_text = self.__search_file__(text_file, cdli_number)
+        file = os.path.join('texts', text_file)  # account for many locations?
+        with open(file, mode='r+', encoding='utf8') as text:
+            for file_text in text:
+                file_text.replace(file_text, cdli_text)
+            return "Text has been updated!"
