@@ -17,6 +17,10 @@ or not it is Code of Hammurabi, a collection of texts such as ARM01, or
 whatever your search function desires.
 """
 
+from cltk.corpus.utils.importer import CorpusImporter
+corpus_importer = CorpusImporter('akkadian')
+corpus_importer.import_corpus('cdli_corpus')
+
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
@@ -123,19 +127,66 @@ class FileImport(object):
 
         return '\n'.join(text_contents[key])
 
-class GithubImport(object):
-    """
-    The goal of this class is to take find the CDLI catalogue number of a text
-    and update to its most recent iteration found in the CDLI github repository
-    (https://github.com/cdli-gh/data, namely from the atf_unblocked file:
-    https://github.com/cdli-gh/data/blob/master/cdliatf_unblocked.atf).
 
-    the following are to be made:
-    1) open text file from github
-    2) match __discern_texts__ with CDLI number (e.g. &P254205)
-    3) capture entirety of text in atf file, write over and replace text file
+class CDLIImport(object):
+    """
+    The goal of this class is to take find the CDLI_number of a text and update
+    to its most recent iteration found in the CDLI github repository
+    (https://github.com/cdli-gh/data), or otherwise be able to pull any one
+    text from CDLI with the CDLI_number.
     """
     #def __init__(self):
     #    """
     #    :param: empty.
     #    """
+
+    @staticmethod
+    def __search_cdli__(cdli_number):
+        """
+        Takes cdli_number from __text_select__ and captures match in
+        unblocked.atf file.
+        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        :return: text of file
+        """
+
+    @staticmethod
+    def __search_file__(cdli_number):
+        """
+        Takes cdli_number from __text_select__ and captures match in
+        your friendly neighborhood text file.
+        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        :return: text of file
+        """
+
+    @staticmethod
+    def __text_select__(source, cdli_number):
+        """
+        Using the cdli_number of a text as a call number, selects text that
+        matches the cdli_number.
+        :param source: either CDLI or File
+        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        :return:
+        """
+
+    def __text_dictionary__(self):
+        """
+        Creates a dictionary where the key is text from file and value is text
+        from CDLI.
+        """
+
+    def update_text(self, text_file, cdli_number):
+        """
+        Matches __text_select__ and key from __text_dictionary__ and replaces
+        key with value in text.
+        :param text_file: downloaded file from CDLI
+        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        :return:
+        """
+
+    def import_text(self, cdli_number):
+        """
+        Using the cdli_number of a text as a call number, selects text that
+        matches the cdli_number and prints the text.
+        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        :return:
+        """

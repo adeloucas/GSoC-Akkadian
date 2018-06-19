@@ -200,6 +200,7 @@ Transliteration:
 17. szum-szu s,i-ra-am ib-bi-u3
 18. in ki-ib-ra-tim"""
         self.assertEqual(output, goal)
+# start with CDLIImport
 
 
 if __name__ == '__main__':

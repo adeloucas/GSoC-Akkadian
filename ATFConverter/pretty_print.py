@@ -9,6 +9,8 @@ data can be presented in an easy-to-print manner ready for teaching or article
 publication.
 """
 
+import re
+
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
