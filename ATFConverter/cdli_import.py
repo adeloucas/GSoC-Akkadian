@@ -18,10 +18,6 @@ whatever your search function desires.
 """
 
 import os
-import re
-from cltk.corpus.utils.importer import CorpusImporter
-corpus_importer = CorpusImporter('akkadian')
-corpus_importer.import_corpus('cdli_corpus')
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -63,21 +59,24 @@ class FileImport(object):
         return output
 
     @staticmethod
-    def __split_texts__(read_file):
+    def __split_texts__(file):
         """
         Using read_file, this process separates out tablets based off of
         metadata in the file.
-        :param read_file: This is the text file that you downloaded from
+        :param file: This is the text file that you downloaded from
         CDLI.
         :return: List that separates out disparate texts into lists of strings.
         """
-        output = []
-        for line in read_file:
-            if line.startswith('Primary'):
-                yield output
-                output = []
-            output.append(line)
-        yield output    # issue: prints "[[]" before list
+        texts, text = [], []        # cdli_test not working...
+        for line in file:
+            if line.strip() == '':
+                if len(text) > 0:
+                    texts.append(text)
+                text = []
+            else:
+                text.append(line.strip())
+        return texts, text
+
 
     def texts_within_file(self, read_file):
         """
@@ -139,14 +138,13 @@ class CDLIImport(object):
     """
     def __init__(self):
         """
-        :param: empty.
+        :param cdli_corpus: This can be downloaded through CLTK. The file is
+        saved as "cdli_atfunblocked.atf" and can be renamed locally
+        as a .txt with usable with no other changes.
         """
-        self.import_text(cdli_number) = import_text(cdli_number)
-        self.__search_file__(text, cdli_number) = \
-            __search_file__(text, cdli_number)
+        self.read_file = FileImport.read_file
 
-    @staticmethod
-    def __search_cdli__(cdli_number):
+    def __search_cdli__(self, cdli_number):
         """
         Takes cdli_number from __text_select__ and captures match in
         unblocked.atf file.
@@ -154,14 +152,15 @@ class CDLIImport(object):
         :return: text of file
         """
         line_output = []
-        with open(cldi_corpus, mode='r+', encoding='utf8') as text:
-            for line in text:
-                if re.match(cdli_number):
-                    line_output.append(line)
+        file = os.path.join('..', 'texts', 'cdli_text.txt')
+        self.read_file(file)
+        if cdli_number in line:
+                line_output.append(line)
         # continuing appending line for line until struck with an '&' or break
+        # can I connect this with __split_texts__ function?
+        return line_output
 
-    @staticmethod
-    def __search_file__(text, cdli_number):
+    def __search_file__(self, text, cdli_number):
         """
         Takes cdli_number from __text_select__ and captures match in
         your friendly neighborhood text file.
@@ -169,14 +168,13 @@ class CDLIImport(object):
         :return: text of file
         """
         line_output = []
-        file = os.path.join('texts', text)  # account for many locations?
-        with open(file, mode='r+', encoding='utf8') as text:
-            for line in text:
-                if re.match(cdli_number):
-                    line_output.append(line)
-                return line_output
+        file = os.path.join('..', 'texts', text)
+        self.read_file(file)
+        if cdli_number in line:
+            line_output.append(line)
+        return line_output
         # continuing appending line for line until struck with an empty line
-    # this is due to metadata existing where it doesn't exist in cdli_corpus(?)
+        # this is due to metadata possibly existing when it doesn't exist in cdli_corpus
 
     def import_text(self, cdli_number):
         """
@@ -198,8 +196,8 @@ class CDLIImport(object):
         """
         cdli_text = self.import_text(cdli_number)
         file_text = self.__search_file__(text_file, cdli_number)
-        file = os.path.join('texts', text_file)  # account for many locations?
-        with open(file, mode='r+', encoding='utf8') as text:
-            for file_text in text:
-                file_text.replace(file_text, cdli_text)
-            return "Text has been updated!"
+        file = os.path.join('..', 'texts', text_file)
+        self.read_file(file)
+        for file_text in text_file:     # can this even work?
+            file_text.replace(file_text, cdli_text)
+        return "Text has been updated!"
