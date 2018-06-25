@@ -67,16 +67,15 @@ class FileImport(object):
         CDLI.
         :return: List that separates out disparate texts into lists of strings.
         """
-        texts, text = [], []        # cdli_test not working...
+        texts, text = [], []
         for line in file:
             if line.strip() == '':
-                if len(text) > 0:
+                if len(text) > 0:   # pylint: disable =len-as-condition
                     texts.append(text)
                 text = []
             else:
                 text.append(line.strip())
-        return texts, text
-
+        return texts    # doesn't print more than the first text...
 
     def texts_within_file(self, read_file):
         """
@@ -107,7 +106,7 @@ class FileImport(object):
         CDLI number or published name of text as key & said text as its value.
         """
         key = self.__discern_texts__(read_file)
-        value = list(self.__split_texts__(read_file))
+        value = list(self.__split_texts__(read_file))   # split doesn't work
         texts = zip(key, value[1:])
         text_dict = dict(texts)
 
@@ -122,11 +121,11 @@ class FileImport(object):
         "\n".join(FileImport().text_contents(FileImport().read_file(file)).keys()).
 
         :param text_contents:
-        :param value:
+        :param key:
         :return:
         """
 
-        return '\n'.join(text_contents[key])
+        return '\n'.join(text_contents[key])    # split doesn't work
 
 
 class CDLIImport(object):
@@ -142,9 +141,9 @@ class CDLIImport(object):
         saved as "cdli_atfunblocked.atf" and can be renamed locally
         as a .txt with usable with no other changes.
         """
-        self.read_file = FileImport.read_file
 
-    def __search_cdli__(self, cdli_number):
+    @staticmethod
+    def __cdli_pull__(cdli_number):
         """
         Takes cdli_number from __text_select__ and captures match in
         unblocked.atf file.
@@ -152,15 +151,18 @@ class CDLIImport(object):
         :return: text of file
         """
         line_output = []
-        file = os.path.join('..', 'texts', 'cdli_text.txt')
-        self.read_file(file)
-        if cdli_number in line:
-                line_output.append(line)
-        # continuing appending line for line until struck with an '&' or break
-        # can I connect this with __split_texts__ function?
+        f_i = FileImport()
+        file = f_i.read_file(os.path.join('..', 'texts', 'cdli_corpus.txt'))
+        content = f_i.text_contents(file)
+
+        for line in file:
+            if cdli_number in line:
+                #line_output.append(line)
+                line_output.append(f_i.text_print(content, line))    # split
         return line_output
 
-    def __search_file__(self, text, cdli_number):
+    @staticmethod
+    def __file_pull__(text, cdli_number):
         """
         Takes cdli_number from __text_select__ and captures match in
         your friendly neighborhood text file.
@@ -168,13 +170,15 @@ class CDLIImport(object):
         :return: text of file
         """
         line_output = []
-        file = os.path.join('..', 'texts', text)
-        self.read_file(file)
-        if cdli_number in line:
-            line_output.append(line)
+        f_i = FileImport()
+        file = f_i.read_file(os.path.join('..', 'texts', text))
+        content = f_i.text_contents(file)    # split
+
+        for line in file:
+            if cdli_number in line:
+                #line_output.append(line)
+                line_output.append(f_i.text_print(content, line))    # split
         return line_output
-        # continuing appending line for line until struck with an empty line
-        # this is due to metadata possibly existing when it doesn't exist in cdli_corpus
 
     def import_text(self, cdli_number):
         """
@@ -184,20 +188,20 @@ class CDLIImport(object):
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return:
         """
-        output = [self.__search_cdli__(cdli_number)]
+        output = [self.__cdli_pull__(cdli_number)]    # split
         return output
 
-    def update_text(self, text_file, cdli_number):
+    @staticmethod
+    def update_text(text_file, cdli_number):
         """
         Matches __search_file__ and replaces text with __search_cdli__
         :param text_file: downloaded file from CDLI
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return:
         """
-        cdli_text = self.import_text(cdli_number)
-        file_text = self.__search_file__(text_file, cdli_number)
+        output = []
         file = os.path.join('..', 'texts', text_file)
-        self.read_file(file)
-        for file_text in text_file:     # can this even work?
-            file_text.replace(file_text, cdli_text)
-        return "Text has been updated!"
+        with open(file, mode='w', encoding='utf8') as text:
+            if cdli_number in text:
+                output.append(cdli_number)
+            return output
