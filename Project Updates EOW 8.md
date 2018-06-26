@@ -64,10 +64,21 @@ b) Establish Pretty Printing  \
 c) Establish CDLI Corpus Reader
 
 ## Week 9 (June 18 - June 25)
+1) Began building out Importer class -- File- and CDLI-Import
+2) Addressing changes in scope of project
+3) PEP8 editing
 
 ## Week 10 (June 25 - July 2)
+1) Project Presentation for CLTK
+2) Spec writing for project and individual components of code
+3) Finish Importer
+4) Build out Pretty Printing class
 
 ## Week 11 (July 2 - July 9)
+1) Clean up Importer
+2) Finish Pretty Printing class
+3) Review remarks and make adjustments from CLTK meeting
+4)
 
 ## Week 12 (July 9 - July 16)
 

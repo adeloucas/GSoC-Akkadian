@@ -1,4 +1,4 @@
-from ATFConverter.cdli_import import FileImport
+from Importer.cdli_import import FileImport
 from ATFConverter.atf_converter import ATFConverter
 from ATFConverter.tokenizer import Tokenizer
 from ATFConverter.pretty_print import PrettyPrint

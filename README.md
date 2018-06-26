@@ -25,10 +25,6 @@ Github: https://github.com/TylerKirby
 
 This is the main converter class for this project.
 
-#### cdli_import.py
-
-This is the main import class for this project.
-
 #### lemmatizer.py
 
 This is the main lemmatization class for this project.
@@ -41,15 +37,29 @@ This is the printing class for this project.
 
 This is the main tokenizer class for this project.
 
+### Importer
+
+#### file_import.py
+
+This is the file import class for this project.
+
+#### cdli_import.py
+
+This is the cdli import class for this project.
+
 ### tests
 
 #### atf_test.py
 
 Tests that check individual parts of the atf_converter class.
 
-#### cdli_test.py
+#### cdli_import_test.py
 
 Tests that check individual parts of the cdli_import class.
+
+#### file_import_test.py
+
+Tests that check individual parts of the file_import class.
 
 ### pretty_test.py
 
@@ -71,12 +81,21 @@ Hammurabi. Information can be found in the file.
 A text file that contains the ATF information of the publication ARM 01.
 Information can be found in the file.
 
+#### cdli_corpus.txt
+
+A text file that is downloaded from the CLTK; this is a daily back-up of
+the texts found in the CDLI.
+
+#### cdli_text.txt
+
+A test text file for configuring functions that utilize cdli_corpus.txt.
+
 #### Transliteration.txt
 
 A text file that contains the ATF info for Codex Hammurabi including
 translation. Information can be found in the file.
 
-### Project Updates EOW 7.md
+### Project Updates EOW 8.md
 
 I will be updating weekly the development of this project, labeled as
 such until final submission week.
