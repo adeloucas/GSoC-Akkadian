@@ -49,7 +49,6 @@ class Tokenizer(object):
         self.damage = preserve_damage
         self.metadata = preserve_metadata
 
-
     def string_tokenizer(self, untokenized_string: str, include_blanks=False):
         """
         This function is based off CLTK's line tokenizer. Use this for strings

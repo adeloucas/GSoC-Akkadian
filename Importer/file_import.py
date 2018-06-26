@@ -1,20 +1,17 @@
 """
-This module is for taking CDLI downloads files and creating disparate texts
+This module is for taking CDLI download files and creating disparate texts
 out of CDLI's "download all text" option:
 (https://cdli.ucla.edu/search/download_data_new.php?data_type=all).
 
-At current, one can produce either one text
-(Code of Hammurabi:
+At current, one can produce either one text (e.g. Code of Hammurabi:
 https://cdli.ucla.edu/search/search_results.php?ObjectID=P249253)
-or a variety of texts via search functions:
-(ARM 01 publication:
-https://cdli.ucla.edu/search/search_results.php?PrimaryPublication=ARM+01)
+or a variety of texts via search functions (e.g. ARM 01 publication:
+https://cdli.ucla.edu/search/search_results.php?PrimaryPublication=ARM+01).
 
-The goal of this feature is to be able to use meta data available in the
-atf_converter to separate out text files on a 'case-by-case' standard; this
-feature sets up the ability to work with cuneiform text(s) one-on-one whether
-or not it is Code of Hammurabi, a collection of texts such as ARM01, or
-whatever your search function desires.
+The goal of this feature is to be able to separate out text files on a
+'case-by-case' standard; this feature sets up the ability to work with
+cuneiform text(s) one-on-one whether it is Code of Hammurabi, a collection of
+texts such as ARM01, or whatever your search function desires.
 """
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
@@ -26,9 +23,9 @@ class FileImport(object):
     The goal of this class is to take a file downloaded from CDLI's website
     (https://cdli.ucla.edu/search/download_data_new.php?data_type=all)
     and prepare it for text-by-text analysis. It separates out from a file
-    instances of disparate texts, should the file contain several texts within
-    one file (e.g. ARM1Akkadian.txt has 139 unique tablets within its one file,
-    whereas Akkadian.txt contains only one "tablet").
+    instances into disparate texts, should the file contain several texts
+    within one file (e.g. ARM1Akkadian.txt has 139 unique tablets within its
+    one file, whereas Akkadian.txt contains only one "tablet").
     """
 
     @staticmethod
@@ -48,10 +45,10 @@ class FileImport(object):
     def __discern_texts__(read_file):
         """
         Using the read_file function, this process recognizes tablets
-        based off of metadata in the file.
+        based off of metadata in the file. Used to create a key of each title.
         :param read_file: This is the text file that you downloaded from
         CDLI.
-        :return: List that notes disparate texts in the downloaded file.
+        :return: List that titles of disparate texts in the downloaded file.
         """
         output = [line for line in read_file if line.startswith('&P')]
         return output
@@ -60,7 +57,7 @@ class FileImport(object):
     def __split_texts__(file):
         """
         Using read_file, this process separates out tablets based off of
-        metadata in the file.
+        metadata in the file. Used to create a value of each text body.
         :param file: This is the text file that you downloaded from
         CDLI.
         :return: List that separates out disparate texts into lists of strings.
@@ -79,30 +76,32 @@ class FileImport(object):
     def texts_within_file(self, read_file):
         """
         Using the read_file function, this process utilizes discern_texts
-        and split_texts in order to create a dictionary of texts from the file.
-
-        i.e. either "ARM 01, 001" or "&P254202" for key; the text for value.
+        in order to create a table of contents from the file.
 
         :param read_file: This is the text file that you downloaded from
         CDLI.
-        :return: Dictionary of separated texts in a file with either the
-        CDLI number or published name of text as key & said text as its value.
+        :return: List of disparate texts in toto from read_file
         """
 
         titles = self.__discern_texts__(read_file)
         return titles
 
-    def text_contents(self, read_file):
+    def __text_contents__(self, read_file):
         """
-        Using the read_file function, this process utilizes discern_texts
-        and split_texts in order to create a dictionary of texts from the file.
+        Using the read_file function, this process utilizes __discern_texts__
+        and __split_texts__ in order to create a dictionary of texts from
+        the file.
 
-        i.e. either "ARM 01, 001" or "&P254202" for key; the text for value.
+        i.e. discern_texts for key; split_texts for value:
+        {'&P254203 = ARM 01, 002': ["&P254203 = ARM 01, 002",
+                                    "#atf: lang akk",
+                                    "@tablet"
+                                    "etc."]}
 
         :param read_file: This is the text file that you downloaded from
         CDLI.
-        :return: Dictionary of separated texts in a file with either the
-        CDLI number or published name of text as key & said text as its value.
+        :return: Dictionary of disparate texts in a file with line containing a
+        CDLI number and published name of text as key & said text as its value.
         """
         key = self.__discern_texts__(read_file)
         value = list(self.__split_texts__(read_file))   # split doesn't work
@@ -112,15 +111,20 @@ class FileImport(object):
         return text_dict
 
     @staticmethod
-    def text_print(text_contents, key):
+    def text_print(read_file, key):
         """
         Using text_contents, select the respective key you wish to print for
-        tokenization or pretty printing. To find the keys (i.e. texts) in the
-        file:
-        "\n".join(FileImport().text_contents(FileImport().read_file(file)).keys()).
+        tokenization or pretty printing.
 
-        :param text_contents:
-        :param key:
+        i.e.:
+        texts = file_import.__text_contents__(file)
+        text_print(texts, '&P254203 = ARM 01, 002')
+
+        :param read_file: This is the text file that you downloaded from
+        CDLI.
+        :param key: This is any string provided by texts_within_file method.
         :return:
         """
+
+        text_contents = FileImport().__text_contents__(read_file)
         return text_contents[key]

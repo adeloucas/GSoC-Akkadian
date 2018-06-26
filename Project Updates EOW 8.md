@@ -67,6 +67,8 @@ c) Establish CDLI Corpus Reader
 1) Began building out Importer class -- File- and CDLI-Import
 2) Addressing changes in scope of project
 3) PEP8 editing
+4) Program Specification Write-up in README
+5) Doc- and methodstrings updated
 
 ## Week 10 (June 25 - July 2)
 1) Project Presentation for CLTK

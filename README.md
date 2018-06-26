@@ -16,59 +16,165 @@ Willis Monroe \
 Github: https://github.com/willismonroe \
 Tyler Kirby \
 Github: https://github.com/TylerKirby
-       
-## Table of Contents
+***
+
+## Program Specification
+
+    The purpose of this project is to take texts from CDLI and
+    output a normalized text.
 
 ### ATFConverter
 
+The ATFConverter folder contains classes that are typically performed by
+this project: __atf-unicode conversion, tokenization, lemmatization,__
+_normalization*_, and __printing__.
+
+The goal of this is to reconstruct a normalized spelling of Akkadian
+out of CDLI’s ATF text and thus create data available for two
+fundamental uses:
+
+1) ___allowance of
+individuals to learn and practice Akkadian with real and novel reading
+exercises___; and
+2) ___be analyzed on a mass scale.___
+
+_*normalization will not be finished by the end of this project._
+
 #### atf_converter.py
 
-This is the main converter class for this project.
+    atf_converter is for converting tokens made from CDLI's ATF-formatted
+    text into a standard unicode format.
+
+The atf_converter depends upon word and sign tokenizer outputs. The
+method __process__ uses a list of tokens and will return the list
+converted from ATF format to print-format:
+
+input =  _["a", "a2", "a3", "geme2", bad3", "buru14"]_
+
+output =  _["a", "á", "à", "géme", "bàd", "buru₁₄"]_
+
+
+Behind this process, there are 4 methods: __convert_consonant__,
+__convert_number_to_subscript__, __get_number_from_sign__, and
+__convert_num__. Each method focuses on individual components of each
+sign.
+
+___Only process should be used from this class.___
+
+_Enhancement: ignore metadata and damage preserved in tokenizer._
 
 #### lemmatizer.py
 
-This is the main lemmatization class for this project.
+    lemmatizer is the main lemmatization class for this project.
+
+Will begin in phase 3.
 
 #### pretty_print.py
 
-This is the printing class for this project.
+    pretty print is for printing ATF data in an aesthetically pleasing
+    way based off standard print publication of tablets.
+
+The goal of this class is to print atf-code in an easy-to-print manner
+ready for teaching or article publication.
+
+Currently, this class takes the method __print_sign_language__ from the
+tokenizer class and prints the final product with
+__reader_reconstruction__.
+
+_Enhancement: taking and utilzing metadata and damage preserved in
+tokenizer._
 
 #### tokenizer.py
 
-This is the main tokenizer class for this project.
+    tokenizer reads ATF material and converts the data into
+    readable, mutable tokens.
+
+The string tokenizer is used for any string-based input (e.g.
+copy-and-paste lines from a document) and line tokenizer is for any .txt
+document that is downloaded from CDLI. The ATFConverter depends upon the
+word and sign tokenizer outputs.
+
+There are two types of preservation in the tokenizer should the data
+come from a text file downloaded from CDLI. If it comes out of the
+CDLI_Import class, then __preserve_metadata__ is be ignored;
+__preserver_damage__ maintains added CDLI notation for scribal errors
+and sign damage.
+
+This class has four types of tokenizers:
+1) _string and line tokenizers_,
+2) _word tokenizers_,
+3) _sign tokenizers_, and
+4) _the print_friendly verions of the above three tokenizers_.
+***
 
 ### Importer
 
+This folder contains the two classes that are to be used in order to
+take data from CDLI into the ATFConverter.
+
+__This folder takes two forms of data:__
+
+1) _Downloaded .atf files from  CDLI's "download all text" option:
+   (https://cdli.ucla.edu/search/download_data_new.php?data_type=all)_
+2) _Text downloaded from CDLI's most recent backed-up iteration found in
+    the CDLI github repository_.
+
+
 #### file_import.py
 
-This is the file import class for this project.
+    file_import is for disparating a selection of CDLI's ATF-formatted
+    texts downloaded into a single text file.
+
+This class sets up the ability to work with cuneiform text(s) one-on-one
+whether it is Code of Hammurabi, a collection of texts such as ARM01, or
+whatever your search function desires.
+
+File_import depends upon inital __read_file__ method, which needs a
+downloaded atf file from CDLI. There, one may view __texts_within_file__
+and choose which text to print with __text_print__.
+
+Behind these methods are 3 conversions: __discern_texts__,
+__split_texts__, and __text_contents__.
+
 
 #### cdli_import.py
 
-This is the cdli import class for this project.
+    cdli_import is for importing, or updating specific texts from CDLI.
+
+Cdli_import depends upon the CLTK's CDLI Corpus, instructions below:
+
+https://github.com/cltk/tutorials/blob/master/2%20Import%20corpora.ipynb
+
+1) Install CLTK
+2) from cltk.corpus.utils.importer import CorpusImporter
+3) akkadian_downloader = CorpusImporter("Akkadian")
+4) akkadian_downloader.import_corpus("cdli_corpus")
+5) From this, take "cdliatf_unblocked.atf" and remane it to anything.txt
+
+There are two used methods, __import_text__, which imports from CDLI's
+backup file _only the tablet's text, not including its metadata_, and
+__update_text__.
+
+
+Behind these methods is 1 other method: __file_pull__.
+***
 
 ### tests
 
-#### atf_test.py
+This folder contains the various classes that are typically performed by
+this project: atf-unicode conversion, tokenization, lemmatization,
+normalization, and printing.
 
-Tests that check individual parts of the atf_converter class.
+##### atf_test.py
 
-#### cdli_import_test.py
+##### cdli_import_test.py
 
-Tests that check individual parts of the cdli_import class.
+##### file_import_test.py
 
-#### file_import_test.py
+##### pretty_test.py
 
-Tests that check individual parts of the file_import class.
-
-### pretty_test.py
-
-Tests that check individual parts of the pretty_print class.
-
-#### token_test.py
-
-Tests that check individual parts of the tokenizer class.
-
+##### token_test.py
+***
 ### texts
 
 #### Akkadian.txt
@@ -94,6 +200,7 @@ A test text file for configuring functions that utilize cdli_corpus.txt.
 
 A text file that contains the ATF info for Codex Hammurabi including
 translation. Information can be found in the file.
+***
 
 ### Project Updates EOW 8.md
 

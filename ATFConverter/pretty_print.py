@@ -1,5 +1,5 @@
 """
-This module is for printing ATF data in a aesthetically pleasing way based
+This module is for printing ATF data in an aesthetically pleasing way based
 off standard print publication of tablets. Currently, this feature utilizes
 print_sign_tokenizer within the tokenizer feature of this project.
 
@@ -8,8 +8,6 @@ ability to print damaged characters as well as metadata in such a way that ATF
 data can be presented in an easy-to-print manner ready for teaching or article
 publication.
 """
-
-import re
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -30,22 +28,10 @@ class PrettyPrint(object):
         """
         Removes underscore from print_sign_language.
 
-        input: [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
-                 ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
-                 ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                 ('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
-                 ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                 ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                 ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                 ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]
-        output: [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
-                 ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
-                 ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                 ('underscore', ''), ('space', ' '), ('akkadian', 'i'),
-                 ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                 ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                 ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                 ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]
+        input: [[('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
+                 ('hyphen', '-'), ('akkadian', 'na'), ('space', ' ')]]
+        output:[[('underscore', ''), ('space', ' '), ('akkadian', 'i'),
+                 ('hyphen', '-'), ('akkadian', 'na'), ('space', ' ')]
 
         :param print_sign_language: list of tuples
         :return: list of tuples
@@ -61,22 +47,9 @@ class PrettyPrint(object):
         Capitalizes Sumerian words in print_sign_language.
 
         input: [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
-                ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
-                ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                ('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
-                ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
-        output: [[('sumerian', 'U₄'), ('space', ' '), ('number', '2(diš)'),
-                 ('hyphen', '-'), ('sumerian', 'KAM'), ('space', ' '),
-                 ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'KAM'),
-                 ('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
-                 ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                 ('sumerian', 'É'), ('hyphen', '-'), ('sumerian', 'HI'),
-                 ('hyphen', '-'), ('sumerian', 'A'), ('hyphen', '-'),
-                 ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
-
+                ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' ')]]
+        output:[[('sumerian', 'U₄'), ('space', ' '), ('number', '2(diš)'),
+                 ('hyphen', '-'), ('sumerian', 'KAM'), ('space', ' ')]]
 
         :param print_sign_language: list of tuples
         :return: list of tuples
