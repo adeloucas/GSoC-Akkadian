@@ -17,8 +17,6 @@ or not it is Code of Hammurabi, a collection of texts such as ARM01, or
 whatever your search function desires.
 """
 
-import os
-
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
@@ -55,7 +53,7 @@ class FileImport(object):
         CDLI.
         :return: List that notes disparate texts in the downloaded file.
         """
-        output = [line for line in read_file if line.startswith('&')]
+        output = [line for line in read_file if line.startswith('&P')]
         return output
 
     @staticmethod
@@ -75,7 +73,8 @@ class FileImport(object):
                 text = []
             else:
                 text.append(line.strip())
-        return texts    # doesn't print more than the first text...
+        texts.append(text)
+        return texts
 
     def texts_within_file(self, read_file):
         """
@@ -91,7 +90,7 @@ class FileImport(object):
         """
 
         titles = self.__discern_texts__(read_file)
-        return "\n".join(titles)
+        return titles
 
     def text_contents(self, read_file):
         """
@@ -107,7 +106,7 @@ class FileImport(object):
         """
         key = self.__discern_texts__(read_file)
         value = list(self.__split_texts__(read_file))   # split doesn't work
-        texts = zip(key, value[1:])
+        texts = zip(key, value)
         text_dict = dict(texts)
 
         return text_dict
@@ -124,84 +123,4 @@ class FileImport(object):
         :param key:
         :return:
         """
-
-        return '\n'.join(text_contents[key])    # split doesn't work
-
-
-class CDLIImport(object):
-    """
-    The goal of this class is to take find the CDLI_number of a text and update
-    to its most recent iteration found in the CDLI github repository
-    (https://github.com/cdli-gh/data), or otherwise be able to pull any one
-    text from CDLI with the CDLI_number.
-    """
-    def __init__(self):
-        """
-        :param cdli_corpus: This can be downloaded through CLTK. The file is
-        saved as "cdli_atfunblocked.atf" and can be renamed locally
-        as a .txt with usable with no other changes.
-        """
-
-    @staticmethod
-    def __cdli_pull__(cdli_number):
-        """
-        Takes cdli_number from __text_select__ and captures match in
-        unblocked.atf file.
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return: text of file
-        """
-        line_output = []
-        f_i = FileImport()
-        file = f_i.read_file(os.path.join('..', 'texts', 'cdli_corpus.txt'))
-        content = f_i.text_contents(file)
-
-        for line in file:
-            if cdli_number in line:
-                #line_output.append(line)
-                line_output.append(f_i.text_print(content, line))    # split
-        return line_output
-
-    @staticmethod
-    def __file_pull__(text, cdli_number):
-        """
-        Takes cdli_number from __text_select__ and captures match in
-        your friendly neighborhood text file.
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return: text of file
-        """
-        line_output = []
-        f_i = FileImport()
-        file = f_i.read_file(os.path.join('..', 'texts', text))
-        content = f_i.text_contents(file)    # split
-
-        for line in file:
-            if cdli_number in line:
-                #line_output.append(line)
-                line_output.append(f_i.text_print(content, line))    # split
-        return line_output
-
-    def import_text(self, cdli_number):
-        """
-        Using the cdli_number of a text as a call number, selects text that
-        matches the cdli_number.
-        :param source: either CDLI or File
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return:
-        """
-        output = [self.__cdli_pull__(cdli_number)]    # split
-        return output
-
-    @staticmethod
-    def update_text(text_file, cdli_number):
-        """
-        Matches __search_file__ and replaces text with __search_cdli__
-        :param text_file: downloaded file from CDLI
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return:
-        """
-        output = []
-        file = os.path.join('..', 'texts', text_file)
-        with open(file, mode='w', encoding='utf8') as text:
-            if cdli_number in text:
-                output.append(cdli_number)
-            return output
+        return text_contents[key]
