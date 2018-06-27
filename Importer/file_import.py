@@ -14,6 +14,8 @@ cuneiform text(s) one-on-one whether it is Code of Hammurabi, a collection of
 texts such as ARM01, or whatever your search function desires.
 """
 
+import os
+
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
@@ -42,15 +44,15 @@ class FileImport(object):
             return line_output
 
     @staticmethod
-    def __discern_texts__(read_file):
+    def __discern_texts__(file):    # Issue: Not all texts have the ampersand
         """
         Using the read_file function, this process recognizes tablets
         based off of metadata in the file. Used to create a key of each title.
-        :param read_file: This is the text file that you downloaded from
+        :param file: This is the text file that you downloaded from
         CDLI.
         :return: List that titles of disparate texts in the downloaded file.
         """
-        output = [line for line in read_file if line.startswith('&P')]
+        output = [line for line in file if line.startswith('&P')]
         return output
 
     @staticmethod
@@ -73,20 +75,20 @@ class FileImport(object):
         texts.append(text)
         return texts
 
-    def texts_within_file(self, read_file):
+    def texts_within_file(self, file):
         """
         Using the read_file function, this process utilizes discern_texts
         in order to create a table of contents from the file.
 
-        :param read_file: This is the text file that you downloaded from
+        :param file: This is the text file that you downloaded from
         CDLI.
         :return: List of disparate texts in toto from read_file
         """
 
-        titles = self.__discern_texts__(read_file)
+        titles = self.__discern_texts__(file)
         return titles
 
-    def __text_contents__(self, read_file):
+    def __text_contents__(self, file):
         """
         Using the read_file function, this process utilizes __discern_texts__
         and __split_texts__ in order to create a dictionary of texts from
@@ -98,20 +100,21 @@ class FileImport(object):
                                     "@tablet"
                                     "etc."]}
 
-        :param read_file: This is the text file that you downloaded from
+        :param file: This is the text file that you downloaded from
         CDLI.
         :return: Dictionary of disparate texts in a file with line containing a
         CDLI number and published name of text as key & said text as its value.
         """
-        key = self.__discern_texts__(read_file)
-        value = list(self.__split_texts__(read_file))   # split doesn't work
+
+        key = self.__discern_texts__(file)
+        value = list(self.__split_texts__(file))   # split doesn't work
         texts = zip(key, value)
         text_dict = dict(texts)
 
         return text_dict
 
     @staticmethod
-    def text_print(read_file, key):
+    def text_print(file, key):
         """
         Using text_contents, select the respective key you wish to print for
         tokenization or pretty printing.
@@ -120,11 +123,13 @@ class FileImport(object):
         texts = file_import.__text_contents__(file)
         text_print(texts, '&P254203 = ARM 01, 002')
 
-        :param read_file: This is the text file that you downloaded from
+        :param file: This is the text file that you downloaded from
         CDLI.
         :param key: This is any string provided by texts_within_file method.
         :return:
         """
-
-        text_contents = FileImport().__text_contents__(read_file)
-        return text_contents[key]
+        cdli = FileImport()
+        file = os.path.join('..', 'texts', file)
+        text = cdli.read_file(file)
+        output = cdli.__text_contents__(text)
+        return output.get(key, '')

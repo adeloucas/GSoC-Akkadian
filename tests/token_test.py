@@ -3,7 +3,6 @@ This file tests methods in tokenizer.py.
 """
 
 import unittest
-import os
 from ATFConverter.tokenizer import Tokenizer    # pylint: disable=import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']

@@ -35,40 +35,48 @@ class CDLIImport(object):
         """
 
     @staticmethod
-    def __file_pull__(text, cdli_number):
+    def __file_pull__(read_file, key):
         """
         Takes cdli_number and captures match in your friendly neighborhood text
         file.
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        :param read_file: This is the text file that you downloaded from
+        CDLI.
+        :param key: the pnumber, e.g. P254202 or &P254202
         :return: strings of text by line in list form
         """
         output = []
         f_i = FileImport()
-        file = f_i.read_file(os.path.join('..', 'texts', text))
-        content = f_i.text_contents(file)
-
-        for line in file:
-            if cdli_number in line:
-                output.append(f_i.text_print(content, line))
+        file = os.path.join('..', 'texts', read_file)
+        text = f_i.read_file(file)
+        for line in text:
+            if key in line:
+                output.append(f_i.text_print(read_file, key))
+            if key not in line:
+                output.append('Whoops!')
         return output[0]
 
     @staticmethod
-    def import_text(cdli_number):
+    def import_text(key):  # false positive: I have issues importing...
         """
-        Takes cdli_number and captures match in unblocked.atf file.
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
+        Takes cdli_number and captures match in your friendly neighborhood text
+        file.
+        :param read_file: This is the text file that you downloaded from
+        CDLI.
+        :param key: the pnumber, e.g. P254202 or &P254202
         :return: strings of text by line in list form
         """
-        output = []     # fails on actual cdli_corpus, so not right solution...
+        output = []
         f_i = FileImport()
-        file = f_i.read_file(os.path.join('..', 'texts', 'cdli_text.txt'))
-        content = f_i.text_contents(file)
-        for line in file:
-            if cdli_number in line:
-                output.append(f_i.text_print(content, line))
+        file = os.path.join('..', 'texts', 'cdli_corpus.txt')
+        text = f_i.read_file(file)
+        for line in text:
+            if key in line:
+                output.append(f_i.text_print('cdli_corpus.txt', key))
+            if key not in line:
+                output.append('Whoops!')
         return output[0]
 
-    @staticmethod
+    @staticmethod  # not the actual method, just placeholder
     def update_text(text_file, cdli_number):
         """
         Matches __file_pull__ and replaces text with import_text
@@ -76,14 +84,14 @@ class CDLIImport(object):
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return:
         """
-        output = []         # not the actual method, just placeholder
+        output = []
         file = os.path.join('..', 'texts', text_file)
         with open(file, mode='w', encoding='utf8') as text:
             if cdli_number in text:
                 output.append(cdli_number)
             return output
 
-## Found This--- To Test Out
-#with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
-    #for line in file:
-        #print(line.replace(text_to_search, replacement_text), end='')
+    ## Found This--- To Test Out
+    #with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
+        #for line in file:
+            #print(line.replace(text_to_search, replacement_text), end='')
