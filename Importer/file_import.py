@@ -15,6 +15,7 @@ texts such as ARM01, or whatever your search function desires.
 """
 
 import os
+import re
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -37,14 +38,13 @@ class FileImport(object):
         :param file: This is the text file that you downloaded from CDLI.
         """
         line_output = []
-
         with open(file, mode='r+', encoding='utf8') as text:
             for line in text:
                 line_output.append(line.strip())
             return line_output
 
     @staticmethod
-    def __discern_texts__(file):    # Issue: Not all texts have the ampersand
+    def __discern_texts__(file):
         """
         Using the read_file function, this process recognizes tablets
         based off of metadata in the file. Used to create a key of each title.
@@ -52,8 +52,66 @@ class FileImport(object):
         CDLI.
         :return: List that titles of disparate texts in the downloaded file.
         """
-        output = [line for line in file if line.startswith('&P')]
+        output = []
+        for lines in file:
+            if re.match(r'^&P\d.*$', lines):
+                output.append(lines)
+            elif re.match(r'^P\d.*$', lines):
+                output.append(lines)
         return output
+
+    def __text_call_names__(self, file):
+        """
+        Uses
+        :param file: This is the text file that you downloaded from
+        CDLI.
+        :return: list of lists containing CDLI Number and text edition name.
+        """
+        output = []
+        try:
+            header = self.__discern_texts__(file)
+            for string in header:
+                if len(string) > 1:
+                    splitstring = string.split('=')
+                    pnum = splitstring[0].rstrip()
+                    edition = splitstring[1].lstrip()
+                    output.append([string, pnum, edition])
+                else:
+                    pnum = header[0].rstrip()
+                    output.append(pnum)
+            return output
+        except IndexError:
+            print("No header information in text: {}".format(file), repr(file))
+
+    def __p_is_ampersandp__(self):
+        """
+        This class equates the two varied styles of writing a CDLI number so
+        that the user or file_import and cdli_import can call upon either and
+        produce the same result.
+        :return: ???
+        """
+        #re.compile(r'^P\d.*$') = re.compile(r'^&P\d.*$')
+
+        # Rough thinking... perhaps go with something like:
+        # "if calling on either, utilize / search both ^&P\d.*$ and ^P\d.*$"?
+        # do we even need this function?
+
+    def __cdli_number_and_key_equivalence__(self, file):
+        """
+        This class creates a structure that enables file_import and cdli_import
+        to equate 'key' with both pnumber and text edition. Right now 'key' ==
+        __discern_texts__ output.
+
+        I.e.: I want to make 'key' understand that, in calling on any of the
+        following titles, &P254203 = ARM 01, 002; &P254203; ARM 01, 002, the
+        output will be the same:
+
+        ["&P254203 = ARM 01, 002", "#atf: lang akk", "@tablet", "etc."]
+
+        :return: ???
+        """
+
+        # See above for thought process
 
     @staticmethod
     def __split_texts__(file):
@@ -74,19 +132,6 @@ class FileImport(object):
                 text.append(line.strip())
         texts.append(text)
         return texts
-
-    def texts_within_file(self, file):
-        """
-        Using the read_file function, this process utilizes discern_texts
-        in order to create a table of contents from the file.
-
-        :param file: This is the text file that you downloaded from
-        CDLI.
-        :return: List of disparate texts in toto from read_file
-        """
-
-        titles = self.__discern_texts__(file)
-        return titles
 
     def __text_contents__(self, file):
         """
@@ -110,11 +155,9 @@ class FileImport(object):
         value = list(self.__split_texts__(file))   # split doesn't work
         texts = zip(key, value)
         text_dict = dict(texts)
-
         return text_dict
 
-    @staticmethod
-    def text_print(file, key):
+    def text_print(self, file, key):
         """
         Using text_contents, select the respective key you wish to print for
         tokenization or pretty printing.
@@ -125,11 +168,10 @@ class FileImport(object):
 
         :param file: This is the text file that you downloaded from
         CDLI.
-        :param key: This is any string provided by texts_within_file method.
+        :param key: This is any string provided by __discern_texts__ method.
         :return:
         """
-        cdli = FileImport()
         file = os.path.join('..', 'texts', file)
-        text = cdli.read_file(file)
-        output = cdli.__text_contents__(text)
+        text = self.read_file(file)
+        output = self.__text_contents__(text)
         return output.get(key, '')

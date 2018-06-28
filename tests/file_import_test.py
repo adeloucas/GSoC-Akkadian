@@ -137,29 +137,30 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         self.maxDiff = None                 # pylint: disable =invalid-name
         self.assertEqual(output, goal)
 
-    def test_texts_within_file(self):
+    def test_from_lines(self):
         """
-        Tests texts_within_file.
+        Tests from_lines
+        :return: text within file, separated as pnumber and edition.
         """
         cdli = FileImport()
         file = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
         text = cdli.read_file(file)
-        goal = ['&P254202 = ARM 01, 001',
-                '&P254203 = ARM 01, 002',
-                '&P254204 = ARM 01, 003',
-                '&P254205 = ARM 01, 004',
-                '&P254206 = ARM 01, 005',
-                '&P254207 = ARM 01, 006',
-                '&P254208 = ARM 01, 007',
-                '&P254209 = ARM 01, 008',
-                '&P254210 = ARM 01, 009',
-                '&P254211 = ARM 01, 010',
-                '&P254212 = ARM 01, 011',
-                '&P254213 = ARM 01, 012',
-                '&P254214 = ARM 01, 013',
-                '&P254215 = ARM 01, 014',
-                '&P254216 = ARM 01, 015']
-        output = cdli.texts_within_file(text[0:1000])
+        goal = [['&P254202 = ARM 01, 001', '&P254202', 'ARM 01, 001'],
+                ['&P254203 = ARM 01, 002', '&P254203', 'ARM 01, 002'],
+                ['&P254204 = ARM 01, 003', '&P254204', 'ARM 01, 003'],
+                ['&P254205 = ARM 01, 004', '&P254205', 'ARM 01, 004'],
+                ['&P254206 = ARM 01, 005', '&P254206', 'ARM 01, 005'],
+                ['&P254207 = ARM 01, 006', '&P254207', 'ARM 01, 006'],
+                ['&P254208 = ARM 01, 007', '&P254208', 'ARM 01, 007'],
+                ['&P254209 = ARM 01, 008', '&P254209', 'ARM 01, 008'],
+                ['&P254210 = ARM 01, 009', '&P254210', 'ARM 01, 009'],
+                ['&P254211 = ARM 01, 010', '&P254211', 'ARM 01, 010'],
+                ['&P254212 = ARM 01, 011', '&P254212', 'ARM 01, 011'],
+                ['&P254213 = ARM 01, 012', '&P254213', 'ARM 01, 012'],
+                ['&P254214 = ARM 01, 013', '&P254214', 'ARM 01, 013'],
+                ['&P254215 = ARM 01, 014', '&P254215', 'ARM 01, 014'],
+                ['&P254216 = ARM 01, 015', '&P254216', 'ARM 01, 015']]
+        output = cdli.__text_call_names__(text[0:1000])
         self.assertEqual(output, goal)
 
     def test_text_contents(self):

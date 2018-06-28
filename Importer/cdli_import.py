@@ -76,7 +76,7 @@ class CDLIImport(object):
                 output.append('Whoops!')
         return output[0]
 
-    @staticmethod  # not the actual method, just placeholder
+    @staticmethod           # not the actual method, just placeholder
     def update_text(text_file, cdli_number):
         """
         Matches __file_pull__ and replaces text with import_text
