@@ -76,9 +76,9 @@ class Tokenizer(object):
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
             if self.metadata:   # Make this unaffected by process, etc.
-                line_output.append(line.strip())
+                line_output.append(line.rstrip())
             elif re.match(r'^\d*\.|\d\'\.', line):
-                line_output.append(line.strip())
+                line_output.append(line.rstrip())
         return line_output
 
     def line_tokenizer(self, text):
@@ -105,9 +105,9 @@ class Tokenizer(object):
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
             if self.metadata:   # Make this unaffected by process, etc.
-                line_output.append(line.strip())
+                line_output.append(line.rstrip())
             elif re.match(r'^\d*\.|\d\'\.', line):
-                line_output.append(line.strip())
+                line_output.append(line.rstrip())
         return line_output
 
     @staticmethod

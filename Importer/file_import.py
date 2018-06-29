@@ -40,7 +40,7 @@ class FileImport(object):
         line_output = []
         with open(file, mode='r+', encoding='utf8') as text:
             for line in text:
-                line_output.append(line.strip())
+                line_output.append(line.rstrip())
             return line_output
 
     @staticmethod
@@ -75,43 +75,13 @@ class FileImport(object):
                     splitstring = string.split('=')
                     pnum = splitstring[0].rstrip()
                     edition = splitstring[1].lstrip()
-                    output.append([string, pnum, edition])
+                    output.append(pnum), output.append(edition)  # pylint: disable =expression-not-assigned
                 else:
                     pnum = header[0].rstrip()
                     output.append(pnum)
             return output
         except IndexError:
             print("No header information in text: {}".format(file), repr(file))
-
-    def __p_is_ampersandp__(self):
-        """
-        This class equates the two varied styles of writing a CDLI number so
-        that the user or file_import and cdli_import can call upon either and
-        produce the same result.
-        :return: ???
-        """
-        #re.compile(r'^P\d.*$') = re.compile(r'^&P\d.*$')
-
-        # Rough thinking... perhaps go with something like:
-        # "if calling on either, utilize / search both ^&P\d.*$ and ^P\d.*$"?
-        # do we even need this function?
-
-    def __cdli_number_and_key_equivalence__(self, file):
-        """
-        This class creates a structure that enables file_import and cdli_import
-        to equate 'key' with both pnumber and text edition. Right now 'key' ==
-        __discern_texts__ output.
-
-        I.e.: I want to make 'key' understand that, in calling on any of the
-        following titles, &P254203 = ARM 01, 002; &P254203; ARM 01, 002, the
-        output will be the same:
-
-        ["&P254203 = ARM 01, 002", "#atf: lang akk", "@tablet", "etc."]
-
-        :return: ???
-        """
-
-        # See above for thought process
 
     @staticmethod
     def __split_texts__(file):
@@ -129,7 +99,7 @@ class FileImport(object):
                     texts.append(text)
                 text = []
             else:
-                text.append(line.strip())
+                text.append(line.rstrip())
         texts.append(text)
         return texts
 
@@ -150,12 +120,35 @@ class FileImport(object):
         :return: Dictionary of disparate texts in a file with line containing a
         CDLI number and published name of text as key & said text as its value.
         """
-
-        key = self.__discern_texts__(file)
-        value = list(self.__split_texts__(file))   # split doesn't work
-        texts = zip(key, value)
+        key = self.__text_call_names__(file)
+        value = list(self.__split_texts__(file))
+        double_value = [value[i//2] for i in range(len(value)*2)]
+        texts = zip(key, double_value)
         text_dict = dict(texts)
         return text_dict
+
+    def table_of_contents(self, file):
+        """
+        Uses
+        :param file: This is the text file that you downloaded from
+        CDLI.
+        :return: list of lists containing CDLI Number and text edition name.
+        """
+        output = []
+        try:
+            header = self.__discern_texts__(file)
+            for string in header:
+                if len(string) > 1:
+                    splitstring = string.split('=')
+                    pnum = splitstring[0].rstrip()
+                    edition = splitstring[1].lstrip()
+                    output.append([string, pnum, edition])
+                else:
+                    pnum = header[0].rstrip()
+                    output.append(pnum)
+            return output
+        except IndexError:
+            print("No header information in text: {}".format(file), repr(file))
 
     def text_print(self, file, key):
         """
@@ -168,7 +161,8 @@ class FileImport(object):
 
         :param file: This is the text file that you downloaded from
         CDLI.
-        :param key: This is any string provided by __discern_texts__ method.
+        :param key: This any one of three 'names' found in
+        __text_call_names__
         :return:
         """
         file = os.path.join('..', 'texts', file)
