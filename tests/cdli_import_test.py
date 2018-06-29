@@ -19,7 +19,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         Tests file_pull.
         """
         cdli = CDLIImport()
-        output = cdli.__file_pull__('cdli_text.txt', '&P254202 = ARM 01, 001')
+        output = cdli.__file_pull__('cdli_text.txt', '&P254202')
         goal = ['&P254202 = ARM 01, 001',
                 '#atf: lang akk',
                 '@tablet',
@@ -58,38 +58,22 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         Tests __cdli_pull__.
         """
         cdli = CDLIImport()
-        output = cdli.import_text('&P000001 = CDLI Lexical 000002, ex. 065')
-        goal = ['&P000001 = CDLI Lexical 000002, ex. 065',
-                '#atf: lang qpc',
+        output = cdli.import_text('&P254315')
+        goal = ['&P254315 = ARM 01, 114',
+                '#atf: lang akk',
                 '@tablet',
                 '@obverse',
-                '@column 1',
-                '$ beginning broken',
-                "1'. 1(N01) , [...]",
-                '>>Q000002 014',
-                "2'. 1(N01) , TIM ABGAL#",
-                '>>Q000002 015',
-                "3'. 1(N01) , KINGAL#",
-                '>>Q000002 016',
-                '@column 2',
-                '$ beginning broken',
-                "1'. 1(N01) , [...]",
-                '>>Q000002 030',
-                "2'. 1(N01) , GAL~a# UMUN2#",
-                '>>Q000002 031',
-                "3'. 1(N01) , GAL~a UMUN2 KU3~a",
-                '>>Q000002 032',
-                '@column 3',
-                '$ beginning broken',
-                "1'. 1(N01) , DUB~a SANGA~a#",
-                '>>Q000002 048',
-                "2'. 1(N01) , SUG5# SAG#",
-                '>>Q000002 049',
-                "3'. 1(N01) , UB SAG#",
-                '>>Q000002 050',
+                '1. a-na a-ad-da-a',
+                '2. qi2-bi2-ma#',
+                '3. um-ma ia-as2-ma-ah-{d}iszkur',
+                '4. _dumu_-ka-a-ma',
+                '5. an-nu-um-ma ki-ma na-asz-pa-ar-ti',
+                '6. a-[ad]-da-a 4(u) _lu2 szu-ku6 mesz_',
+                '7. [u2]-sza-as,#-bi-ta#-am#-ma',
+                '$ rest broken',
                 '@reverse',
-                '1. [N] , [...]',
-                '>>Q000002 colophon']
+                '1. a-na# [s,e-er a-ad-da-a]',
+                '2. at,-t,a3-ar-dam']
         self.assertEqual(output, goal)
 
 

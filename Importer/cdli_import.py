@@ -35,46 +35,49 @@ class CDLIImport(object):
         """
 
     @staticmethod
-    def __file_pull__(read_file, key):
+    def __file_pull__(read_file, pnumber):
         """
         Takes cdli_number and captures match in your friendly neighborhood text
         file.
         :param read_file: This is the text file that you downloaded from
         CDLI.
-        :param key: the pnumber, e.g. P254202 or &P254202
+        :param pnumber: the pnumber, e.g. P254202 or &P254202
         :return: strings of text by line in list form
         """
         output = []
         f_i = FileImport()
         file = os.path.join('..', 'texts', read_file)
         text = f_i.read_file(file)
+        contents = False
         for line in text:
-            if key in line:
-                output.append(f_i.text_print(read_file, key))
-            if key not in line:
-                output.append('Whoops!')
-        return output[0]
+            if line.rstrip().startswith(pnumber):
+                contents = True
+            elif len(line) == 0:
+                contents = False
+            if contents:
+                output.append(line)
+        return output
 
-    @staticmethod
-    def import_text(key):  # false positive: I have issues importing...
+    def import_text(self, pnumber):
         """
         Takes cdli_number and captures match in your friendly neighborhood text
         file.
-        :param read_file: This is the text file that you downloaded from
-        CDLI.
-        :param key: the pnumber, e.g. P254202 or &P254202
+        :param pnumber: the pnumber, e.g. P254202 or &P254202
         :return: strings of text by line in list form
         """
         output = []
         f_i = FileImport()
         file = os.path.join('..', 'texts', 'cdli_corpus.txt')
         text = f_i.read_file(file)
+        contents = False
         for line in text:
-            if key in line:
-                output.append(f_i.text_print('cdli_corpus.txt', key))
-            if key not in line:
-                output.append('Whoops!')
-        return output[0]
+            if line.rstrip().startswith(pnumber):
+                contents = True
+            elif len(line) == 0:
+                contents = False
+            if contents:
+                output.append(line)
+        return output
 
     @staticmethod           # not the actual method, just placeholder
     def update_text(text_file, cdli_number):
@@ -94,4 +97,4 @@ class CDLIImport(object):
     ## Found This--- To Test Out
     #with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
         #for line in file:
-            #print(line.replace(text_to_search, replacement_text), end='')
+            #print(line.replace(__file_pull__, import_text), end='')
