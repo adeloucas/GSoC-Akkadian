@@ -14,7 +14,7 @@ cuneiform text(s) one-on-one whether it is Code of Hammurabi, a collection of
 texts such as ARM01, or whatever your search function desires.
 """
 
-import os
+import re
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -29,45 +29,100 @@ class FileImport(object):
     iteration found in the CDLI github backup repository
     (https://github.com/cdli-gh/data).
     """
-    def __init__(self):
+    def __init__(self, filename):
         """
         :param cdli_corpus: This can be downloaded through CLTK. The file is
         saved as "cdli_atfunblocked.atf" and can be renamed locally
         as a .txt with usable with no other changes; see README for more info.
+        :param filename: name of downloaded file
         """
-        self.text = FileImport.read_file
-        self.selected_text = FileImport.pull_text
+        self.filename = filename
+        self.file_lines = FileImport.read_file(self)    # This works, but not below (?)
+        self.texts = FileImport.__discern_texts__(self)
 
-    @staticmethod
-    def read_file(text_file):
+    def read_file(self):
         """
-        Grabs the downloaded text file and enables it to be read.
-        :param text_file: This is the text file that you downloaded from CDLI.
+        Grabs downloaded text file and enables it to be read.
         """
         line_output = []
-        with open(text_file, mode='r+', encoding='utf8') \
-                as text:
-            for line in text:
+        with open(self.filename, mode='r+', encoding='utf8') as f:
+            # self.raw_file = f.read()
+            for line in f:
                 line_output.append(line.rstrip())
+                # self.file_lines = self.raw_file.splitlines()
             return line_output
 
-    @staticmethod
-    def pull_text(text_file, pnumber):
+    def __discern_texts__(self):
+        """
+        Using the read_file function, this method recognizes tablets based off
+        of metadata in the file. Used to create a key of each title.
+        :param text_file: This is the text file that you downloaded from
+        CDLI.
+        :return: List that titles of disparate texts in the downloaded file.
+        """
+        output = []
+        text = self.file_lines
+        for lines in text:
+            if re.match(r'^&P\d.*$', lines):
+                output.append(lines)
+            elif re.match(r'^P\d.*$', lines):
+                output.append(lines)
+        return output
+
+    def __split_texts__(self):
+        """
+        Using read_file, this process separates out tablets based off of
+        metadata in the file. Used to create a value of each text body.
+        :param text_file: This is the text file that you downloaded from
+        CDLI.
+        :return: List that separates out disparate texts into lists of strings.
+        """
+        texts, text = [], []
+        text_file = self.file_lines
+        for line in text_file:
+            if line.strip() == '':
+                if len(text) > 0:   # pylint: disable =len-as-condition
+                    texts.append(text)
+                text = []
+            else:
+                text.append(line.rstrip())
+        texts.append(text)
+        return texts
+
+    def __text_call_names__(self):
+        """
+        Uses
+        :return: list of lists containing CDLI Number and text edition name.
+        """
+        output = []
+        try:
+            header = self.texts
+            for string in header:
+                if len(string) > 1:
+                    splitstring = string.split('=')
+                    pnum = splitstring[0].rstrip()
+                    edition = splitstring[1].lstrip()
+                    output.append(pnum), output.append(edition)  # pylint: disable =expression-not-assigned
+                else:
+                    pnum = header[0].rstrip()
+                    output.append(pnum)
+            return output
+        except IndexError:
+            print("No header information in text: {}".format(
+                self), repr(self))
+
+    def import_text(self, cdli_number):
         """
         Takes cdli_number and captures match in your friendly neighborhood text
         file.
-        :param text_file: This is the text file that you downloaded from
-        CDLI.
-        :param pnumber: the pnumber, e.g. P254202 or &P254202
+        :param cdli_number: the p-number, e.g. P254202 or &P254202
         :return: strings of text by line in list form
         """
         output = []
-        f_i = FileImport()
-        text_path = os.path.join('..', 'texts', text_file)
-        text = f_i.read_file(text_path)
+        text = self.file_lines
         contents = False
         for line in text:
-            if line.rstrip().startswith(pnumber):
+            if line.rstrip().startswith(cdli_number):
                 contents = True
             elif len(line) == 0:    # pylint: disable =len-as-condition
                 contents = False
@@ -75,28 +130,15 @@ class FileImport(object):
                 output.append(line)
         return output
 
-    def import_text(self, pnumber):
-        """
-        Takes cdli_number and captures match in your friendly neighborhood text
-        file.
-        :param pnumber: the pnumber, e.g. P254202 or &P254202
-        :return: strings of text by line in list form
-        """
-
-        output = self.selected_text('cdli_corpus.txt', pnumber)
-        return output
-
     # not the actual method, just placeholder
-    def update_text(self, text_file, cdli_number):
+    def update_text(self, cdli_number):
         """
-        Matches __file_pull__ and replaces text with import_text
-        :param text_file: downloaded file from CDLI
+        Replaces text with import_text.
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
         :return:
         """
         output = []
-        downloaded_text = os.path.join('..', 'texts', text_file)
-        text = self.text(downloaded_text)
+        text = self.file_lines
         if cdli_number in text:
             output.append(cdli_number)
         return output
