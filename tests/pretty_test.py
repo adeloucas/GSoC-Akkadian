@@ -22,19 +22,11 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         signs = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
                   ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
                   ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                  ('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
-                  ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                  ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                  ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                  ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
+                  ('underscore', '_'), ('space', ' '), ('akkadian', 'i')]]
         target = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
                    ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
                    ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                   ('underscore', ''), ('space', ' '), ('akkadian', 'i'),
-                   ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                   ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                   ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                   ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
+                   ('underscore', ''), ('space', ' '), ('akkadian', 'i')]]
         output = p_p.underscore_remover(signs)
         self.assertEqual(output, target)
 

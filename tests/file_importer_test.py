@@ -1,10 +1,10 @@
 """
-This file tests methods in cdli_import.py.
+This file tests methods in file_import.py.
 """
 
+import os
 import unittest
-from Importer.cdli_import import CDLIImport # pylint: disable =import-error
-
+from Importer.file_importer import FileImport  # pylint: disable =import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -14,12 +14,34 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
     Tests.
     """
-    def test_file_pull(self):
+    def test_read_file(self):
+        """
+        Tests __read_file__.
+        """
+        cdli = FileImport()
+        text = os.path.join('..', 'texts', 'Akkadian.txt')
+        output = cdli.read_file(text)
+        final = output[3042:3054]
+        goal = ['24. _{gesz}ma2_ dan-na-tam',
+                '25. a-na be-el _{gesz}ma2_',
+                '26. i-na-ad-di-in',
+                '@law 236',
+                '27. szum-ma a-wi-lum',
+                '28. _{gesz}ma2_-szu',
+                '29. a-na _ma2-lah5_',
+                '30. a-na ig-ri-im',
+                '31. id-di-in-ma',
+                '32. _ma2-lah5_ i-gi-ma',
+                '33. _{gesz}ma2_ ut,-t,e4-bi',
+                '34. u3 lu uh2-ta-al-li-iq']
+        self.assertEqual(final, goal)
+
+    def test_pull_text(self):
         """
         Tests file_pull.
         """
-        cdli = CDLIImport()
-        output = cdli.__file_pull__('cdli_text.txt', '&P254202')
+        cdli = FileImport()
+        output = cdli.pull_text('cdli_text.txt', '&P254202')
         goal = ['&P254202 = ARM 01, 001',
                 '#atf: lang akk',
                 '@tablet',
@@ -50,14 +72,13 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 "13'. asz-szum a-la-nu-ka",
                 "14'. u3 ma-ru-ka sza-al#-[mu]",
                 "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]
-
         self.assertEqual(output, goal)
 
     def test_import_text(self):  # false positive: I have issues importing...
         """
         Tests __cdli_pull__.
         """
-        cdli = CDLIImport()
+        cdli = FileImport()
         output = cdli.import_text('&P254315')
         goal = ['&P254315 = ARM 01, 114',
                 '#atf: lang akk',

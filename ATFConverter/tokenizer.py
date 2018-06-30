@@ -13,6 +13,7 @@ cltk/cltk/tree/master/cltk/tokenize).
 
 import re
 from nltk.tokenize import RegexpTokenizer   # pylint: disable=import-error
+from Importer.file_importer import FileImport   # pylint: disable=import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -48,6 +49,7 @@ class Tokenizer(object):
         """
         self.damage = preserve_damage
         self.metadata = preserve_metadata
+        self.text = FileImport.read_file
 
     def string_tokenizer(self, untokenized_string: str, include_blanks=False):
         """
@@ -97,9 +99,7 @@ class Tokenizer(object):
         """
         line_output = []
 
-        with open(text, mode='r+', encoding='utf8') as file:
-            lines = file.readlines()
-            assert isinstance(text, str), 'Incoming argument must be a string.'
+        lines = self.text(text)
         for line in lines:
             # Strip out damage characters
             if not self.damage:  # Add 'xn' -- missing sign or number?

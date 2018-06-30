@@ -1,10 +1,12 @@
 """
-This file tests methods in file_import.py.
+This file tests methods in cdli_import.py.
 """
 
-import os
 import unittest
-from Importer.file_import import FileImport  # pylint: disable =import-error
+import os
+from Importer.file_importer import FileImport  # pylint: disable =import-error
+from Importer.file_reader import FileReader  # pylint: disable =import-error
+
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -14,33 +16,12 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
     Tests.
     """
-    def test_read_file(self):
-        """
-        Tests __read_file__.
-        """
-        cdli = FileImport()
-        file = os.path.join('..', 'texts', 'Akkadian.txt')
-        output = cdli.read_file(file)
-        final = output[3042:3054]
-        goal = ['24. _{gesz}ma2_ dan-na-tam',
-                '25. a-na be-el _{gesz}ma2_',
-                '26. i-na-ad-di-in',
-                '@law 236',
-                '27. szum-ma a-wi-lum',
-                '28. _{gesz}ma2_-szu',
-                '29. a-na _ma2-lah5_',
-                '30. a-na ig-ri-im',
-                '31. id-di-in-ma',
-                '32. _ma2-lah5_ i-gi-ma',
-                '33. _{gesz}ma2_ ut,-t,e4-bi',
-                '34. u3 lu uh2-ta-al-li-iq']
-        self.assertEqual(final, goal)
 
     def test_discern_texts(self):
         """
         Tests __discern_texts__.
         """
-        cdli = FileImport()
+        cdli = FileReader()
         text = \
             ["Primary publication: ARM 01, 001",
              "Author(s): Dossin, Georges",
@@ -62,9 +43,10 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests __split_texts__.
         """
-        cdli = FileImport()
-        file = os.path.join('..', 'texts', 'cdli_text.txt')
-        text = cdli.read_file(file)
+        f_i = FileImport()
+        cdli = FileReader()
+        text_file = os.path.join('..', 'texts', 'cdli_text.txt')
+        text = f_i.read_file(text_file)
         output = cdli.__split_texts__(text)
         goal = ([['&P254202 = ARM 01, 001',
                   '#atf: lang akk',
@@ -142,9 +124,10 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         Tests from_lines
         :return: text within file, separated as pnumber and edition.
         """
-        cdli = FileImport()
-        file = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
-        text = cdli.read_file(file)
+        f_i = FileImport()
+        cdli = FileReader()
+        text = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
+        text = f_i.read_file(text)
         goal = ['&P254202', 'ARM 01, 001',
                 '&P254203', 'ARM 01, 002',
                 '&P254204', 'ARM 01, 003',
@@ -167,9 +150,10 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests text_contents.
         """
-        cdli = FileImport()
-        file = os.path.join('..', 'texts', 'cdli_text.txt')
-        text = cdli.read_file(file)
+        f_i = FileImport()
+        cdli = FileReader()
+        text_file = os.path.join('..', 'texts', 'cdli_text.txt')
+        text = f_i.read_file(text_file)
         output = cdli.__text_contents__(text[0:500])
         goal = {'&P254202': ['&P254202 = ARM 01, 001',
                              '#atf: lang akk',
@@ -328,9 +312,10 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests text_contents.
         """
-        cdli = FileImport()
-        file = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
-        text = cdli.read_file(file)
+        f_i = FileImport()
+        cdli = FileReader()
+        text_file = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
+        text = f_i.read_file(text_file)
         output = cdli.table_of_contents(text)
         goal = [['&P254202 = ARM 01, 001', '&P254202', 'ARM 01, 001'],
                 ['&P254203 = ARM 01, 002', '&P254203', 'ARM 01, 002'],
@@ -477,7 +462,8 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests text_print.
         """
-        cdli = FileImport()
+
+        cdli = FileReader()
         output = cdli.text_print('cdli_text.txt', '&P254202')
         output2 = cdli.text_print('cdli_text.txt', 'ARM 01, 001')
         goal = ["&P254202 = ARM 01, 001",
