@@ -1,0 +1,22 @@
+&P254312 = ARM 01, 111
+#version: 0.1
+#atf: lang akk
+@tablet
+@obverse
+1. a-na a-ad-da-a
+2. qi2-bi2-ma
+3. um-ma ia-as2-ma-ah-{d}iszkur
+4. _dumu_-ka-a-ma
+5. 2(disz) _lu2_ sza TAR GA szi#?-im
+6. u2-s,u2-nim-ma
+7. a-na s,e-ri-ia
+8. il-li-ku-nim
+@reverse
+1. asz-ta-al-szu-nu-ti
+2. i-na-an-na a-nu-um-ma
+3. _lu2 mesz_ szu-nu-ti
+4. a-na s,e-er a-ad-da-a
+5. at,-t,a3-ar-dam
+6. a-ad#-da#-[a] t,e4#-ma-am
+7. [ga?-am?-ra?]-am
+8. [li?-isz?-ta?-al?-szu?]-nu-ti

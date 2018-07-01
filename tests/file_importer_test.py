@@ -12,11 +12,11 @@ __license__ = 'MIT License. See LICENSE.'
 
 class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
-    Tests.
+    Tests file_importer functions.
     """
     def test_read_file(self):
         """
-        Tests __read_file__.
+        Tests read_file.
         """
         text = os.path.join('..', 'texts', 'Akkadian.txt')
         cdli = FileImport(text)
@@ -35,6 +35,45 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 '33. _{gesz}ma2_ ut,-t,e4-bi',
                 '34. u3 lu uh2-ta-al-li-iq']
         self.assertEqual(final, goal)
+
+    def test_import_text(self):
+        """
+        Tests import_text.
+        """
+        text = os.path.join('..', 'texts', 'cdli_text.txt')
+        cdli = FileImport(text)
+        output = cdli.import_text('&P254202')
+        goal = ['&P254202 = ARM 01, 001',
+                '#atf: lang akk',
+                '@tablet',
+                '@obverse',
+                '1. a-na ia-ah-du-li-[im]',
+                '2. qi2-bi2-[ma]',
+                '3. um-ma a-bi-sa-mar#-[ma]',
+                '4. sa-li-ma-am e-pu-[usz]',
+                '5. asz-szum mu-sze-zi-ba-am# [la i-szu]',
+                '6. [sa]-li#-ma-am sza e-[pu-szu]',
+                '7. [u2-ul] e-pu-usz sa#-[li-mu-um]',
+                '8. [u2-ul] sa-[li-mu-um-ma]',
+                '$ rest broken',
+                '@reverse',
+                '$ beginning broken',
+                "1'. isz#-tu mu#-[sze-zi-ba-am la i-szu]",
+                "2'. a-la-nu-ia sza la is,-s,a-ab#-[tu]",
+                "3'. i-na-an-na is,-s,a-ab-[tu]",
+                "4'. i-na ne2-kur-ti _lu2_ ha-szi-[im{ki}]",
+                "5'. ur-si-im{ki} _lu2_ ka-ar-ka#-[mi-is{ki}]",
+                "6'. u3 ia-am-ha-ad[{ki}]",
+                "7'. a-la-nu an-nu-tum u2-ul ih-li-qu2#",
+                "8'. i-na ne2-kur-ti {disz}sa-am-si-{d}iszkur#-ma",
+                "9'. ih-ta-al-qu2",
+                "10'. u3 a-la-nu sza ki-ma u2-hu-ru u2-sze-zi-ib#",
+                "11'. u3 na-pa-asz2-ti u2-ba-li-it,",
+                "12'. pi2-qa-at ha-s,e-ra#-at",
+                "13'. asz-szum a-la-nu-ka",
+                "14'. u3 ma-ru-ka sza-al#-[mu]",
+                "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]
+        self.assertEqual(output, goal)
 
     def test_discern_texts(self):
         """
@@ -124,10 +163,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         self.maxDiff = None                 # pylint: disable =invalid-name
         self.assertEqual(output, goal)
 
-    def test_text_call_names_(self):
+    def test_text_call_names(self):
         """
-        Tests from_lines
-        :return: text within file, separated as pnumber and edition.
+        Tests __text_call_names__.
         """
         text = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
         cdli = FileImport(text)
@@ -202,45 +240,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 '&P254336', 'ARM 01, 135', '&P254337', 'ARM 01, 136',
                 '&P254338', 'ARM 01, 137', '&P254339', 'ARM 01, 138',
                 '&P254340', 'ARM 01, 139']
-        self.assertEqual(output, goal)
-
-    def test_import_text(self):
-        """
-        Tests file_pull.
-        """
-        text = os.path.join('..', 'texts', 'cdli_text.txt')
-        cdli = FileImport(text)
-        output = cdli.import_text('&P254202')
-        goal = ['&P254202 = ARM 01, 001',
-                '#atf: lang akk',
-                '@tablet',
-                '@obverse',
-                '1. a-na ia-ah-du-li-[im]',
-                '2. qi2-bi2-[ma]',
-                '3. um-ma a-bi-sa-mar#-[ma]',
-                '4. sa-li-ma-am e-pu-[usz]',
-                '5. asz-szum mu-sze-zi-ba-am# [la i-szu]',
-                '6. [sa]-li#-ma-am sza e-[pu-szu]',
-                '7. [u2-ul] e-pu-usz sa#-[li-mu-um]',
-                '8. [u2-ul] sa-[li-mu-um-ma]',
-                '$ rest broken',
-                '@reverse',
-                '$ beginning broken',
-                "1'. isz#-tu mu#-[sze-zi-ba-am la i-szu]",
-                "2'. a-la-nu-ia sza la is,-s,a-ab#-[tu]",
-                "3'. i-na-an-na is,-s,a-ab-[tu]",
-                "4'. i-na ne2-kur-ti _lu2_ ha-szi-[im{ki}]",
-                "5'. ur-si-im{ki} _lu2_ ka-ar-ka#-[mi-is{ki}]",
-                "6'. u3 ia-am-ha-ad[{ki}]",
-                "7'. a-la-nu an-nu-tum u2-ul ih-li-qu2#",
-                "8'. i-na ne2-kur-ti {disz}sa-am-si-{d}iszkur#-ma",
-                "9'. ih-ta-al-qu2",
-                "10'. u3 a-la-nu sza ki-ma u2-hu-ru u2-sze-zi-ib#",
-                "11'. u3 na-pa-asz2-ti u2-ba-li-it,",
-                "12'. pi2-qa-at ha-s,e-ra#-at",
-                "13'. asz-szum a-la-nu-ka",
-                "14'. u3 ma-ru-ka sza-al#-[mu]",
-                "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]
         self.assertEqual(output, goal)
 
 
