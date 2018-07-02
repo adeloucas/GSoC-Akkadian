@@ -242,6 +242,21 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 '&P254340', 'ARM 01, 139']
         self.assertEqual(output, goal)
 
+    def test_update_text(self):
+        """
+        Tests update_text.
+        """
+        text = os.path.join('..', 'texts', 'single_text.txt')
+        cdli = FileImport(text)
+        cdli.update_text('&P254312')
+        output = cdli.import_text('&P254312')
+
+        text2 = os.path.join('..', 'texts', 'two_text.txt')
+        cdli2 = FileImport(text2)
+        goal = cdli2.import_text('&P254312')
+
+        self.assertEqual(output, goal)
+
 
 if __name__ == '__main__':
     unittest.main()

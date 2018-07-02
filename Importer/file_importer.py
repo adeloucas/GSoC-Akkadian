@@ -13,7 +13,7 @@ whatever your research desires.
 """
 
 import re
-import fileinput
+import os
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -56,7 +56,7 @@ class FileImport(object):
         """
         Takes cdli_number and captures match in your text file.
         :param cdli_number: the p-number, e.g. P254202 or &P254202
-        :return: strings of text by line in list form
+        :return: strings line by line in list form
         """
         output = []
         text = self.file_lines
@@ -124,21 +124,21 @@ class FileImport(object):
                 output.append('No header information in text!'.format())
         return output
 
-    # not the actual method, just placeholder
-    def update_text(self, cdli_number):
+    def update_text(self, cdli_number):  # works, but not as I want it to.
         """
         Replaces single text in file with import_text method.
         :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return:
+        :return: xxx
         """
-        output = []
-        text = self.file_lines
-        if cdli_number in text:
-            output.append(cdli_number)
-        return output
-    """
-    Found this -- To Test Out
-    with fileinput.FileInput(filename, inplace=True, backup='.bak') as file:
-    for line in file:
-    print(line.replace(__file_pull__, import_text), end='')
-    """  # pylint: disable =pointless-string-statement
+        # corpus you wish to use for replacement;
+        cdli = os.path.join('..', 'texts', 'two_text.txt')
+        cdli_corpus = FileImport(cdli).import_text(cdli_number)
+        # text you want to replace
+        text_in_question = FileImport(self.filename).import_text(cdli_number)
+
+        with open(self.filename, 'r+') as f:    # use self.raw_file
+            filedata2 = str(text_in_question)
+            update = filedata2.replace(filedata2, str('\n'.join(cdli_corpus)))
+            f.write(update)   # FileInput for line-for-line replacement?
+
+
