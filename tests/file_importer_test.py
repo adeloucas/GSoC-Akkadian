@@ -163,13 +163,13 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         self.maxDiff = None                 # pylint: disable =invalid-name
         self.assertEqual(output, goal)
 
-    def test_text_call_names(self):
+    def test_call_names(self):
         """
-        Tests __text_call_names__.
+        Tests __call_names__.
         """
         text = os.path.join('..', 'texts', 'ARM1Akkadian.txt')
         cdli = FileImport(text)
-        output = cdli.__text_call_names__()
+        output = cdli.__call_names__()
         goal = ['&P254202', 'ARM 01, 001', '&P254203', 'ARM 01, 002',
                 '&P254204', 'ARM 01, 003', '&P254205', 'ARM 01, 004',
                 '&P254206', 'ARM 01, 005', '&P254207', 'ARM 01, 006',

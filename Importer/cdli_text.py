@@ -69,7 +69,7 @@ class CDLIText(object):
         :return: Dictionary of disparate texts in a file with line containing a
         CDLI number and published name of text as key & said text as its value.
         """
-        key = FileImport.__text_call_names__(self.filename)
+        key = FileImport.__call_names__(self.filename)
         value = list(FileImport.__split_texts__(self.filename))
         double_value = [value[i//2] for i in range(len(value)*2)]
         texts = zip(key, double_value)

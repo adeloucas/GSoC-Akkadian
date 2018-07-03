@@ -35,22 +35,16 @@ class FileImport(object):
         :param filename: name of any downloaded file from CDLI.
         """
         self.filename = filename
-        self.file_lines = FileImport.read_file(self)    # This works, but not below (?)
-        self.texts = FileImport.__discern_texts__(self)
-        #self.raw_file = None
-        #self.file_lines = None
+        self.file_lines = self.read_file()
 
     def read_file(self):
         """
         Grabs downloaded text file and enables it to be read.
         """
-        line_output = []
-        with open(self.filename, mode='r+', encoding='utf8') as f:  # pylint: disable= invalid-name
-            #self.raw_file = f.read()
-            for line in f:
-                line_output.append(line.rstrip())
-                #self.file_lines = self.raw_file.splitlines()
-            return line_output
+        with open(self.filename, mode='r+', encoding='utf8') as text_file:
+            self.raw_file = text_file.read()
+        file_lines = [x.rstrip() for x in self.raw_file.splitlines()]
+        return file_lines
 
     def import_text(self, cdli_number):
         """
@@ -59,9 +53,8 @@ class FileImport(object):
         :return: strings line by line in list form
         """
         output = []
-        text = self.file_lines
         contents = False
-        for line in text:
+        for line in self.file_lines:
             if line.rstrip().startswith(cdli_number):
                 contents = True
             elif len(line) == 0:    # pylint: disable =len-as-condition
@@ -77,8 +70,7 @@ class FileImport(object):
         :return: List of disparate text titles in the downloaded file.
         """
         output = []
-        text = self.file_lines
-        for lines in text:
+        for lines in self.file_lines:
             if re.match(r'^&P\d.*$', lines):
                 output.append(lines)
             elif re.match(r'^P\d.*$', lines):
@@ -92,8 +84,7 @@ class FileImport(object):
         :return: List that separates out disparate texts into lists of strings.
         """
         texts, text = [], []
-        text_file = self.file_lines
-        for line in text_file:
+        for line in self.file_lines:
             if line.strip() == '':
                 if len(text) > 0:   # pylint: disable =len-as-condition
                     texts.append(text)
@@ -103,21 +94,21 @@ class FileImport(object):
         texts.append(text)
         return texts
 
-    def __text_call_names__(self):
+    def __call_names__(self):
         """
         Takes key made in __discern_texts__ and separates out cdli_number and
         its edition.
         :return: List containing CDLI Number and text edition name.
         """
         output = []
-        header = self.texts
+        header = self.__discern_texts__()
         for string in header:
             if len(string) > 1:
                 splitstring = string.split('=')
                 pnum = splitstring[0].rstrip()
                 edition = splitstring[1].lstrip()
                 output.append(pnum), output.append(edition)  # pylint: disable =expression-not-assigned
-            elif len(string) == 1:
+            elif len(string) > 1 and not re.match('=', string):
                 pnum = header[0].rstrip()
                 output.append(pnum)
             else:
