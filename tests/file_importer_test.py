@@ -2,8 +2,8 @@
 This file tests methods in file_import.py.
 """
 
-import os
 import unittest
+import os
 from Importer.file_importer import FileImport  # pylint: disable =import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
@@ -12,7 +12,7 @@ __license__ = 'MIT License. See LICENSE.'
 
 class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
-    Tests file_importer functions.
+    Tests FileImport class.
     """
     def test_read_file(self):
         """
@@ -21,7 +21,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         text = os.path.join('..', 'texts', 'Akkadian.txt')
         cdli = FileImport(text)
         cdli.read_file()
-        final = cdli.file_line[3042:3054]
+        final = cdli.file_lines[3042:3054]
         goal = ['24. _{gesz}ma2_ dan-na-tam',
                 '25. a-na be-el _{gesz}ma2_',
                 '26. i-na-ad-di-in',
@@ -38,7 +38,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
 
     def test_file_catalog(self):
         """
-        Tests file_catalog
+        Tests file_catalog.
         """
         text = os.path.join('..', 'texts', 'Akkadian.txt')
         ex = os.path.split(text)
@@ -46,11 +46,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         goal = ['Akkadian.txt', 'ARM1Akkadian.txt', 'cdli_corpus.txt',
                 'cdli_text.txt', 'single_text.txt', 'Transliteration.txt',
                 'two_text.txt']
-
-        # this doesn't work, but the above works...
-        #cdli = FileImport(text)
-        #final = cdli.file_catalog()
-
         self.assertEqual(final, goal)
 
 

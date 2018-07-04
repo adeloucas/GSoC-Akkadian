@@ -1,15 +1,27 @@
 """
-This module is for working on disparate texts out of CDLI's "download all text"
-option: (https://cdli.ucla.edu/search/download_data_new.php?data_type=all).
+The Importer feature sets up the ability to work with cuneiform text(s)
+one-on-one, whether it is the Code of Hammurabi, a collection of texts such as
+ARM01, or whatever your research desires.
 
-At current, one can produce either one text (e.g. Code of Hammurabi:
-https://cdli.ucla.edu/search/search_results.php?ObjectID=P249253)
-or a variety of texts via search functions (e.g. ARM 01 publication:
-https://cdli.ucla.edu/search/search_results.php?PrimaryPublication=ARM+01).
+This cdli_corpus module is for working with text files having already been read
+by file_importer. The file_lines required by CDLICorpus are taken from prior
+use of FileImport(text_file).read_file().
 
-This feature enables one to work with individual cuneiform texts, whether it is
-the Code of Hammurabi, a collection of texts such as ARM01, or whatever your
-research desires.
+e.g.:
+    # FileImport takes a txt file and reads it; this becomes file_lines.
+        text_path = os.path.join('texts', 'ARM01_texts.txt')
+        f_i = FileImport(text_path)
+        f_i.read_file()
+        ARM01 = f_i.file_lines
+    # CDLICorpus takes file_lines and uses it to work:
+        cdli = CDLICorpus(ARM01)
+        cdli.chunk_text()
+        cdli.ingest()
+        cdli.print_text_by_cdli_number('&P254202')
+
+The output of CDLICorpus will be able to further utilized by the feature
+ATFConverter and its subsequent classes: Tokenizer, ATFConverter, Lemmatizer,
+and PPrint.
 """
 
 import re
@@ -20,21 +32,18 @@ __license__ = 'MIT License. See LICENSE.'
 
 class CDLICorpus(object):
     """
-    This method makes practical use out of FileImport; it creates the ability
-    to search through a text file, select and print individual texts, and
-    prepares text to be put through the ATFConverter, Tokenizer, Lemmatizer,
-    and PrettyPrinter.
+    Takes file_lines, prepares and organizes data.
     """
     def __init__(self, file_lines):
         """
-        :param file_lines: FileImport(text_path).read_file();
-                           file_lines = FileImport.file_lines
+        :param file_lines: See method docstring for capturing file_lines.
         """
         self.file_lines = file_lines
 
     def chunk_text(self):
         """
-        xxx
+        Splits up a text whenever a break is found in file_lines.
+        :return: Disparate texts.
         """
         chunk_text, text = [], []
         for line in self.file_lines:
@@ -47,9 +56,10 @@ class CDLICorpus(object):
         chunk_text.append(text)
         return chunk_text
 
-    def find_pnum(self):
+    def find_cdli_number(self):
         """
-        xxx
+        Finds CDLI Number (ex: &P254202, P254203) in file_lines & lists it.
+        :return: List of CDLI Numbers found in file_lines.
         """
         header, output = [], []
         for lines in self.file_lines:
@@ -60,18 +70,19 @@ class CDLICorpus(object):
         for string in header:
             if len(string) > 1:
                 splitstring = string.split('=')
-                pnum = splitstring[0].rstrip()
-                output.append(pnum)  # pylint: disable =expression-not-assigned
+                cdli_num = splitstring[0].rstrip()
+                output.append(cdli_num)
             elif len(string) > 1 and not re.match('=', string):
-                pnum = header[0].rstrip()
-                output.append(pnum)
+                cdli_num = header[0].rstrip()
+                output.append(cdli_num)
             else:
-                output.append('No cdli number information in text!'.format())
+                output.append('No cdli number found in text!'.format())
         return output
 
     def find_edition(self):
         """
-        xxx
+        Finds edition info (ex: ARM 01, 001) in file_lines and lists it.
+        :return: List of editions found in file_lines.
         """
         header, output = [], []
         for lines in self.file_lines:
@@ -88,123 +99,89 @@ class CDLICorpus(object):
                 output.append('No edition information in text!'.format())
         return output
 
-    def find_metadata(self):    # make this
+    def find_metadata(self):    # broken
         """
-        xxx
+        Finds metadata in file_lines and lists it.
+        :return: List of metadata found in file_lines.
         """
-        text, lines = [], []
-        metadata = True
-        for line in self.file_lines:
-            if line.startswith('Primary publication:'):
-                metadata = True
-            if line.startswith('Transliteration:'):
-                metadata = False
-            if metadata:
-                lines.append(line)
-        text.append(lines)
+        final, lines = [], []
+        metadata = False
+        for text in self.chunk_text():
+            for line in text:
+                if line.startswith('Primary publication:'):
+                    metadata = True
+                if line.startswith('Transliteration:'):
+                    metadata = False
+                if metadata:
+                    lines.append(line)
+        final.append(lines)
         return lines
 
-    def find_text_lines(self):
+    def find_transliteration(self):  # broken
         """
-        xxx
+        Finds any transliteration in file_lines and lists it.
+        :return: List of transliterations found in file_lines.
         """
-        text, lines = [], []
+        final, lines = [], []
         transliteration = False
-        for line in self.file_lines:
-            if re.match(r'^&P\d.*$', line) or re.match(r'^P\d.*$', line):
-                transliteration = True
-            if line.startswith('Primary publication:'):
-                transliteration = False
-            if transliteration:
-                lines.append(line)
-        text.append(lines)
+        for text in self.chunk_text():
+            for line in text:
+                if line.startswith('Primary publication:'):
+                    transliteration = False
+                if re.match(r'^&P\d.*$', line) or re.match(r'^P\d.*$', line):
+                    transliteration = True
+                if transliteration:
+                    lines.append(line)
+        final.append(lines)
         return lines
 
     def ingest(self):
         """
-        xxx
+        Captures all listed information above and formats it in a clear, and
+        disparate manner.
+        :return: List of dictionaries composed of information gathered in above
+        functions.
         """
-        pnum = self.find_pnum()
+        cdli_number = self.find_cdli_number()
         edition = self.find_edition()
         metadata = self.find_metadata()
-        text_lines = self.find_text_lines()
-        new_text = {'pnum': pnum, 'edition': edition,
-                    'metadata': metadata, 'text_lines': text_lines}
+        transliteration = self.find_transliteration()
+        new_text = {'cdli numbers': cdli_number, 'text editions': edition,
+                    'metadata': metadata, 'transliterations': transliteration}
         self.text = new_text  # pylint: disable= attribute-defined-outside-init
-        return self.text
 
-    """
-    def return_text_by_pnum(self, pnum):
-        return [text.lines for text in self.texts if text['pnum'] == pnum][0]
+    # Should here on out be in new method called pretty print?
 
-    def print_toc(self):
-        print([text['pnum'] for text in self.texts])
+    def print_text_editions(self):
+        """
+        Prints text editions collected in ingest.
+        :return: text editions
+        """
+        text = '{} {}'.format('text editions:', self.text['text editions'])
+        return text
 
-    def import_text(self, cdli_number):  # to turn into return_text_by_pnum
-        #
-        Takes cdli_number and captures match in your text file.
-        :param cdli_number: the p-number, e.g. P254202 or &P254202
-        :return: strings line by line in list form
-        #
-        output = []
-        contents = False
-        for line in self.file_lines:
-            if line.rstrip().startswith(cdli_number):
-                contents = True
-            elif len(line) == 0:    # pylint: disable =len-as-condition
-                contents = False
-            if contents:
-                output.append(line)
-        return output
+    def print_cdli_numbers(self):
+        """
+        Prints cdli numbers collected in ingest.
+        :return: cdli numbers
+        """
+        cdli = '{} {}'.format('cdli numbers:', self.text['cdli numbers'])
+        return cdli
 
-    def update_text(self, cdli_number):  # works, but not as I want it to.
-        #
-        Replaces single text in file with import_text method.
-        :param cdli_number: the pnumber, e.g. P254202 or &P254202
-        :return: xxx
-        #
-        # corpus you wish to use for replacement;
-        cdli = os.path.join('..', 'texts', 'two_text.txt')
-        cdli_corpus = FileImport(cdli).import_text(cdli_number)
-        # text you want to replace
-        text_in_question = FileImport(self.filename).import_text(cdli_number)
+    def print_text(self, edition_or_cdli_number):
+        """
+        Prints transliteration with either text edition or cdli number.
+        :return: transliteration
+        """
+        if edition_or_cdli_number in self.text['text editions'] or \
+                self.text['cdli numbers']:
+            return self.text['transliterations']
 
-        with open(self.filename, 'r+') as f:    # use self.raw_file
-            filedata2 = str(text_in_question)
-            update = filedata2.replace(filedata2, str('\n'.join(cdli_corpus)))
-            f.write(update)   # FileInput for line-for-line replacement?
-
-    def __text_contents__(self):
-        #
-        Using the read_file function, this process utilizes __discern_texts__
-        and __split_texts__ in order to create a dictionary of texts from
-        the text_file.
-
-        i.e. discern_texts for key; split_texts for value:
-        {'&P254203 = ARM 01, 002': ["&P254203 = ARM 01, 002",
-                                    "#atf: lang akk",
-                                    "@tablet"
-                                    "etc."]}
-
-        :return: Dictionary of disparate texts in a file with line containing a
-        CDLI number and published name of text as key & said text as its value.
-        #
-        key = self.__call_names__()
-        value = list(self.__split_texts__())
-        double_value = [value[i//2] for i in range(len(value)*2)]
-        texts = zip(key, double_value)
-        text_dict = dict(texts)
-        return text_dict
-
-    def text_print(self, key):
-        #
-        Using FileImport's __text_contents__, selects the respective text you
-        wish to print.
-
-        :param key: This either text edition name or CDLI number found in the
-        function table_of_contents, e.g: ('&P254203') or ('ARM 01, 002').
-        :return: Text as string.
-        #
-        output = self.__text_contents__()
-        return output.get(key, '')
-    """  # pylint: disable= pointless-string-statement
+    def print_metadata(self, edition_or_cdli_number):
+        """
+        Prints metadata with either text edition or cdli number.
+        :return: metadata
+        """
+        if edition_or_cdli_number in self.text['text editions'] or \
+                self.text['cdli numbers']:
+            return self.text['metadata']
