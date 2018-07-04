@@ -1,43 +1,30 @@
-from Importer.cdli_import import FileImport
-from ATFConverter.atf_converter import ATFConverter
-from ATFConverter.tokenizer import Tokenizer
-from ATFConverter.pretty_print import PrettyPrint
+"""
+This file tests methods in file_import.py.
+"""
 
-IMPORT = FileImport()
-ATF = ATFConverter(two_three=False)
-TOKEN = Tokenizer(preserve_metadata=False, preserve_damage=False)
-PRINT = PrettyPrint()
+import os
+from Importer.file_importer import FileImport  # pylint: disable =import-error
 
-downloaded_file = \
-    r"C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt"
+__author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
+__license__ = 'MIT License. See LICENSE.'
 
-# selecting a text
-ARM01 = IMPORT.text_contents(IMPORT.read_file(downloaded_file))
-TOC = IMPORT.texts_within_file(IMPORT.read_file(downloaded_file))
-print()
-print('Truncated Table of Contents:\n', TOC[0:183])
-print()
-selected_doc = IMPORT.text_print(ARM01, '&P254205 = ARM 01, 004')
-print('selected document example:\n',
-      '&P254205 = ARM 01, 004\n\n',
-      selected_doc)
+text = os.path.join('texts', 'Akkadian.txt')
+cdli = FileImport(text)
+cdli.read_file()
+final = cdli.file_lines[3042:3054]
+goal = ['24. _{gesz}ma2_ dan-na-tam',
+    '25. a-na be-el _{gesz}ma2_',
+    '26. i-na-ad-di-in',
+    '@law 236',
+    '27. szum-ma a-wi-lum',
+    '28. _{gesz}ma2_-szu',
+    '29. a-na _ma2-lah5_',
+    '30. a-na ig-ri-im',
+    '31. id-di-in-ma',
+    '32. _ma2-lah5_ i-gi-ma',
+    '33. _{gesz}ma2_ ut,-t,e4-bi',
+    '34. u3 lu uh2-ta-al-li-iq']
+print(final == goal)
 
-# processing the text
-line_tokenized = TOKEN.string_tokenizer(selected_doc)
-print('string / line tokenizer:', line_tokenized)
-print()
-sign_tokenized = TOKEN.print_sign_tokenizer(line_tokenized)
-print('sign tokenizer:', sign_tokenized)
-print()
-processed_doc = [ATF.process(line) for line in sign_tokenized]
-print('processed document:', processed_doc)
-print()
-analyzed_doc = [TOKEN.print_sign_language(line)[1:] for line in processed_doc]
-print('analyzed signs:', analyzed_doc)
-print()
-#pretty printing
-sumerian = PRINT.sumerian_converter(analyzed_doc)
-underscores = PRINT.underscore_remover(sumerian)
-final = PRINT.reader_reconstruction(underscores)
-#print(final)
-print('reconstructed text:\n\n', '\n'.join(final))
+filepath, _ = os.path.split(cdli.filename)
+print(os.listdir(_))
