@@ -11,27 +11,6 @@ __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
 
 
-""" NOTES FROM LAST NIGHT:
-        fi = FileImport('texts/cdli_corpus.txt')
-        fi.read_file()
-        cdli = CorpusImporter(corpus_type='cdli')
-        cdli.ingest(fi.file_lines)
-        fi = FileImport("http://www.etcsl.ox.co.uk/corpus.txt")
-        fi.read_file()
-        etcsl = CorpusImporter(corpus_type='etcsl')
-        etcsl.ingest(fi.file_lines)
-        texts = [
-            {'pnum': 'P123123', 'edition': ['ARM 1...'],
-             'metadata': ['line1', 'line2', 'line3'],
-             'lines': ['1. xxx', '2. xxx']},
-            {'pnum': 'P363453', 'edition': ['ARM 1...'],
-             'metadata': ['line1', 'line2', 'line3'],
-             'lines': ['1. xxx', '2. xxx']}]
-        print([text['pnum'] for text in self.texts])
-        [text['lines'] for text in self.texts if text['pnum'] == 'P123123'][0]
-        """
-
-
 class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
     Tests CDLICorpus class.
@@ -40,7 +19,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests chunk_text.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -171,7 +150,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests find_cdli_number.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -184,7 +163,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests find_edition.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -197,7 +176,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests find_metadata.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -259,7 +238,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests find_transliteration.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -346,7 +325,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         cdli.ingest()
         goal = {'cdli numbers': ['&P254202'],
                 'text editions': ['ARM 01, 001'],
-                'metadata': ['Primary publication: ARM 01, 001',
+                'metadata': [['Primary publication: ARM 01, 001',
                              'Author(s): Dossin, Georges',
                              'Publication date: 1946',
                              'Secondary publication(s): Durand, '
@@ -373,8 +352,8 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                              'UCLA Library ARK: 21198/zz001rsp8x',
                              'Composite no.:',
                              'Seal no.:',
-                             'CDLI no.: P254202'],
-                'transliterations': ['&P254202 = ARM 01, 001',
+                             'CDLI no.: P254202']],
+                'transliterations': [['&P254202 = ARM 01, 001',
                                      '#atf: lang akk',
                                      '@tablet',
                                      '@obverse',
@@ -407,14 +386,14 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                      "12'. pi2-qa-at ha-s,e-ra#-at",
                                      "13'. asz-szum a-la-nu-ka",
                                      "14'. u3 ma-ru-ka sza-al#-[mu]",
-                                     "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]}
+                                     "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]]}
         self.assertEqual(cdli.text, goal)
 
     def test_print_text_editions(self):
         """
         Tests print_text_editions.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -428,7 +407,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests print_cdli_numbers.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
@@ -442,13 +421,13 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests print_text.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus(text_file)
         cdli.ingest()
-        output = cdli.print_text('ARM 01, 001')
+        output = cdli.print_text('ARM 01, 001')[0]
         goal = ['&P254202 = ARM 01, 001',
                 '#atf: lang akk',
                 '@tablet',
@@ -485,13 +464,13 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests print_metadata.
         """
-        path = os.path.join('..', 'texts', 'cdli_text.txt')
+        path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus(text_file)
         cdli.ingest()
-        output = cdli.print_metadata('&P254202')
+        output = cdli.print_metadata('&P254202')[0]
         goal = ['Primary publication: ARM 01, 001',
                 'Author(s): Dossin, Georges',
                 'Publication date: 1946',

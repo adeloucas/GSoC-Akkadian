@@ -105,15 +105,11 @@ class CDLICorpus(object):
         :return: List of metadata found in file_lines.
         """
         final, lines = [], []
-        metadata = False
         for text in self.chunk_text():
-            for line in text:
-                if line.startswith('Primary publication:'):
-                    metadata = True
-                if line.startswith('Transliteration:'):
-                    metadata = False
-                if metadata:
-                    lines.append(line)
+            if text[0].startswith('Primary publication:'):
+                lines.append(text[0:25])
+            else:
+                lines.append('None found.')
         final.append(lines)
         return lines
 
@@ -123,15 +119,11 @@ class CDLICorpus(object):
         :return: List of transliterations found in file_lines.
         """
         final, lines = [], []
-        transliteration = False
         for text in self.chunk_text():
-            for line in text:
-                if line.startswith('Primary publication:'):
-                    transliteration = False
-                if re.match(r'^&P\d.*$', line) or re.match(r'^P\d.*$', line):
-                    transliteration = True
-                if transliteration:
-                    lines.append(line)
+            if text[0].startswith('Primary publication:'):
+                lines.append(text[26:])
+            else:
+                lines.append(text)
         final.append(lines)
         return lines
 
