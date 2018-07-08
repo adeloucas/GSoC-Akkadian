@@ -34,19 +34,19 @@ class CDLICorpus(object):
     """
     Takes file_lines, prepares and organizes data.
     """
-    def __init__(self, file_lines):
+    def __init__(self):
         """
         :param file_lines: See method docstring for capturing file_lines.
         """
-        self.file_lines = file_lines
+        self.texts = []
 
-    def chunk_text(self):
+    def chunk_text(self, file_lines):
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
         """
         chunk_text, text = [], []
-        for line in self.file_lines:
+        for line in file_lines:
             if line.strip() == '':
                 if len(text) > 0:   # pylint: disable =len-as-condition
                     chunk_text.append(text)
@@ -56,17 +56,18 @@ class CDLICorpus(object):
         chunk_text.append(text)
         return chunk_text
 
-    def find_cdli_number(self):
+    def find_cdli_number(self, file_lines):
         """
         Finds CDLI Number (ex: &P254202, P254203) in file_lines & lists it.
         :return: List of CDLI Numbers found in file_lines.
         """
         header, output = [], []
-        for lines in self.file_lines:
-            if re.match(r'^&P\d.*$', lines):
-                header.append(lines)
-            elif re.match(r'^P\d.*$', lines):
-                header.append(lines)
+        for text in self.chunk_text(file_lines):
+            for lines in text:
+                if re.match(r'^&P\d.*$', lines):
+                    header.append(lines)
+                elif re.match(r'^P\d.*$', lines):
+                    header.append(lines)
         for string in header:
             if len(string) > 1:
                 splitstring = string.split('=')
@@ -79,17 +80,18 @@ class CDLICorpus(object):
                 output.append('No cdli number found in text!'.format())
         return output
 
-    def find_edition(self):
+    def find_edition(self, file_lines):
         """
         Finds edition info (ex: ARM 01, 001) in file_lines and lists it.
         :return: List of editions found in file_lines.
         """
         header, output = [], []
-        for lines in self.file_lines:
-            if re.match(r'^&P\d.*$', lines):
-                header.append(lines)
-            elif re.match(r'^P\d.*$', lines):
-                header.append(lines)
+        for text in self.chunk_text(file_lines):
+            for lines in text:
+                if re.match(r'^&P\d.*$', lines):
+                    header.append(lines)
+                elif re.match(r'^P\d.*$', lines):
+                    header.append(lines)
         for string in header:
             if len(string) > 1:
                 splitstring = string.split('=')
@@ -99,13 +101,13 @@ class CDLICorpus(object):
                 output.append('No edition information in text!'.format())
         return output
 
-    def find_metadata(self):    # broken
+    def find_metadata(self, file_lines):
         """
         Finds metadata in file_lines and lists it.
         :return: List of metadata found in file_lines.
         """
         final, lines = [], []
-        for text in self.chunk_text():
+        for text in self.chunk_text(file_lines):
             if text[0].startswith('Primary publication:'):
                 lines.append(text[0:25])
             else:
@@ -113,13 +115,13 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def find_transliteration(self):  # broken
+    def find_transliteration(self, file_lines):  # broken
         """
         Finds any transliteration in file_lines and lists it.
         :return: List of transliterations found in file_lines.
         """
         final, lines = [], []
-        for text in self.chunk_text():
+        for text in self.chunk_text(file_lines):
             if text[0].startswith('Primary publication:'):
                 lines.append(text[26:])
             else:
@@ -127,53 +129,63 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def ingest(self):
+    def ingest(self, file_lines):
         """
         Captures all listed information above and formats it in a clear, and
         disparate manner.
+        :return: Dictionary composed of information gathered in above
+        functions.
+        """
+        cdli_number = self.find_cdli_number(file_lines)
+        edition = self.find_edition(file_lines)
+        metadata = self.find_metadata(file_lines)
+        transliteration = self.find_transliteration(file_lines)
+        new_text = {'text edition': edition, 'cdli number': cdli_number,
+                    'metadata': metadata, 'transliteration': transliteration}
+        self.text = new_text  # pylint: disable= attribute-defined-outside-init
+
+    def ingest_text_file(self, file_lines):
+        """
+        Captures all listed information above and formats it in a clear, and
+        disparate manner for every text found in a text file.
         :return: List of dictionaries composed of information gathered in above
         functions.
         """
-        cdli_number = self.find_cdli_number()
-        edition = self.find_edition()
-        metadata = self.find_metadata()
-        transliteration = self.find_transliteration()
-        new_text = {'cdli numbers': cdli_number, 'text editions': edition,
-                    'metadata': metadata, 'transliterations': transliteration}
-        self.text = new_text  # pylint: disable= attribute-defined-outside-init
+        for text_lines in self.chunk_text(file_lines):
+            self.ingest(text_lines)
+            texts = self.text
+            self.texts.append(dict(texts))
 
     # Should here on out be in new method called pretty print?
 
-    def print_text_editions(self):
-        """
-        Prints text editions collected in ingest.
-        :return: text editions
-        """
-        text = '{} {}'.format('text editions:', self.text['text editions'])
-        return text
-
-    def print_cdli_numbers(self):
-        """
-        Prints cdli numbers collected in ingest.
-        :return: cdli numbers
-        """
-        cdli = '{} {}'.format('cdli numbers:', self.text['cdli numbers'])
-        return cdli
+    def table_of_contents(self):
+        table = []
+        for toc in self.texts:
+            edition = toc['text edition']
+            num = toc['cdli number']
+            metadata = toc['metadata'][0][0].startswith('Primary')
+            text = '{} {}{} {} {}{} {} {}'.format('edition:', edition, ';',
+                                                  'cdli number:', num, ';',
+                                                  'metadata:', metadata)
+            table.append(text)
+        return table
 
     def print_text(self, edition_or_cdli_number):
         """
         Prints transliteration with either text edition or cdli number.
         :return: transliteration
         """
-        if edition_or_cdli_number in self.text['text editions'] or \
-                self.text['cdli numbers']:
-            return self.text['transliterations']
+        for text in self.texts:
+            if edition_or_cdli_number in text['text edition'] or \
+                    text['cdli number']:
+                return text['transliteration'][0]
 
     def print_metadata(self, edition_or_cdli_number):
         """
         Prints metadata with either text edition or cdli number.
         :return: metadata
         """
-        if edition_or_cdli_number in self.text['text editions'] or \
-                self.text['cdli numbers']:
-            return self.text['metadata']
+        for text in self.texts:
+            if edition_or_cdli_number in text['text edition'] or \
+                    text['cdli number']:
+                return text['metadata']

@@ -1,30 +1,33 @@
-"""
-This file tests methods in file_import.py.
-"""
-
 import os
-from Importer.file_importer import FileImport  # pylint: disable =import-error
+from Importer.file_importer import FileImport
+from Importer.cdli_corpus import CDLICorpus
 
-__author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
-__license__ = 'MIT License. See LICENSE.'
 
-text = os.path.join('texts', 'Akkadian.txt')
-cdli = FileImport(text)
-cdli.read_file()
-final = cdli.file_lines[3042:3054]
-goal = ['24. _{gesz}ma2_ dan-na-tam',
-    '25. a-na be-el _{gesz}ma2_',
-    '26. i-na-ad-di-in',
-    '@law 236',
-    '27. szum-ma a-wi-lum',
-    '28. _{gesz}ma2_-szu',
-    '29. a-na _ma2-lah5_',
-    '30. a-na ig-ri-im',
-    '31. id-di-in-ma',
-    '32. _ma2-lah5_ i-gi-ma',
-    '33. _{gesz}ma2_ ut,-t,e4-bi',
-    '34. u3 lu uh2-ta-al-li-iq']
-print(final == goal)
+path = os.path.join('texts', 'two_text.txt')
+f_i = FileImport(path)
+f_i.read_file()
+text_file = f_i.file_lines
+cdli = CDLICorpus()
+cdli.ingest_text_file(text_file)
+output = cdli.texts
+print(output)
+print()
+for toc in cdli.texts:
+    edition = toc['text edition']
+    num = toc['cdli number']
+    metadata = toc['metadata'][0][0].startswith('Primary')
+    text = '{} {}{} {} {}{} {} {}'.format('edition:', edition, ';',
+                                         'cdli number:', num, ';',
+                                      'metadata:', metadata)
+    print(text)
+print()
 
-filepath, _ = os.path.split(cdli.filename)
-print(os.listdir(_))
+
+def print_text(edition_or_cdli_number):
+    for _ in cdli.texts:
+        if edition_or_cdli_number in _['text edition'] or \
+                _['cdli number']:
+            return _['metadata']
+
+
+print(print_text('&P254203'))
