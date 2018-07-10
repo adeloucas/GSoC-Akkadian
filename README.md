@@ -112,51 +112,34 @@ This class has four types of tokenizers:
 This folder contains the two classes that are to be used in order to
 take data from CDLI into the ATFConverter.
 
-__This folder takes two forms of data:__
-
-1) _Downloaded .atf files from  CDLI's "download all text" option:
-   (https://cdli.ucla.edu/search/download_data_new.php?data_type=all)_
-2) _Text downloaded from CDLI's most recent backed-up iteration found in
-    the CDLI github repository_.
-
-
 #### file_import.py
 
-    file_import is for disparating a selection of CDLI's ATF-formatted
-    texts downloaded into a single text file.
+    file_importer module is for importing text files. Currently, this is
+    made for the purpose of reading from one of the CDLI's "download all
+    text" option:
+    https://cdli.ucla.edu/search/download_data_new.php?data_type=all.
 
-This class sets up the ability to work with cuneiform text(s) one-on-one
-whether it is Code of Hammurabi, a collection of texts such as ARM01, or
-whatever your search function desires.
+This class takes a text file and prepares it in two ways: as a whole
+(raw_file) and as a list of strings denoting the text line by line
+(file_lines).
 
-File_import depends upon inital __read_file__ method, which needs a
-downloaded atf file from CDLI. There, one may view __texts_within_file__
-and choose which text to print with __text_print__.
+File_import will read a text from a file, but doesn't output anything.
 
-Behind these methods are 3 conversions: __discern_texts__,
-__split_texts__, and __text_contents__.
-
-
-#### cdli_import.py
-
-    cdli_import is for importing, or updating specific texts from CDLI.
-
-Cdli_import depends upon the CLTK's CDLI Corpus, instructions below:
-
-https://github.com/cltk/tutorials/blob/master/2%20Import%20corpora.ipynb
-
-1) Install CLTK
-2) from cltk.corpus.utils.importer import CorpusImporter
-3) akkadian_downloader = CorpusImporter("Akkadian")
-4) akkadian_downloader.import_corpus("cdli_corpus")
-5) From this, take "cdliatf_unblocked.atf" and remane it to anything.txt
-
-There are two used methods, __import_text__, which imports from CDLI's
-backup file _only the tablet's text, not including its metadata_, and
-__update_text__.
+It can also examine the directory that a text is in and give a readout
+of other text files that are housed in the same location.
 
 
-Behind these methods is 1 other method: __file_pull__.
+#### cdli_corpus.py
+
+    This cdli_corpus module is for working with text files having
+    already been read by file_importer. The file_lines required by
+    CDLICorpus are taken from prior use of
+    FileImport(text_file).read_file().
+
+CDLICorpus takes a read file and outputs disparate texts found in a
+file. It ingests a text and allows its various elements (edition,
+cdli number, metadata, and transliteration) to be called upon.
+
 ***
 
 ### tests
@@ -167,9 +150,9 @@ normalization, and printing.
 
 ##### atf_test.py
 
-##### cdli_import_test.py
+##### cdli_corpus_test.py
 
-##### file_import_test.py
+##### file_importer_test.py
 
 ##### pretty_test.py
 
@@ -192,17 +175,22 @@ Information can be found in the file.
 A text file that is downloaded from the CLTK; this is a daily back-up of
 the texts found in the CDLI.
 
-#### cdli_text.txt
+#### single_text.txt
 
-A test text file for configuring functions that utilize cdli_corpus.txt.
+A test text file for configuring functions that utilize cdli_corpus.txt
 
 #### Transliteration.txt
 
 A text file that contains the ATF info for Codex Hammurabi including
 translation. Information can be found in the file.
+
+#### two_text.txt
+
+A test text file for configuring functions that utilize cdli_corpus.txt.
+
 ***
 
-### Project Updates EOW 8.md
+### Project Updates EOW 11.md
 
 I will be updating weekly the development of this project, labeled as
 such until final submission week.

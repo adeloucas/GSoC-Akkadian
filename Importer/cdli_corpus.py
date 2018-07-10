@@ -36,11 +36,11 @@ class CDLICorpus(object):
     """
     def __init__(self):
         """
-        :param file_lines: See method docstring for capturing file_lines.
+        Empty.
         """
         self.texts = []
 
-    def chunk_text(self, file_lines):
+    def chunk_text(self, file_lines):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
@@ -159,6 +159,12 @@ class CDLICorpus(object):
     # Should here on out be in new method called pretty print?
 
     def table_of_contents(self):
+        """
+        Prints a table of contents from which a use can identify the edition
+        and cdli number for printing purposes, as well as whether or not the
+        text has metadata.
+        :return: string of edition, number, and metadata.
+        """
         table = []
         for toc in self.texts:
             edition = toc['text edition']
@@ -170,7 +176,7 @@ class CDLICorpus(object):
             table.append(text)
         return table
 
-    def print_text(self, edition_or_cdli_number):
+    def print_text(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
         """
         Prints transliteration with either text edition or cdli number.
         :return: transliteration
@@ -180,7 +186,7 @@ class CDLICorpus(object):
                     text['cdli number']:
                 return text['transliteration'][0]
 
-    def print_metadata(self, edition_or_cdli_number):
+    def print_metadata(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
         """
         Prints metadata with either text edition or cdli number.
         :return: metadata
