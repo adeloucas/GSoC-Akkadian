@@ -20,30 +20,29 @@ Github: https://github.com/TylerKirby
 
 ## Program Specification
 
-    The purpose of this project is to take texts from CDLI and
-    output a normalized text.
+    The purpose of this project is build base methods so that Akkadian
+    may be analyzed comfortably in the CLTK.
 
 ### ATFConverter
 
 The ATFConverter folder contains classes that are typically performed by
-this project: __atf-unicode conversion, tokenization, lemmatization,__
-_normalization*_, and __printing__.
+this project: __ importation, atf-unicode conversion, tokenization,
+lemmatization,__ _normalization*_, and __printing__.
 
-The goal of this is to reconstruct a normalized spelling of Akkadian
-out of CDLI’s ATF text and thus create data available for two
+The goal of this project is to reconstruct a normalized spelling of
+Akkadian out of CDLI’s ATF text and thus create data available for two
 fundamental uses:
 
-1) ___allowance of
-individuals to learn and practice Akkadian with real and novel reading
-exercises___; and
+1) ___allowance of individuals to learn and practice Akkadian with real
+and novel reading exercises___; and
 2) ___be analyzed on a mass scale.___
 
 _*normalization will not be finished by the end of this project._
 
 #### atf_converter.py
 
-    atf_converter is for converting tokens made from CDLI's ATF-formatted
-    text into a standard unicode format.
+    atf_converter is for converting tokens made from the tokenizer into
+    a standard unicode format.
 
 The atf_converter depends upon word and sign tokenizer outputs. The
 method __process__ uses a list of tokens and will return the list
@@ -86,7 +85,7 @@ tokenizer._
 
 #### tokenizer.py
 
-    tokenizer reads ATF material and converts the data into
+    tokenizer takes read ATF material and converts the data into
     readable, mutable tokens.
 
 The string tokenizer is used for any string-based input (e.g.
