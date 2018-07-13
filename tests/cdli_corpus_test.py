@@ -423,7 +423,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                'Catalogue source: 20050104 cdliadmin',
                                'ATF source: cdlistaff',
                                'Translation: Durand, Jean-Marie (fr); '
-                               'uerra, Dylan M. (en)',
+                               'Guerra, Dylan M. (en)',
                                'UCLA Library ARK: 21198/zz001rsp8x',
                                'Composite no.:',
                                'Seal no.:',
@@ -539,6 +539,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                       '2. bi-tum bi-it-ka u3 '
                                       '{disz}a-bi#-[sa]-mar# '
                                       'ma-ru-ka-[ma]']]}]
+        self.maxDiff = None
         self.assertEqual(cdli.texts, goal)
 
     def test_table_of_contents(self):
@@ -552,10 +553,33 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         cdli = CDLICorpus()
         cdli.ingest_text_file(text_file)
         output = cdli.table_of_contents()
-        goal = ["edition: ['ARM 01, 001']; cdli number: "
-                "['&P254202']; metadata: True",
-                "edition: ['ARM 01, 002']; cdli number: "
-                "['&P254203']; metadata: True"]
+        goal = ["edition: ['ARM 01, 001']; cdli number: ['&P254202']; "
+                "metadata: ['Primary publication: ARM 01, 001', 'Author(s): "
+                "Dossin, Georges', 'Publication date: 1946', 'Secondary "
+                "publication(s): Durand, Jean-Marie, LAPO 16, 0305', "
+                "'Collection: National Museum of Syria, Damascus, Syria', "
+                "'Museum no.: NMSD —', 'Accession no.:', 'Provenience: Mari "
+                "(mod. Tell Hariri)', 'Excavation no.:', 'Period: Old "
+                "Babylonian (ca. 1900-1600 BC)', 'Dates referenced:', 'Object "
+                "type: tablet', 'Remarks:', 'Material: clay', 'Language: "
+                "Akkadian', 'Genre: Letter', 'Sub-genre:', 'CDLI comments:', "
+                "'Catalogue source: 20050104 cdliadmin', 'ATF source: "
+                "cdlistaff', 'Translation: Durand, Jean-Marie (fr); Guerra, "
+                "Dylan M. (en)', 'UCLA Library ARK: 21198/zz001rsp8x', "
+                "'Composite no.:', 'Seal no.:', 'CDLI no.: P254202']",
+                "edition: ['ARM 01, 002']; cdli number: ['&P254203']; metadata"
+                ": ['Primary publication: ARM 01, 002', 'Author(s): Dossin, "
+                "Georges', 'Publication date: 1946', 'Secondary publication(s)"
+                ": Durand, Jean-Marie, LAPO 16, 0306', 'Collection: National "
+                "Museum of Syria, Damascus, Syria', 'Museum no.: NMSD —', "
+                "'Accession no.:', 'Provenience: Mari (mod. Tell Hariri)', "
+                "'Excavation no.:', 'Period: Old Babylonian (ca. 1900-1600 BC)"
+                "', 'Dates referenced:', 'Object type: tablet', 'Remarks:', "
+                "'Material: clay', 'Language: Akkadian', 'Genre: Letter', "
+                "'Sub-genre:', 'CDLI comments:', 'Catalogue source: 20050104 "
+                "cdliadmin', 'ATF source: cdlistaff', 'Translation:', "
+                "'UCLA Library ARK: 21198/zz001rsp9f', 'Composite no.:', "
+                "'Seal no.:', 'CDLI no.: P254203']"]
         self.assertEqual(output, goal)
 
     def test_print_text(self):

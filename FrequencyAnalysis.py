@@ -26,5 +26,5 @@ for lines in [text['transliteration'][0] for text in cc.texts]:
         for word in tk.word_tokenizer(line):
             if word[0] not in stopwords:
                 bag_of_words.append('-'.join(atf.process(word[0].split('-'))))
-frequency_analysis = Counter(bag_of_words).most_common(10)
+frequency_analysis = Counter(bag_of_words).most_common(11)
 print(frequency_analysis)

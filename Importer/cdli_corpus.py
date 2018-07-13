@@ -169,7 +169,7 @@ class CDLICorpus(object):
         for toc in self.texts:
             edition = toc['text edition']
             num = toc['cdli number']
-            metadata = toc['metadata'][0][0].startswith('Primary')
+            metadata = toc['metadata'][0]
             text = '{} {}{} {} {}{} {} {}'.format('edition:', edition, ';',
                                                   'cdli number:', num, ';',
                                                   'metadata:', metadata)
