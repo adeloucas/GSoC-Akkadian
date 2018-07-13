@@ -1,3 +1,29 @@
+Primary publication: ARM 01, 001
+Author(s): Dossin, Georges
+Publication date: 1946
+Secondary publication(s): Durand, Jean-Marie, LAPO 16, 0305
+Collection: National Museum of Syria, Damascus, Syria
+Museum no.: NMSD —
+Accession no.:
+Provenience: Mari (mod. Tell Hariri)
+Excavation no.:
+Period: Old Babylonian (ca. 1900-1600 BC)
+Dates referenced:
+Object type: tablet
+Remarks:
+Material: clay
+Language: Akkadian
+Genre: Letter
+Sub-genre:
+CDLI comments:
+Catalogue source: 20050104 cdliadmin
+ATF source: cdlistaff
+Translation: Durand, Jean-Marie (fr); Guerra, Dylan M. (en)
+UCLA Library ARK: 21198/zz001rsp8x
+Composite no.:
+Seal no.:
+CDLI no.: P254202
+Transliteration:
 &P254202 = ARM 01, 001
 #atf: lang akk
 @tablet
@@ -30,6 +56,32 @@ $ beginning broken
 15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur
 
 
+Primary publication: ARM 01, 002
+Author(s): Dossin, Georges
+Publication date: 1946
+Secondary publication(s): Durand, Jean-Marie, LAPO 16, 0306
+Collection: National Museum of Syria, Damascus, Syria
+Museum no.: NMSD —
+Accession no.:
+Provenience: Mari (mod. Tell Hariri)
+Excavation no.:
+Period: Old Babylonian (ca. 1900-1600 BC)
+Dates referenced:
+Object type: tablet
+Remarks:
+Material: clay
+Language: Akkadian
+Genre: Letter
+Sub-genre:
+CDLI comments:
+Catalogue source: 20050104 cdliadmin
+ATF source: cdlistaff
+Translation:
+UCLA Library ARK: 21198/zz001rsp9f
+Composite no.:
+Seal no.:
+CDLI no.: P254203
+Transliteration:
 &P254203 = ARM 01, 002
 #atf: lang akk
 @tablet

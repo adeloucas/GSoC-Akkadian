@@ -22,19 +22,11 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         signs = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
                   ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
                   ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                  ('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
-                  ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                  ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                  ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                  ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
-        target = [('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
-                  ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
-                  ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
-                  ('underscore', ''), ('space', ' '), ('akkadian', 'i'),
-                  ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
-                  ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
-                  ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
-                  ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]
+                  ('underscore', '_'), ('space', ' '), ('akkadian', 'i')]]
+        target = [[('sumerian', 'u₄'), ('space', ' '), ('number', '2(diš)'),
+                   ('hyphen', '-'), ('sumerian', 'kam'), ('space', ' '),
+                   ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'kam'),
+                   ('underscore', ''), ('space', ' '), ('akkadian', 'i')]]
         output = p_p.underscore_remover(signs)
         self.assertEqual(output, target)
 
@@ -51,14 +43,14 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                   ('sumerian', 'é'), ('hyphen', '-'), ('sumerian', 'hi'),
                   ('hyphen', '-'), ('sumerian', 'a'), ('hyphen', '-'),
                   ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
-        target = [('sumerian', 'U₄'), ('space', ' '), ('number', '2(diš)'),
+        target = [[('sumerian', 'U₄'), ('space', ' '), ('number', '2(diš)'),
                    ('hyphen', '-'), ('sumerian', 'KAM'), ('space', ' '),
                    ('number', '3(diš)'), ('hyphen', '-'), ('sumerian', 'KAM'),
                    ('underscore', '_'), ('space', ' '), ('akkadian', 'i'),
                    ('hyphen', '-'), ('akkadian', 'na'), ('space', ' '),
                    ('sumerian', 'É'), ('hyphen', '-'), ('sumerian', 'HI'),
                    ('hyphen', '-'), ('sumerian', 'A'), ('hyphen', '-'),
-                   ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]
+                   ('akkadian', 'šu'), ('hyphen', '-'), ('akkadian', 'nu')]]
         output = p_p.sumerian_converter(signs)
         self.assertEqual(output, target)
 

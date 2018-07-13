@@ -58,7 +58,7 @@ Refine Tokenizer and enable ATFConverter use.
 2) Survey 1
 3) PEP8 editing -- all files are now with ratings > 9/10
 4) Clean up Github Repository and make Master and Development branches
-5) Spell out Phase two goals through Issues and Write-ups: \
+5) Spell out phase two goals through Issues and Write-ups: \
 a) Establish Lemmatizer for normalization \
 b) Establish Pretty Printing  \
 c) Establish CDLI Corpus Reader
@@ -67,6 +67,8 @@ c) Establish CDLI Corpus Reader
 1) Began building out Importer class -- File- and CDLI-Import
 2) Addressing changes in scope of project
 3) PEP8 editing
+4) Program Specification Write-up in README
+5) Doc- and methodstrings updated
 
 ## Week 10 (June 25 - July 2)
 1) Project Presentation for CLTK
@@ -76,16 +78,25 @@ c) Establish CDLI Corpus Reader
 
 ## Week 11 (July 2 - July 9)
 1) Clean up Importer
-2) Finish Pretty Printing class
-3) Review remarks and make adjustments from CLTK meeting
-4)
+2) Review remarks and make adjustments from CLTK meeting
 
 ## Week 12 (July 9 - July 16)
+1) Second evaluation
+2) Update documentation
+3) Clean up code and Github repository
+4) Prepare Google lightning talk
+5) Prepare for phase three, Lemmatization
 
 ## Week 13 (July 16 - July 23)
+1) Google lightning talk
+2)
 
 ## Week 14 (July 23 - July 30)
 
 ## Week 15 (July 30 - Aug 6)
 
 ## Week 16 (Aug 6 - Aug 13)
+1) Finalize code
+2) Third evaluation
+3) Upload code into CLTK
+4) Write blog about experience for CLTK

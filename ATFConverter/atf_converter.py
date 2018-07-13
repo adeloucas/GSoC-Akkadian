@@ -1,6 +1,5 @@
 """
-This module is for converting tokens made from CDLI's ATF-formatted text into a
-standard unicode format.
+This module is for converting tokens made from tokenizer.py into unicode.
 
 The atf_converter depends upon the word and sign tokenizer outputs. There are
 two sets of functions:
