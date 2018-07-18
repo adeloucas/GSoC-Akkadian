@@ -1,5 +1,5 @@
 """
-This module is for printing texts for Markdown or HTML.
+This module is for printing texts in Markdown or HTML.
 """
 
 import markdown
@@ -14,39 +14,67 @@ class PrettyPrint(object):
     """
     def __init__(self):
         """
-        None
+        Empty.
         """
-        self.markdown = []
 
-    def markdown_print(self, ingest_text, edition_or_cdli_number):
-                                                               #, filename):
+    def markdown_print_file(self, ingest_text, filename):
         """
-        Prints text_file in markdown.
-       :param ingest_text: text ingested by cdli_corpus
-       :param edition_or_cdli_number: text you wish to print
-       :return: output in markdown_file.md / filename.md
+        Prints whole text_file in markdown.
+        :param ingest_text: text ingested by cdli_corpus
+        :param filename: where you wish to save the markdown data
+        :return: output in filename.md
        """
-        for text in ingest_text:
-            cdli = text['cdli number']
-            edition = text['text edition']
-            metadata = text['metadata'][0]
-            transliteration = text['transliteration'][0]
-            if edition_or_cdli_number in edition or \
-                    cdli:
-                return ["{} {} {} {}".format(cdli, edition,
-                                             metadata, transliteration)]
-                # self.markdown.append(final_thing)
-        # with open(filename, mode='r+', encoding='utf8') as text_file:
-        #    text_file.write(html)
-        #    return text_file
+        with open(filename, mode='r+', encoding='utf8') as text_file:
+            for text in ingest_text:
+                edition = text['text edition'][0]
+                metadata = '\n \t'.join(text['metadata'][0])
+                transliteration = '\n \t'.join(text['transliteration'][0])
+                m_d = """
+{edition}
+---
+###### metadata
+    {metadata}
+###### transliteration
+    {transliteration} 
+""".format(edition=edition, metadata=metadata, transliteration=transliteration)
+                self.markdown_file = m_d
+                text_file.write(self.markdown_file)
 
-    def html_print(self, filename):
+    def markdown_print_single_text(self, ingest_text, cdli_number, filename):
+        """
+        Prints single text in file in markdown.
+       :param ingest_text: text ingested by cdli_corpus
+       :param cdli_number: text you wish to print
+       :param filename: where you wish to save the markdown data
+       :return: output in filename.md
+       """
+        with open(filename, mode='r+', encoding='utf8') as text_file:
+            for text in ingest_text:
+                cdli = text['cdli number'][0]
+                if cdli_number in cdli:
+                    edition = text['text edition'][0]
+                    metadata = '\n \t'.join(text['metadata'][0])
+                    transliteration = '\n \t'.join(text['transliteration'][0])
+                    m_d = """
+{edition}
+---
+###### metadata
+    {metadata}
+###### transliteration
+    {transliteration} 
+""".format(edition=edition, metadata=metadata, transliteration=transliteration)
+                    self.markdown_text = m_d
+                    text_file.write(self.markdown_text)
+
+    def html_print(self, origin, destination):
         """
         Prints text_file in html.
         :param filename: the file name where you want to save the print.
+        :param origin: where markdown data is
+        :param destination: where you wish to save the HTML data
         :return: output in html_file.html.
         """
-        html = markdown.markdown(self.markdown)
-        with open(filename, mode='r+', encoding='utf8') as text_file:
-            text_file.write(html)
-            return text_file
+        html = markdown.markdown(origin)
+        with open(destination, mode='r+', encoding='utf8') as text_file:
+            self.html = html
+            text_file.write(self.html)
