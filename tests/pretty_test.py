@@ -1,9 +1,9 @@
 """
-This file tests methods in pretty_print.py.
+This file tests methods in printing_scrap.py.
 """
 
 import unittest
-from ATFConverter.pretty_print import PrettyPrint  # pylint: disable =import-error
+from ATFConverter.printing_scrap import PrettyPrint  # pylint: disable =import-error
 
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
