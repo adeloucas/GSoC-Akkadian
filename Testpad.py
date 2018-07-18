@@ -1,79 +1,30 @@
+import os
+from collections import Counter
+from Importer.file_importer import FileImport
+from Importer.cdli_corpus import CDLICorpus
 from ATFConverter.tokenizer import Tokenizer
 from ATFConverter.atf_converter import ATFConverter
-Tokenizer = Tokenizer(preserve_damage=False, preserve_metadata=False)
-ATFConverter = ATFConverter(two_three=False)
 
-#Text Feeders
-"""Captures text samples"""
-text = r'C:\\Users\\andrew.deloucas\\GSoC-Akkadian\\texts\\ARM1Akkadian.txt'
-s = "8. _a-sza3-hi-a_ sza a-ah {d}buranun-na a-na za-zi-im"
-#Line Tokenizer
-"""Deconstructs Text"""
-string = Tokenizer.string_tokenizer(s)
-sample = Tokenizer.line_tokenizer(text)
-lines = sample[0:100]
-#Word Tokenizer
-"""Deconstructs Text"""
-line_words = Tokenizer.word_tokenizer(s)
-words2 = Tokenizer.word_tokenizer2(lines)
-#Sign Tokenizer
-"""Deconstructs Text"""
-line_signs = Tokenizer.sign_tokenizer(line_words[0])
-failed_test_signs = Tokenizer.sign_tokenizer2(lines)
-successful_test_signs = Tokenizer.sign_tokenizer_space_and_hyphen(lines)
-#ATF Converter
-"""Converts Text"""
-failed_test_sign_process = [ATFConverter.process(line) for line in failed_test_signs]
-successful_test_sign_process = [ATFConverter.process(line) for line in successful_test_signs]
-#Language Reader
-"""Analyzes Text"""
-solo_signs = [Tokenizer.sign_language(line) for line in failed_test_sign_process]
-signs_and_markers = [Tokenizer.sign_language(line)[1:] for line in successful_test_sign_process]
-underscore_removal = ATFConverter.underscore_remover(signs_and_markers)
-sumerian_conversion = ATFConverter.sumerian_converter(underscore_removal)
-#Reader Reconstruction
-"""Reconstructs Text"""
-failed_test_reconstructed_lines = ATFConverter.reader_reconstruction(solo_signs)
-successful_test_reconstructed_lines = ATFConverter.reader_reconstruction(signs_and_markers)
-reconstruction = ATFConverter.reader_reconstruction(sumerian_conversion)
-#Output
-"""Tokenizes Reconstructed Text"""
-reconstructed_words = Tokenizer.word_tokenizer2(successful_test_reconstructed_lines)
-reconstructed_signs = Tokenizer.sign_tokenizer2(successful_test_reconstructed_lines)
 
-#print(sample)
-#print("***")
-#print(line_words)
-#print(line_signs)
-#print(words2)
-#print(failed_test_signs)
-#print(failed_test_sign_process)
-#print(solo_signs)
-#print(failed_test_reconstructed_lines)
-#print("***")
-#print(words)
-#print(successful_test_signs)
-#print(successful_test_sign_process)
-#print(signs_and_markers)
-#print()
-#print(successful_test_reconstructed_lines)
-#print()
-print('\n'.join(reconstruction))
-#print(reconstructed_words)
-#print(reconstructed_signs)
-#print(sumerian_conversion)
-#print(reconstruction)
+fi = FileImport('texts/Akkadian.txt')
+fi.read_file()
+cc = CDLICorpus()
+cc.ingest_text_file(fi.file_lines)
+tk = Tokenizer()
+atf = ATFConverter()
+stopwords = ['a-na', 'u3', 'sza', '[...]', 'i-na', '=',
+             'ARM', '01,', 'lang', 'akk', 'um-ma', 'la',
+             'u2-ul', 'mesz_', 'asz-szum', '0.1', 'broken',
+             'isz-tu', '_lu2_', 'ki-a-am', '1(disz)', 'ki-ma',
+             'x', 'sza-a-ti', 'the', '_lu2', '...]', 'lu-u2',
+             'sza#', 'a-na#', '_u4', 'beginning', 'of', '2(disz)',
+             '[a-na', 'szum-ma', 'hi-a_', 'ana', 'a-di']
 
-"""
-*** Manual Input ***
-sample = Tokenizer.line_tokenizer(text)
-lines = sample[245:251]
-*** Program ***
-words = Tokenizer.word_tokenizer(lines)
-signs = Tokenizer.sign_tokenizer_space_and_hyphen_incl(words)
-process = [ATFConverter.process(line, line) for line in signs]
-analysis = [ATFConverter.language_reader(line[1:-2]) for line in process]
-lines = ATFConverter.reader_reconstruction(analysis)
-words = Tokenizer.word_tokenizer(lines)
-return words
-"""
+bag_of_words = []
+for lines in [text['transliteration'][0] for text in cc.texts]:
+    for line in lines:
+        for word in tk.word_tokenizer(line):
+            if word[0] not in stopwords:
+                bag_of_words.append('-'.join(atf.process(word[0].split('-'))))
+frequency_analysis = Counter(bag_of_words).most_common(10)
+print(frequency_analysis)
