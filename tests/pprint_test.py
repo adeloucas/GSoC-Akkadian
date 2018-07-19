@@ -33,10 +33,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_o = FileImport(destination)
         f_o.read_file()
         output = f_o.raw_file
-        goal = """
-ARM 01, 001
+        goal = """ARM 01, 001
 ---
-###### metadata
+### metadata
     Primary publication: ARM 01, 001
  	Author(s): Dossin, Georges
  	Publication date: 1946
@@ -62,7 +61,7 @@ ARM 01, 001
  	Composite no.:
  	Seal no.:
  	CDLI no.: P254202
-###### transliteration
+### transliteration
     &P254202 = ARM 01, 001
  	#atf: lang akk
  	@tablet
@@ -92,11 +91,10 @@ ARM 01, 001
  	12'. pi2-qa-at ha-s,e-ra#-at
  	13'. asz-szum a-la-nu-ka
  	14'. u3 ma-ru-ka sza-al#-[mu]
- 	15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur 
-
+ 	15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur
 ARM 01, 002
 ---
-###### metadata
+### metadata
     Primary publication: ARM 01, 002
  	Author(s): Dossin, Georges
  	Publication date: 1946
@@ -122,7 +120,7 @@ ARM 01, 002
  	Composite no.:
  	Seal no.:
  	CDLI no.: P254203
-###### transliteration
+### transliteration
     &P254203 = ARM 01, 002
  	#atf: lang akk
  	@tablet
@@ -158,7 +156,7 @@ ARM 01, 002
  	11'. pi2-qa-at ta-qa-ab#-[bi um-ma at-ta-a-ma]
  	@left
  	1. {disz}a-bi-sa-mar u2-ul ma-ri u3 bi-ti a-na la bi-tu#-[tu-ur2-ma]
- 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma] 
+ 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]
 """
         self.assertEqual(output, goal)
 
@@ -178,10 +176,9 @@ ARM 01, 002
         f_o = FileImport(destination)
         f_o.read_file()
         output = f_o.raw_file
-        goal = """
-ARM 01, 002
+        goal = """ARM 01, 002
 ---
-###### metadata
+### metadata
     Primary publication: ARM 01, 002
  	Author(s): Dossin, Georges
  	Publication date: 1946
@@ -207,7 +204,7 @@ ARM 01, 002
  	Composite no.:
  	Seal no.:
  	CDLI no.: P254203
-###### transliteration
+### transliteration
     &P254203 = ARM 01, 002
  	#atf: lang akk
  	@tablet
@@ -243,7 +240,7 @@ ARM 01, 002
  	11'. pi2-qa-at ta-qa-ab#-[bi um-ma at-ta-a-ma]
  	@left
  	1. {disz}a-bi-sa-mar u2-ul ma-ri u3 bi-ti a-na la bi-tu#-[tu-ur2-ma]
- 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma] 
+ 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]  
 """
         self.assertEqual(output, goal)
 
@@ -262,8 +259,15 @@ ARM 01, 002
         f_o.read_file()
         output = f_o.raw_file
         goal = \
-"""<h2>ARM 01, 002</h2>
-<h6>metadata</h6>
+"""<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARM 01, 002</title>
+</head>
+<body>
+<h2>ARM 01, 002</h2>
+<h3>metadata</h3>
 <pre><code>Primary publication: ARM 01, 002
 Author(s): Dossin, Georges
 Publication date: 1946
@@ -290,7 +294,7 @@ Composite no.:
 Seal no.:
 CDLI no.: P254203
 </code></pre>
-<h6>transliteration</h6>
+<h3>transliteration</h3>
 <pre><code>&amp;P254203 = ARM 01, 002
 #atf: lang akk
 @tablet
@@ -327,5 +331,7 @@ $ beginning broken
 @left
 1. {disz}a-bi-sa-mar u2-ul ma-ri u3 bi-ti a-na la bi-tu#-[tu-ur2-ma]
 2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]
-</code></pre>"""
+</code></pre>
+</body>
+</html>"""
         self.assertEqual(output, goal)

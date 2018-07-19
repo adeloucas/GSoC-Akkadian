@@ -29,13 +29,12 @@ class PrettyPrint(object):
                 edition = text['text edition'][0]
                 metadata = '\n \t'.join(text['metadata'][0])
                 transliteration = '\n \t'.join(text['transliteration'][0])
-                m_d = """
-{edition}
+                m_d = """{edition}
 ---
-###### metadata
+### metadata
     {metadata}
-###### transliteration
-    {transliteration} 
+### transliteration
+    {transliteration}
 """.format(edition=edition, metadata=metadata, transliteration=transliteration)
                 self.markdown_file = m_d
                 text_file.write(self.markdown_file)
@@ -53,15 +52,14 @@ class PrettyPrint(object):
                 cdli = text['cdli number'][0]
                 if cdli_number in cdli:
                     edition = text['text edition'][0]
-                    metadata = '\n \t'.join(text['metadata'][0])
-                    transliteration = '\n \t'.join(text['transliteration'][0])
-                    m_d = """
-{edition}
+                    metadata = '\n \t'.join(text['metadata'][0]).rstrip()
+                    transliteration = '\n \t'.join(text['transliteration'][0]).rstrip()
+                    m_d = """{edition}
 ---
-###### metadata
+### metadata
     {metadata}
-###### transliteration
-    {transliteration} 
+### transliteration
+    {transliteration}  
 """.format(edition=edition, metadata=metadata, transliteration=transliteration)
                     self.markdown_text = m_d
                     text_file.write(self.markdown_text)
@@ -76,5 +74,14 @@ class PrettyPrint(object):
         """
         html = markdown.markdown(origin)
         with open(destination, mode='r+', encoding='utf8') as text_file:
-            self.html = html
+            self.html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{origin_title}</title>
+</head>
+<body>
+{origin_body}
+</body>
+</html>""".format(origin_title=origin.splitlines()[0], origin_body=html)
             text_file.write(self.html)

@@ -1,7 +1,6 @@
-
 ARM 01, 002
 ---
-###### metadata
+### metadata
     Primary publication: ARM 01, 002
  	Author(s): Dossin, Georges
  	Publication date: 1946
@@ -27,7 +26,7 @@ ARM 01, 002
  	Composite no.:
  	Seal no.:
  	CDLI no.: P254203
-###### transliteration
+### transliteration
     &P254203 = ARM 01, 002
  	#atf: lang akk
  	@tablet
@@ -63,4 +62,4 @@ ARM 01, 002
  	11'. pi2-qa-at ta-qa-ab#-[bi um-ma at-ta-a-ma]
  	@left
  	1. {disz}a-bi-sa-mar u2-ul ma-ri u3 bi-ti a-na la bi-tu#-[tu-ur2-ma]
- 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma] 
+ 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]  
