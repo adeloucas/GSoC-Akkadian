@@ -41,13 +41,11 @@ class Tokenizer(object):
         ATF Inline = http://oracc.museum.upenn.edu/doc/help/editinginatf/
         primer/inlinetutorial/index.html
     """
-    def __init__(self, preserve_damage=False, preserve_metadata=False):
+    def __init__(self, preserve_damage=False):
         """
         :param preserve_damage: turns on or off damage markers in text.
-        :param preserve_metadata: turns on or off metadata in text.
         """
         self.damage = preserve_damage
-        self.metadata = preserve_metadata
 
     def string_tokenizer(self, untokenized_string: str, include_blanks=False):
         """
@@ -75,9 +73,7 @@ class Tokenizer(object):
             # Strip out damage characters
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
-            if self.metadata:   # Make this unaffected by process, etc.
-                line_output.append(line.rstrip())
-            elif re.match(r'^\d*\.|\d\'\.', line):
+                re.match(r'^\d*\.|\d\'\.', line)
                 line_output.append(line.rstrip())
         return line_output
 
@@ -104,9 +100,7 @@ class Tokenizer(object):
             # Strip out damage characters
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
-            if self.metadata:   # Make this unaffected by process, etc.
-                line_output.append(line.rstrip())
-            elif re.match(r'^\d*\.|\d\'\.', line):
+                re.match(r'^\d*\.|\d\'\.', line)
                 line_output.append(line.rstrip())
         return line_output
 

@@ -160,7 +160,7 @@ class CDLICorpus(object):
 
     def table_of_contents(self):
         """
-        Prints a table of contents from which a use can identify the edition
+        Prints a table of contents from which one use can identify the edition
         and cdli number for printing purposes, as well as whether or not the
         text has metadata.
         :return: string of edition, number, and metadata.
@@ -169,10 +169,8 @@ class CDLICorpus(object):
         for toc in self.texts:
             edition = toc['text edition']
             num = toc['cdli number']
-            metadata = toc['metadata'][0]
-            text = '{} {}{} {} {}{} {} {}'.format('edition:', edition, ';',
-                                                  'cdli number:', num, ';',
-                                                  'metadata:', metadata)
+            text = '{} {}{} {} {}'.format('edition:', edition, ';',
+                                                  'cdli number:', num)
             table.append(text)
         return table
 

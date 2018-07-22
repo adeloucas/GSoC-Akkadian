@@ -64,17 +64,16 @@ class PrettyPrint(object):
                     self.markdown_text = m_d
                     text_file.write(self.markdown_text)
 
-    def html_print(self, origin, destination):
+    def html_print_file(self, origin, destination):
         """
         Prints text_file in html.
-        :param filename: the file name where you want to save the print.
-        :param origin: where markdown data is
+        :param origin: text file you wish to pretty print
         :param destination: where you wish to save the HTML data
         :return: output in html_file.html.
         """
         html = markdown.markdown(origin)
         with open(destination, mode='r+', encoding='utf8') as text_file:
-            self.html = """<!DOCTYPE html>
+            self.html_file = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -84,4 +83,37 @@ class PrettyPrint(object):
 {origin_body}
 </body>
 </html>""".format(origin_title=origin.splitlines()[0], origin_body=html)
-            text_file.write(self.html)
+            text_file.write(self.html_file)
+
+    def html_print_single_text(self, ingested_file, cdli_number, destination):
+        """
+        Prints text_file in html.
+        :param ingested_file: CDLICorpus().texts after ingestion
+        :param cdli_number: which text you want printed
+        :param destination: where you wish to save the HTML data
+        :return: output in html_file.html.
+        """
+        for text in ingested_file:
+            cdli = text['cdli number'][0]
+            if cdli_number in cdli:
+                edition = text['text edition'][0]
+                metadata = '\n \t'.join(text['metadata'][0]).rstrip()
+                transliteration = '\n \t'.join(text
+                                               ['transliteration'][0]).rstrip()
+                with open(destination, mode='r+', encoding='utf8') as t_f:
+                    self.html_single = """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{edition}</title>
+</head>
+<body>
+<h2>{edition}</h2>
+<h3>metadata</h3>
+<pre><code>{metadata}</code></pre>
+<h3>transliteration</h3>
+<pre><code>{transliteration}</code></pre>
+</body>
+</html>""".format(edition=edition, metadata=metadata,
+                        transliteration=transliteration)
+                    t_f.write(self.html_single)

@@ -244,9 +244,9 @@ ARM 01, 002
 """
         self.assertEqual(output, goal)
 
-    def test_html_print(self):
+    def test_html_print_file(self):
         """
-        Tests html_print.
+        Tests hhtml_print_file.
         """
         path = os.path.join('..', 'PrettyPrint', 'markdown_text.md')
         destination = os.path.join('..', 'PrettyPrint', 'html_file.html')
@@ -254,7 +254,7 @@ ARM 01, 002
         f_i.read_file()
         origin = f_i.raw_file
         p_p = PrettyPrint()
-        p_p.html_print(origin, destination)
+        p_p.html_print_file(origin, destination)
         f_o = FileImport(destination)
         f_o.read_file()
         output = f_o.raw_file
@@ -332,6 +332,98 @@ $ beginning broken
 1. {disz}a-bi-sa-mar u2-ul ma-ri u3 bi-ti a-na la bi-tu#-[tu-ur2-ma]
 2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]
 </code></pre>
+</body>
+</html>"""
+        self.assertEqual(output, goal)
+
+    def test_html_print_single_text(self):
+        """
+        Tests html_print_single_text.
+        """
+        path = os.path.join('..', 'texts', 'two_text.txt')
+        destination = os.path.join('..', 'PrettyPrint', 'html_single_text.html')
+        f_i = FileImport(path)
+        f_i.read_file()
+        text_file = f_i.file_lines
+        cdli = CDLICorpus()
+        cdli.ingest_text_file(text_file)
+        p_p = PrettyPrint()
+        p_p.html_print_single_text(cdli.texts, '&P254203', destination)
+        f_o = FileImport(destination)
+        f_o.read_file()
+        output = f_o.raw_file
+        goal = \
+            """<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ARM 01, 002</title>
+</head>
+<body>
+<h2>ARM 01, 002</h2>
+<h3>metadata</h3>
+<pre><code>Primary publication: ARM 01, 002
+ 	Author(s): Dossin, Georges
+ 	Publication date: 1946
+ 	Secondary publication(s): Durand, Jean-Marie, LAPO 16, 0306
+ 	Collection: National Museum of Syria, Damascus, Syria
+ 	Museum no.: NMSD —
+ 	Accession no.:
+ 	Provenience: Mari (mod. Tell Hariri)
+ 	Excavation no.:
+ 	Period: Old Babylonian (ca. 1900-1600 BC)
+ 	Dates referenced:
+ 	Object type: tablet
+ 	Remarks:
+ 	Material: clay
+ 	Language: Akkadian
+ 	Genre: Letter
+ 	Sub-genre:
+ 	CDLI comments:
+ 	Catalogue source: 20050104 cdliadmin
+ 	ATF source: cdlistaff
+ 	Translation:
+ 	UCLA Library ARK: 21198/zz001rsp9f
+ 	Composite no.:
+ 	Seal no.:
+ 	CDLI no.: P254203</code></pre>
+<h3>transliteration</h3>
+<pre><code>&P254203 = ARM 01, 002
+ 	#atf: lang akk
+ 	@tablet
+ 	@obverse
+ 	1. a-na ia-ah-du-[li-im]
+ 	2. qi2-bi2-[ma]
+ 	3. um-ma a-bi-sa-mar-[ma]
+ 	4. asz-szum sza a-qa-bi-kum la ta-ha-asz2#
+ 	5. a-na ma-ni-im lu-ud-bu-ub
+ 	6. szum-ma a-na?-<ku> a-na a-bi-ia la ad#-[bu-ub]
+ 	7. szum-ma a-bi-sa-mar te-zi-ir#
+ 	8. u3 a-la#-ni#-ka te-zi-ir-ma#
+ 	9. i-na an-ni-a-tim sza a-da-bu-[bu]
+ 	10. a-na-ku mi-im-ma u2-ul e-le#-[i]
+ 	11. sza sza-ru-ti-ka u3 sza ra-pa#-[szi-ka e-pu-usz]
+ 	12. u3 lu-u2 sza sza-ru-ut-ka u2-ul te-le#-[i]
+ 	13. u3 lu-u2 sza ra-pa-szi-ka [te-ep-pe2-esz]
+ 	14. u3 lu ma-at ia-ma-ha-ad#{ki}
+ 	15. u3# lu# _u4 8(disz)-kam_ isz-tu [i-na-an-na]
+ 	$ rest broken
+ 	@reverse
+ 	$ beginning broken
+ 	1'. um#-[...]
+ 	2'. lu#-[...]
+ 	3'. a-[...]
+ 	4'. szum#-[...]
+ 	5'. a-na# [...]
+ 	6'. ma-li# [...]
+ 	7'. u3 u2-hu-ur# [...]
+ 	8'. a-su2-ur-ri [...]
+ 	9'. szu-zi-ba-an#-[ni ...]
+ 	10'. a-na [...]
+ 	11'. pi2-qa-at ta-qa-ab#-[bi um-ma at-ta-a-ma]
+ 	@left
+ 	1. {disz}a-bi-sa-mar u2-ul ma-ri u3 bi-ti a-na la bi-tu#-[tu-ur2-ma]
+ 	2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]</code></pre>
 </body>
 </html>"""
         self.assertEqual(output, goal)

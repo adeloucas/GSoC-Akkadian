@@ -8,7 +8,7 @@ from ATFConverter.tokenizer import Tokenizer    # pylint: disable=import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
-TOKENIZER = Tokenizer(preserve_damage=False, preserve_metadata=False)
+TOKENIZER = Tokenizer(preserve_damage=False)
 
 
 class Test1(unittest.TestCase):  # pylint: disable=R0904
@@ -41,18 +41,18 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         text_file = os.path.join('..', 'texts', 'Akkadian.txt')
         output = TOKENIZER.line_tokenizer(text_file)
-        goal = ['2. i-na-ad-di-in',
-                '3. szum-ma a-wi-lum',
-                '4. _{gesz}mar-gid2-da_-ma',
-                '5. a-na ra-ma-ni-sza i-gur',
-                '6. i-na _u4 1(disz)-kam 4(ban2) sze_',
-                '7. i-na-ad-di-in',
-                '8. szum-ma a-wi-lum',
-                '9. _{lu2}hun-ga2_ i-gur',
-                '10. isz-tu re-esz sza-at-tim',
-                '11. a-di ha-am-szi-im _iti_-im',
-                '12. 1(u) 2(disz) _sze ku3-babbar_',
-                '13. i-na _u4 1(disz)-kam_']
+        goal = ['24. _{gesz}ma2_ dan-na-tam',
+                '25. a-na be-el _{gesz}ma2_',
+                '26. i-na-ad-di-in',
+                '@law 236',
+                '27. szum-ma a-wi-lum',
+                '28. _{gesz}ma2_-szu',
+                '29. a-na _ma2-lah5_',
+                '30. a-na ig-ri-im',
+                '31. id-di-in-ma',
+                '32. _ma2-lah5_ i-gi-ma',
+                '33. _{gesz}ma2_ ut,-t,e4-bi',
+                '34. u3 lu uh2-ta-al-li-iq']
         self.assertEqual(output[3042:3054], goal)
 
     def test_word_tokenizer(self):
