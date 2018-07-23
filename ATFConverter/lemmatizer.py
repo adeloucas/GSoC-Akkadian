@@ -18,5 +18,5 @@ class Lemmatizer(object):
     @staticmethod
     def lemmatize(text):
         """
-        to be developed.
+        to be developed!
         """
