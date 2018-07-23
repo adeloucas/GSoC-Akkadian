@@ -40,7 +40,7 @@ class CDLICorpus(object):
         """
         self.texts = []
 
-    def chunk_text(self, file_lines):     # pylint: disable =no-self-use
+    def _chunk_text(self, file_lines):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
@@ -56,13 +56,13 @@ class CDLICorpus(object):
         chunk_text.append(text)
         return chunk_text
 
-    def find_cdli_number(self, file_lines):
+    def _find_cdli_number(self, file_lines):
         """
         Finds CDLI Number (ex: &P254202, P254203) in file_lines & lists it.
         :return: List of CDLI Numbers found in file_lines.
         """
         header, output = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             for lines in text:
                 if re.match(r'^&P\d.*$', lines):
                     header.append(lines)
@@ -80,13 +80,13 @@ class CDLICorpus(object):
                 output.append('No cdli number found in text!'.format())
         return output
 
-    def find_edition(self, file_lines):
+    def _find_edition(self, file_lines):
         """
         Finds edition info (ex: ARM 01, 001) in file_lines and lists it.
         :return: List of editions found in file_lines.
         """
         header, output = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             for lines in text:
                 if re.match(r'^&P\d.*$', lines):
                     header.append(lines)
@@ -101,13 +101,13 @@ class CDLICorpus(object):
                 output.append('No edition information in text!'.format())
         return output
 
-    def find_metadata(self, file_lines):
+    def _find_metadata(self, file_lines):
         """
         Finds metadata in file_lines and lists it.
         :return: List of metadata found in file_lines.
         """
         final, lines = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             if text[0].startswith('Primary publication:'):
                 lines.append(text[0:25])
             else:
@@ -115,13 +115,13 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def find_transliteration(self, file_lines):  # broken
+    def _find_transliteration(self, file_lines):  # broken
         """
         Finds any transliteration in file_lines and lists it.
         :return: List of transliterations found in file_lines.
         """
         final, lines = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             if text[0].startswith('Primary publication:'):
                 lines.append(text[26:])
             else:
@@ -129,17 +129,17 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def ingest(self, file_lines):
+    def _ingest(self, file_lines):
         """
         Captures all listed information above and formats it in a clear, and
         disparate manner.
         :return: Dictionary composed of information gathered in above
         functions.
         """
-        cdli_number = self.find_cdli_number(file_lines)
-        edition = self.find_edition(file_lines)
-        metadata = self.find_metadata(file_lines)
-        transliteration = self.find_transliteration(file_lines)
+        cdli_number = self._find_cdli_number(file_lines)
+        edition = self._find_edition(file_lines)
+        metadata = self._find_metadata(file_lines)
+        transliteration = self._find_transliteration(file_lines)
         new_text = {'text edition': edition, 'cdli number': cdli_number,
                     'metadata': metadata, 'transliteration': transliteration}
         self.text = new_text  # pylint: disable= attribute-defined-outside-init
@@ -151,8 +151,8 @@ class CDLICorpus(object):
         :return: List of dictionaries composed of information gathered in above
         functions.
         """
-        for text_lines in self.chunk_text(file_lines):
-            self.ingest(text_lines)
+        for text_lines in self._chunk_text(file_lines):
+            self._ingest(text_lines)
             texts = self.text
             self.texts.append(dict(texts))
 
@@ -160,7 +160,7 @@ class CDLICorpus(object):
 
     def table_of_contents(self):
         """
-        Prints a table of contents from which a use can identify the edition
+        Prints a table of contents from which one use can identify the edition
         and cdli number for printing purposes, as well as whether or not the
         text has metadata.
         :return: string of edition, number, and metadata.
@@ -169,10 +169,8 @@ class CDLICorpus(object):
         for toc in self.texts:
             edition = toc['text edition']
             num = toc['cdli number']
-            metadata = toc['metadata'][0]
-            text = '{} {}{} {} {}{} {} {}'.format('edition:', edition, ';',
-                                                  'cdli number:', num, ';',
-                                                  'metadata:', metadata)
+            text = '{} {}{} {} {}'.format('edition:', edition, ';',
+                                          'cdli number:', num)
             table.append(text)
         return table
 

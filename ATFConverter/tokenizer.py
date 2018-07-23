@@ -12,7 +12,6 @@ cltk/cltk/tree/master/cltk/tokenize).
 """
 
 import re
-from nltk.tokenize import RegexpTokenizer   # pylint: disable=import-error
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
 __license__ = 'MIT License. See LICENSE.'
@@ -41,13 +40,11 @@ class Tokenizer(object):
         ATF Inline = http://oracc.museum.upenn.edu/doc/help/editinginatf/
         primer/inlinetutorial/index.html
     """
-    def __init__(self, preserve_damage=False, preserve_metadata=False):
+    def __init__(self, preserve_damage=False):
         """
         :param preserve_damage: turns on or off damage markers in text.
-        :param preserve_metadata: turns on or off metadata in text.
         """
         self.damage = preserve_damage
-        self.metadata = preserve_metadata
 
     def string_tokenizer(self, untokenized_string: str, include_blanks=False):
         """
@@ -75,9 +72,7 @@ class Tokenizer(object):
             # Strip out damage characters
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
-            if self.metadata:   # Make this unaffected by process, etc.
-                line_output.append(line.rstrip())
-            elif re.match(r'^\d*\.|\d\'\.', line):
+                re.match(r'^\d*\.|\d\'\.', line)
                 line_output.append(line.rstrip())
         return line_output
 
@@ -104,9 +99,7 @@ class Tokenizer(object):
             # Strip out damage characters
             if not self.damage:  # Add 'xn' -- missing sign or number?
                 line = ''.join(c for c in line if c not in "#[]?!*")
-            if self.metadata:   # Make this unaffected by process, etc.
-                line_output.append(line.rstrip())
-            elif re.match(r'^\d*\.|\d\'\.', line):
+                re.match(r'^\d*\.|\d\'\.', line)
                 line_output.append(line.rstrip())
         return line_output
 
@@ -205,107 +198,3 @@ class Tokenizer(object):
             signs_output.append((determinative[1], "determinative"))
 
         return signs_output
-
-    @staticmethod
-    def print_word_tokenizer(line_tokenizer):
-        """
-        Looks at strings in a list (from line_tokenizer) and breaks lines down
-        by words. Includes damages.
-
-        input: ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]
-        \n']
-        output: [['[u2?-wa?-a?-ru?]', 'at-ta', 'e2-[kal2-la-ka', '_e2_-ka',
-        'wu?-e?-er?]']]
-
-        :param: list of lines as string
-        :return: words as strings in list
-        """
-        word_tokenizer = RegexpTokenizer(r'[\s]|^\d*\.|\d\'\.', gaps=True)
-        word_output = \
-            [word_tokenizer.tokenize(line) for line in line_tokenizer]
-        return word_output
-
-    @staticmethod
-    def print_sign_tokenizer(line_tokenizer):
-        """
-        Utilizes NLTK's RegexpTokenizer to break down lines into individuals
-        signs to be rebuilt into words. Includes
-        spaces and hyphens for use with ATFConverter's "reader_reconstruction".
-
-        input: ['21. [u2?-wa?-a?-ru?] at-ta e2-[kal2-la-ka _e2_-ka wu?-e?-er?]
-        \n']
-        output: [[' ', 'u2', '-', 'wa', '-', 'a', '-', 'ru', ' ', 'at', '-',
-        'ta', ' ', 'e2', '-', 'kal2', '-', 'la', '-', 'ka', ' ', '_e2_', '-',
-        'ka', ' ', 'wu', '-', 'e', '-', 'er', '\n']]
-
-        :param: list: line_tokenizer
-        :return: signs as strings in list
-        """
-        sign_tokenizer = \
-            RegexpTokenizer(r'[\#\!\?\[\]\<\>|]|^\d*\.|\d\'\.|(\-)|(\s)|'
-                            r'(_{\w*})|({\w*.})', gaps=True)
-        sign_output = \
-            [sign_tokenizer.tokenize(str(line)) for line in line_tokenizer]
-        return sign_output
-
-    @staticmethod
-    def print_sign_language(line):
-        """
-        Flags signs by language or whether it is a determinative / number, when
-        it encounters ATF Conventions. Prints without ATF Conventions.
-
-        input: ['um', 'ma', '_{d}', 'utu_', 'szi', '_{d}', 'iszkur_', 'a',
-                'bu', 'ka', 'a', 'ma']
-        output: [('akkadian', 'um'), ('akkadian', 'ma'),
-                 ('determinative', '{d}'), ('sumerian', 'utu'),
-                 ('akkadian', 'szi'), ('determinative', '{d}'),
-                 ('sumerian', 'iszkur'), ('akkadian', 'a'),
-                 ('akkadian', 'bu'), ('akkadian', 'ka'),
-                 ('akkadian', 'a'), ('akkadian', 'ma')]
-
-        :param line: list of signs in line, string
-        :return: list of tuples akin to sign_tokenizer (sign, function or
-        language)
-        """
-        language = "akkadian"
-        output = []
-        for sign in line:
-            # -
-            if sign == "-":
-                output.append(("hyphen", '-'))
-            #
-            elif sign == " ":
-                output.append(("space", ' '))
-            # _
-            elif sign == "_":
-                output.append(("underscore", '_'))
-                language = "akkadian"
-            # _x_
-            elif sign[0] == "_" and sign[-1] == "_":
-                output.append(("sumerian", sign[1:-1]))
-            # _x}
-            elif sign[0] == "_" and sign[-1] == "}":
-                output.append(("determinative", sign[1:]))
-                language = "sumerian"
-            # _x)
-            elif sign[0] == '_' and sign[-1] == ')':
-                output.append(("number", sign[1:],))
-                language = "sumerian"
-            # _x
-            elif sign[0] == "_":
-                language = "sumerian"
-                output.append((language, sign[1:]))
-            # x)
-            elif sign[-1] == ")":
-                output.append(("number", sign))
-            # x}
-            elif sign[-1] == "}":
-                output.append(("determinative", sign))
-            # x_
-            elif sign[-1] == "_":
-                output.append(("sumerian", sign[:-1]))
-                language = "akkadian"
-            # x
-            else:
-                output.append((language, sign))
-        return output

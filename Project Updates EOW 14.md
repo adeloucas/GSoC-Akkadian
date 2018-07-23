@@ -89,14 +89,19 @@ c) Establish CDLI Corpus Reader
 
 ## Week 13 (July 16 - July 23)
 1) Google lightning talk
-2)
+2) Established Pretty Print
+3) Trimmed unused code
+4) Created CLTK documentation
 
 ## Week 14 (July 23 - July 30)
+1) Finish Pretty Print
+2) Begin Lemmatization
+3) Create pipfile and use pipenv
 
 ## Week 15 (July 30 - Aug 6)
 
 ## Week 16 (Aug 6 - Aug 13)
-1) Finalize code
+1) Finalize code, documentation
 2) Third evaluation
 3) Upload code into CLTK
 4) Write blog about experience for CLTK

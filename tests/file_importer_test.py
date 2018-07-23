@@ -44,7 +44,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         ex = os.path.split(text)
         final = os.listdir(ex[0])
         goal = ['Akkadian.txt', 'ARM1Akkadian.txt', 'cdli_corpus.txt',
-                'single_text.txt', 'Transliteration.txt', 'two_text.txt']
+                'single_text.txt', 'two_text.txt']
         self.assertEqual(final, goal)
 
 

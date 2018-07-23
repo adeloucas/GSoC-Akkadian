@@ -24,7 +24,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.chunk_text(text_file)
+        output = cdli._chunk_text(text_file)
         goal = [['Primary publication: ARM 01, 001',
                  'Author(s): Dossin, Georges',
                  'Publication date: 1946',
@@ -155,7 +155,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.find_cdli_number(text_file)
+        output = cdli._find_cdli_number(text_file)
         goal = ['&P254202', '&P254203']
         self.assertEqual(output, goal)
 
@@ -168,7 +168,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.find_edition(text_file)
+        output = cdli._find_edition(text_file)
         goal = ['ARM 01, 001', 'ARM 01, 002']
         self.assertEqual(output, goal)
 
@@ -181,7 +181,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.find_metadata(text_file)
+        output = cdli._find_metadata(text_file)
         goal = [['Primary publication: ARM 01, 001',
                  'Author(s): Dossin, Georges',
                  'Publication date: 1946',
@@ -243,7 +243,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.find_transliteration(text_file)
+        output = cdli._find_transliteration(text_file)
         goal = [['&P254202 = ARM 01, 001',
                  '#atf: lang akk',
                  '@tablet',
@@ -322,7 +322,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        cdli.ingest(text_file)
+        cdli._ingest(text_file)
         goal = {'cdli number': ['&P254202'],
                 'text edition': ['ARM 01, 001'],
                 'metadata': [['Primary publication: ARM 01, 001',
@@ -539,7 +539,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                       '2. bi-tum bi-it-ka u3 '
                                       '{disz}a-bi#-[sa]-mar# '
                                       'ma-ru-ka-[ma]']]}]
-        self.maxDiff = None
         self.assertEqual(cdli.texts, goal)
 
     def test_table_of_contents(self):
@@ -553,33 +552,8 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         cdli = CDLICorpus()
         cdli.ingest_text_file(text_file)
         output = cdli.table_of_contents()
-        goal = ["edition: ['ARM 01, 001']; cdli number: ['&P254202']; "
-                "metadata: ['Primary publication: ARM 01, 001', 'Author(s): "
-                "Dossin, Georges', 'Publication date: 1946', 'Secondary "
-                "publication(s): Durand, Jean-Marie, LAPO 16, 0305', "
-                "'Collection: National Museum of Syria, Damascus, Syria', "
-                "'Museum no.: NMSD —', 'Accession no.:', 'Provenience: Mari "
-                "(mod. Tell Hariri)', 'Excavation no.:', 'Period: Old "
-                "Babylonian (ca. 1900-1600 BC)', 'Dates referenced:', 'Object "
-                "type: tablet', 'Remarks:', 'Material: clay', 'Language: "
-                "Akkadian', 'Genre: Letter', 'Sub-genre:', 'CDLI comments:', "
-                "'Catalogue source: 20050104 cdliadmin', 'ATF source: "
-                "cdlistaff', 'Translation: Durand, Jean-Marie (fr); Guerra, "
-                "Dylan M. (en)', 'UCLA Library ARK: 21198/zz001rsp8x', "
-                "'Composite no.:', 'Seal no.:', 'CDLI no.: P254202']",
-                "edition: ['ARM 01, 002']; cdli number: ['&P254203']; metadata"
-                ": ['Primary publication: ARM 01, 002', 'Author(s): Dossin, "
-                "Georges', 'Publication date: 1946', 'Secondary publication(s)"
-                ": Durand, Jean-Marie, LAPO 16, 0306', 'Collection: National "
-                "Museum of Syria, Damascus, Syria', 'Museum no.: NMSD —', "
-                "'Accession no.:', 'Provenience: Mari (mod. Tell Hariri)', "
-                "'Excavation no.:', 'Period: Old Babylonian (ca. 1900-1600 BC)"
-                "', 'Dates referenced:', 'Object type: tablet', 'Remarks:', "
-                "'Material: clay', 'Language: Akkadian', 'Genre: Letter', "
-                "'Sub-genre:', 'CDLI comments:', 'Catalogue source: 20050104 "
-                "cdliadmin', 'ATF source: cdlistaff', 'Translation:', "
-                "'UCLA Library ARK: 21198/zz001rsp9f', 'Composite no.:', "
-                "'Seal no.:', 'CDLI no.: P254203']"]
+        goal = ["edition: ['ARM 01, 001']; cdli number: ['&P254202']",
+                "edition: ['ARM 01, 002']; cdli number: ['&P254203']"]
         self.assertEqual(output, goal)
 
     def test_print_text(self):
