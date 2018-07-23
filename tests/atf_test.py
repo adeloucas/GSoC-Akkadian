@@ -21,7 +21,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         atf = ATFConverter()
         signs = ['as,', 'S,ATU', 'tet,', 'T,et', 'sza', 'ASZ']
         target = ['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ']
-        output = [atf.__convert_consonant__(s) for s in signs]
+        output = [atf._convert_consonant(s) for s in signs]
         self.assertEqual(output, target)
 
     def test_get_number_from_sign(self):
@@ -31,7 +31,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         atf = ATFConverter()
         signs = ["a", "a1", "be2", "bad3", "buru14"]
         target = [0, 1, 2, 3, 14]
-        output = [atf.__get_number_from_sign__(s)[1] for s in signs]
+        output = [atf._get_number_from_sign(s)[1] for s in signs]
         self.assertEqual(output, target)
 
     def test_single_sign(self):

@@ -47,7 +47,7 @@ class PrettyPrint(object):
         with open(destination, mode='r+', encoding='utf8') as t_f:
             for text in ingested_file:
                 edition = text['text edition'][0]
-                metadata = '<br> \n'.join(text['metadata'][0])  # Make into table, split on colon
+                metadata = '<br> \n'.join(text['metadata'][0])
                 transliteration = '<br> \n'.join(text['transliteration'][0])
                 self.html_file = """<!DOCTYPE html>
 <html lang="en">
@@ -85,8 +85,8 @@ class PrettyPrint(object):
             cdli = text['cdli number'][0]
             if cdli_number in cdli:
                 edition = text['text edition'][0]
-                metadata = '\n \t'.join(text['metadata'][0]).rstrip()
-                transliteration = '\n \t'.join(text
+                metadata = '<br> \n'.join(text['metadata'][0]).rstrip()
+                transliteration = '<br> \n'.join(text
                                                ['transliteration'][0]).rstrip()
                 with open(destination, mode='r+', encoding='utf8') as t_f:
                     self.html_single = """<!DOCTYPE html>
@@ -95,12 +95,20 @@ class PrettyPrint(object):
 <meta charset="UTF-8">
 <title>{edition}</title>
 </head>
-<body>
+<body><table cellpadding="10"; border="1">
+<tr><th>
 <h2>{edition}</h2>
+</th><th>
 <h3>metadata</h3>
-<pre><code>{metadata}</code></pre>
+</th><th>
 <h3>transliteration</h3>
-<pre><code>{trans}</code></pre>
+</th></tr><tr><td></td><td>
+<font size='2'>
+    {metadata}     
+</font></td><td>
+<p>{trans}
+</td></tr></table>
+<br>
 </body>
 </html>""".format(edition=edition, metadata=metadata, trans=transliteration)
                     t_f.write(self.html_single)

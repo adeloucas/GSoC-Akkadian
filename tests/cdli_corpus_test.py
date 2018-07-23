@@ -24,7 +24,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.__chunk_text__(text_file)
+        output = cdli._chunk_text(text_file)
         goal = [['Primary publication: ARM 01, 001',
                  'Author(s): Dossin, Georges',
                  'Publication date: 1946',
@@ -155,7 +155,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.__find_cdli_number__(text_file)
+        output = cdli._find_cdli_number(text_file)
         goal = ['&P254202', '&P254203']
         self.assertEqual(output, goal)
 
@@ -168,7 +168,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.__find_edition__(text_file)
+        output = cdli._find_edition(text_file)
         goal = ['ARM 01, 001', 'ARM 01, 002']
         self.assertEqual(output, goal)
 
@@ -181,7 +181,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.__find_metadata__(text_file)
+        output = cdli._find_metadata(text_file)
         goal = [['Primary publication: ARM 01, 001',
                  'Author(s): Dossin, Georges',
                  'Publication date: 1946',
@@ -243,7 +243,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        output = cdli.__find_transliteration__(text_file)
+        output = cdli._find_transliteration(text_file)
         goal = [['&P254202 = ARM 01, 001',
                  '#atf: lang akk',
                  '@tablet',
@@ -322,7 +322,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        cdli.__ingest__(text_file)
+        cdli._ingest(text_file)
         goal = {'cdli number': ['&P254202'],
                 'text edition': ['ARM 01, 001'],
                 'metadata': [['Primary publication: ARM 01, 001',
