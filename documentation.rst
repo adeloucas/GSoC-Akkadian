@@ -126,9 +126,9 @@ This function is based off CLTK's line tokenizer. Use this for strings (e.g. cop
 
 .. code-block:: python
 
-   In[1]: from cltk.tokenize.line import  LineTokenizer
+   In[1]: from cltk.tokenize.line import  Akkadian_LineTokenizer
 
-   In[2]: line_tokenizer = LineTokenizer('akkadian', preserve_damage=False)
+   In[2]: line_tokenizer = Akkadian_LineTokenizer('akkadian', preserve_damage=False)
 
    In[3]: text = '20. u2-sza-bi-la-kum\n1. a-na ia-as2-ma-ah-{d}iszkur#\n' \
                '2. qi2-bi2-ma\n3. um-ma {d}utu-szi-{d}iszkur\n' \
@@ -154,9 +154,9 @@ Line Tokenization is for any text, from `FileImport.raw_text` to `.CDLICorpus.te
 
    In[1]: import os
 
-   In[2]: from cltk.tokenize.line import  LineTokenizer
+   In[2]: from cltk.tokenize.line import  Akkadian_LineTokenizer
 
-   In[3]: line_tokenizer = LineTokenizer('akkadian', preserve_damage=False)
+   In[3]: line_tokenizer = Akkadian_LineTokenizer('akkadian', preserve_damage=False)
 
    In[4]: text = os.path.join('..', 'texts', 'Hammurabi.txt')
 
@@ -180,7 +180,7 @@ Word tokenization operates on a single line of text, returns all words in the li
 
    In[2]: from cltk.tokenize.word import  WordTokenizer
 
-   In[3]: word_tokenizer = WordTokenizer('akkadian', preserve_damage=False)
+   In[3]: word_tokenizer = WordTokenizer('akkadian')
 
    In[4]: line = '21. u2-wa-a-ru at-ta e2-kal2-la-ka _e2_-ka wu-e-er'
 
@@ -199,11 +199,11 @@ Sign Tokenization takes a tuple (word, language) and splits the word up into ind
 
    In[2]: from cltk.tokenize.word import  WordTokenizer
 
-   In[3]: word_tokenizer = WordTokenizer('akkadian', preserve_damage=False)
+   In[3]: word_tokenizer = WordTokenizer('akkadian')
 
    In[4]: word = ("{gisz}isz-pur-ram", "akkadian")
 
-   In[5]: word_tokenizer.sign_token(text[3042:3054])
+   In[5]: word_tokenizer.tokenize_sign(word)
    Out[5]: [("gisz", "determinative"), ("isz", "akkadian"),
             ("pur", "akkadian"), ("ram", "akkadian")]
 
@@ -215,7 +215,7 @@ From a list of tokens, this module will return the list converted from CDLI stan
 
 .. code-block:: python
 
-   In[1]: from cltk.stem.akkadian.atf_converter import ATFConverter
+   In[1]: from cltk.corpus.akkadian.atf_converter import ATFConverter
 
    In[2]: atf = ATFConverter(two_three=False)
 
@@ -235,7 +235,7 @@ Pretty Print allows an individual to take a `.txt` file and populate it into an 
 
    In[1]: import os
 
-   In[2]: from cltk.print.akkadian import  PrettyPrint
+   In[2]: from cltk.corpus.akkadian.pretty_print import  PrettyPrint
 
    In[3]: from cltk.
 

@@ -47,8 +47,8 @@ class PrettyPrint(object):
         with open(destination, mode='r+', encoding='utf8') as t_f:
             for text in ingested_file:
                 edition = text['text edition'][0]
-                metadata = '<br> \n'.join(text['metadata'][0])
-                transliteration = '<br> \n'.join(text['transliteration'][0])
+                metadata = '<br> \n'.join(text['metadata'])
+                transliteration = '<br> \n'.join(text['transliteration'])
                 self.html_file = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,9 +85,9 @@ class PrettyPrint(object):
             cdli = text['cdli number'][0]
             if cdli_number in cdli:
                 edition = text['text edition'][0]
-                metadata = '<br> \n'.join(text['metadata'][0]).rstrip()
+                metadata = '<br> \n'.join(text['metadata']).rstrip()
                 transliteration = '<br> \n'.join(text
-                                               ['transliteration'][0]).rstrip()
+                                               ['transliteration']).rstrip()
                 with open(destination, mode='r+', encoding='utf8') as t_f:
                     self.html_single = """<!DOCTYPE html>
 <html lang="en">

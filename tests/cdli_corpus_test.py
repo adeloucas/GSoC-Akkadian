@@ -325,7 +325,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         cdli._ingest(text_file)
         goal = {'cdli number': ['&P254202'],
                 'text edition': ['ARM 01, 001'],
-                'metadata': [['Primary publication: ARM 01, 001',
+                'metadata': ['Primary publication: ARM 01, 001',
                               'Author(s): Dossin, Georges',
                               'Publication date: 1946',
                               'Secondary publication(s): Durand, '
@@ -352,8 +352,8 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                               'UCLA Library ARK: 21198/zz001rsp8x',
                               'Composite no.:',
                               'Seal no.:',
-                              'CDLI no.: P254202']],
-                'transliteration': [['&P254202 = ARM 01, 001',
+                              'CDLI no.: P254202'],
+                'transliteration': ['&P254202 = ARM 01, 001',
                                      '#atf: lang akk',
                                      '@tablet',
                                      '@obverse',
@@ -386,7 +386,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                      "12'. pi2-qa-at ha-s,e-ra#-at",
                                      "13'. asz-szum a-la-nu-ka",
                                      "14'. u3 ma-ru-ka sza-al#-[mu]",
-                                     "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]]}
+                                     "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]}
         self.assertEqual(cdli.text, goal)
 
     def test_ingest_text_file(self):
@@ -400,7 +400,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         cdli = CDLICorpus()
         cdli.ingest_text_file(text_file)
         goal = [{'cdli number': ['&P254202'],
-                 'metadata': [['Primary publication: ARM 01, 001',
+                 'metadata': ['Primary publication: ARM 01, 001',
                                'Author(s): Dossin, Georges',
                                'Publication date: 1946',
                                'Secondary publication(s): Durand, '
@@ -427,9 +427,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                'UCLA Library ARK: 21198/zz001rsp8x',
                                'Composite no.:',
                                'Seal no.:',
-                               'CDLI no.: P254202']],
+                               'CDLI no.: P254202'],
                  'text edition': ['ARM 01, 001'],
-                 'transliteration': [['&P254202 = ARM 01, 001',
+                 'transliteration': ['&P254202 = ARM 01, 001',
                                       '#atf: lang akk',
                                       '@tablet',
                                       '@obverse',
@@ -465,9 +465,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                       "13'. asz-szum a-la-nu-ka",
                                       "14'. u3 ma-ru-ka sza-al#-[mu]",
                                       "15'. [a-na na-pa]-asz2#-ti-ia "
-                                      "i-tu-ur"]]},
+                                      "i-tu-ur"]},
                 {'cdli number': ['&P254203'],
-                 'metadata': [['Primary publication: ARM 01, 002',
+                 'metadata': ['Primary publication: ARM 01, 002',
                                'Author(s): Dossin, Georges',
                                'Publication date: 1946',
                                'Secondary publication(s): Durand, '
@@ -493,9 +493,9 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                'UCLA Library ARK: 21198/zz001rsp9f',
                                'Composite no.:',
                                'Seal no.:',
-                               'CDLI no.: P254203']],
+                               'CDLI no.: P254203'],
                  'text edition': ['ARM 01, 002'],
-                 'transliteration': [['&P254203 = ARM 01, 002',
+                 'transliteration': ['&P254203 = ARM 01, 002',
                                       '#atf: lang akk',
                                       '@tablet',
                                       '@obverse',
@@ -538,7 +538,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                                       'bi-tu#-[tu-ur2-ma]',
                                       '2. bi-tum bi-it-ka u3 '
                                       '{disz}a-bi#-[sa]-mar# '
-                                      'ma-ru-ka-[ma]']]}]
+                                      'ma-ru-ka-[ma]']}]
         self.assertEqual(cdli.texts, goal)
 
     def test_table_of_contents(self):
@@ -609,7 +609,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         text_file = f_i.file_lines
         cdli = CDLICorpus()
         cdli.ingest_text_file(text_file)
-        output = cdli.print_metadata('&P254202')[0]
+        output = cdli.print_metadata('&P254202')
         goal = ['Primary publication: ARM 01, 001',
                 'Author(s): Dossin, Georges',
                 'Publication date: 1946',

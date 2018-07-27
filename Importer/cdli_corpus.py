@@ -141,7 +141,7 @@ class CDLICorpus(object):
         metadata = self._find_metadata(file_lines)
         transliteration = self._find_transliteration(file_lines)
         new_text = {'text edition': edition, 'cdli number': cdli_number,
-                    'metadata': metadata, 'transliteration': transliteration}
+                    'metadata': metadata[0], 'transliteration': transliteration[0]}
         self.text = new_text  # pylint: disable= attribute-defined-outside-init
 
     def ingest_text_file(self, file_lines):
@@ -182,7 +182,7 @@ class CDLICorpus(object):
         for text in self.texts:
             if edition_or_cdli_number in text['text edition'] or \
                     text['cdli number']:
-                return text['transliteration'][0]
+                return text['transliteration']
 
     def print_metadata(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
         """
