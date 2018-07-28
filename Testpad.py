@@ -6,7 +6,7 @@ from PrettyPrint.pretty_print import PrettyPrint
 import os
 
 # import a text and read it
-fi = FileImport('texts/two_text.txt')
+fi = FileImport('texts/cdli_corpus.txt')
 fi.read_file()
 # output = fi.raw_file or fi.file_lines; for folder catalog = fi.file_catalog()
 
@@ -24,23 +24,23 @@ print(selected_text)
 print(transliteration)
 
 # tokenize by word or sign
-atf = ATFConverter()
-tk = Tokenizer()
-lines = [tk.string_tokenizer(text, include_blanks=False)
-         for text in atf.process(selected_text)]
-words = [tk.word_tokenizer(line[0]) for line in lines]
+#atf = ATFConverter()
+#tk = Tokenizer()
+#lines = [tk.string_tokenizer(text, include_blanks=False)
+#         for text in atf.process(selected_text)]
+#words = [tk.word_tokenizer(line[0]) for line in lines]
 # taking off first four lines to focus on the text with [4:]
-print(lines[4:])
-print()
-print(words[4:])
-print()
-for word in words[4:]:
-    signs = [tk.sign_tokenizer(x) for x in word]
-    print(signs)
+#print(lines[4:])
+#print()
+#print(words[4:])
+#print()
+#for word in words[4:]:
+#    signs = [tk.sign_tokenizer(x) for x in word]
+#    print(signs)
 
 # pretty printing:
-pp = PrettyPrint()
-destination = os.path.join('tests', 'tutorial_html.html')
-pp.html_print_single_text(cc.texts, '&P254202', destination)
+#pp = PrettyPrint()
+#destination = os.path.join('tests', 'tutorial_html.html')
+#pp.html_print_single_text(cc.texts, '&P254202', destination)
 
 # ISSUES: When can I process the text?

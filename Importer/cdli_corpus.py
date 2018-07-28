@@ -108,7 +108,7 @@ class CDLICorpus(object):
         """
         final, lines = [], []
         for text in self._chunk_text(file_lines):
-            if text[0].startswith('Primary publication:'):
+            if str(text).startswith('Primary publication:'):
                 lines.append(text[0:25])
             else:
                 lines.append('None found.')
@@ -122,7 +122,7 @@ class CDLICorpus(object):
         """
         final, lines = [], []
         for text in self._chunk_text(file_lines):
-            if text[0].startswith('Primary publication:'):
+            if str(text).startswith('Primary publication:'):
                 lines.append(text[26:])
             else:
                 lines.append(text)
