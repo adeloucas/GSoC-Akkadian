@@ -46,4 +46,5 @@ class FileImport(object):
         :return: list of files.
         """
         ex = os.path.split(self.filename)
-        print(os.listdir(ex[0]))
+        f_c = os.listdir(ex[0])
+        f_c

@@ -269,9 +269,6 @@ $ beginning broken<br>
 </td></tr></table>
 <br>
 </body>
-</html>#-[sa]-mar# ma-ru-ka-[ma]
-</td></tr></table>
-</body>
 </html>"""
         self.assertEqual(output, goal)
 

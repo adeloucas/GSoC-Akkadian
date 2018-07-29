@@ -26,8 +26,8 @@ class PrettyPrint(object):
             cdli = text['cdli number'][0]
             if cdli_number in cdli:
                 edition = text['text edition'][0]
-                metadata = '\n \t'.join(text['metadata'][0]).rstrip()
-                transliteration = '\n \t'.join(text['transliteration'][0]).rstrip()
+                metadata = '\n \t'.join(text['metadata']).rstrip()
+                transliteration = '\n \t'.join(text['transliteration']).rstrip()
                 m_d = """{edition}
 ---
 ### metadata

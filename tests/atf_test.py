@@ -3,7 +3,7 @@ This file tests methods in atf_converter.py.
 """
 
 import unittest
-from ATFConverter.atf_converter import ATFConverter # pylint: disable =import-error
+from ATFConverter.atf_converter import ATFConverter
 
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
@@ -32,6 +32,16 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         signs = ["a", "a1", "be2", "bad3", "buru14"]
         target = [0, 1, 2, 3, 14]
         output = [atf._get_number_from_sign(s)[1] for s in signs]
+        self.assertEqual(output, target)
+
+    def test_convert_num(self):
+        """
+        Tests _convert_num
+        """
+        atf = ATFConverter()
+        signs = ["a2", "☉", "be3", '-', 'a-', 'a_', 'bad3', 'a']
+        target = ["a₂", "☉", "be₃", '-', 'a-', 'a_', 'bad₃', 'a']
+        output = [atf._convert_num(s) for s in signs]
         self.assertEqual(output, target)
 
     def test_single_sign(self):
