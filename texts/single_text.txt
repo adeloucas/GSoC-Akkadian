@@ -24,7 +24,7 @@ Composite no.:
 Seal no.:
 CDLI no.: P254202
 Transliteration:
-&P254202 = ARM 01, 001
+P254202 = ARM 01, 001
 #atf: lang akk
 @tablet
 @obverse

@@ -73,11 +73,6 @@ class CDLICorpus(object):
                 splitstring = string.split('=')
                 cdli_num = splitstring[0].rstrip()
                 output.append(cdli_num)
-            elif len(string) > 1 and not re.match('=', string):
-                cdli_num = header[0].rstrip()
-                output.append(cdli_num)
-            else:
-                output.append('No cdli number found in text!'.format())
         return output
 
     def _find_edition(self, file_lines):
@@ -167,10 +162,8 @@ class CDLICorpus(object):
         """
         table = []
         for toc in self.texts:
-            edition = toc['text edition']
-            num = toc['cdli number']
-            text = '{} {}{} {} {}'.format('edition:', edition, ';',
-                                          'cdli number:', num)
+            text = '{} {}{} {} {}'.format('edition:', toc['text edition'], ';',
+                                          'cdli number:', toc['cdli number'])
             table.append(text)
         return table
 

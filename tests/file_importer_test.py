@@ -42,14 +42,11 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         text = os.path.join('..', 'texts', 'Akkadian.txt')
         cdli = FileImport(text)
-        final = cdli.file_catalog()
-        ex = os.path.split(text)
-        final2 = os.listdir(ex[0])
-        #final = os.path.split(text)
-        goal = ['Akkadian.txt', 'ARM1Akkadian.txt',
-                'cdli_abnormalities.txt', 'cdli_corpus.txt',
-                'single_text.txt', 'two_text.txt']
-        self.assertEqual(final2, goal)
+        cdli.file_catalog()
+        final = cdli.catalog
+        goal = sorted(['Akkadian.txt', 'ARM1Akkadian.txt',
+                'cdli_corpus.txt', 'single_text.txt', 'two_text.txt'])
+        self.assertEqual(final, goal)
 
 
 if __name__ == '__main__':

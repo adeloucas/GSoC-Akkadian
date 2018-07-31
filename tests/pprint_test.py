@@ -371,3 +371,7 @@ $ beginning broken<br>
 </body>
 </html>"""
         self.assertEqual(output, goal)
+
+
+if __name__ == '__main__':
+    unittest.main()

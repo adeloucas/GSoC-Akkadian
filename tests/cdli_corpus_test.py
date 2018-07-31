@@ -17,7 +17,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
     def test_chunk_text(self):
         """
-        Tests chunk_text.
+        Tests _chunk_text.
         """
         path = os.path.join('..', 'texts', 'two_text.txt')
         f_i = FileImport(path)
@@ -323,7 +323,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         text_file = f_i.file_lines
         cdli = CDLICorpus()
         cdli._ingest(text_file)
-        goal = {'cdli number': ['&P254202'],
+        goal = {'cdli number': ['P254202'],
                 'text edition': ['ARM 01, 001'],
                 'metadata': ['Primary publication: ARM 01, 001',
                               'Author(s): Dossin, Georges',
@@ -353,7 +353,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                               'Composite no.:',
                               'Seal no.:',
                               'CDLI no.: P254202'],
-                'transliteration': ['&P254202 = ARM 01, 001',
+                'transliteration': ['P254202 = ARM 01, 001',
                                      '#atf: lang akk',
                                      '@tablet',
                                      '@obverse',
@@ -560,14 +560,14 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests print_text.
         """
-        path = os.path.join('..', 'texts', 'two_text.txt')
+        path = os.path.join('..', 'texts', 'single_text.txt')
         f_i = FileImport(path)
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
         cdli.ingest_text_file(text_file)
         output = cdli.print_text('ARM 01, 001')
-        goal = ['&P254202 = ARM 01, 001',
+        goal = ['P254202 = ARM 01, 001',
                 '#atf: lang akk',
                 '@tablet',
                 '@obverse',

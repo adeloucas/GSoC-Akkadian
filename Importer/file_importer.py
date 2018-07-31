@@ -45,6 +45,5 @@ class FileImport(object):
         Looks at the folder filename is in and lists other files in the folder.
         :return: list of files.
         """
-        ex = os.path.split(self.filename)
-        f_c = os.listdir(ex[0])
-        f_c
+        pathway = os.path.split(self.filename)
+        self.catalog = sorted(os.listdir(pathway[0]))
