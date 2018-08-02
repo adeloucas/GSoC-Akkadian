@@ -47,8 +47,14 @@ class CDLICorpus(object):
         """
         chunk_text, text = [], []
         for line in file_lines:
+            # original solution; works for most cases
             if line.strip() == '':
                 if len(text) > 0:   # pylint: disable =len-as-condition
+                    chunk_text.append(text)
+                text = []
+            # otherwise, if you see a &pnum, make a separateion
+            elif re.match(r'^(&P\d.*$)', line):
+                # if next line .startswith('#atf), then ignore this request...?
                     chunk_text.append(text)
                 text = []
             else:
