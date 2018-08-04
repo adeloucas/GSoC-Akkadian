@@ -186,7 +186,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                  "13'. asz-szum a-la-nu-ka",
                  "14'. u3 ma-ru-ka sza-al#-[mu]",
                  "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"],
-                ['P254203 = ARM 01, 002',
+                ['&P254203 = ARM 01, 002',
                  '#atf: lang akk',
                  '@tablet',
                  '@obverse',

@@ -40,6 +40,18 @@ class CDLICorpus(object):
         """
         self.texts = []
 
+    def space_texts(self, file_lines):
+        """
+        Looks at a raw text, spots pnums, and ensures there is a blank space prior to the line.
+        :return: updates raw_file / file_lines with said space.
+        """
+        indices = []
+        for i, elem in enumerate(file_lines):
+            if '&P' in elem:
+                indices.append(i)
+        for i in sorted(indices, reverse=True):
+            file_lines.insert(i, '')
+
     def _chunk_text(self, file_lines):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
@@ -47,14 +59,8 @@ class CDLICorpus(object):
         """
         chunk_text, text = [], []
         for line in file_lines:
-            # original solution; works for most cases
             if line.strip() == '':
                 if len(text) > 0:   # pylint: disable =len-as-condition
-                    chunk_text.append(text)
-                text = []
-            # otherwise, if you see a &pnum, make a separateion
-            elif re.match(r'^(&P\d.*$)', line):
-                # if next line .startswith('#atf), then ignore this request...?
                     chunk_text.append(text)
                 text = []
             else:
