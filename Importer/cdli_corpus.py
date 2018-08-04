@@ -42,7 +42,8 @@ class CDLICorpus(object):
 
     def space_texts(self, file_lines):
         """
-        Looks at a raw text, spots pnums, and ensures there is a blank space prior to the line.
+        Looks at file_lines, spots pnums, and ensures there is a blank
+        space prior to the pnum line.
         :return: updates raw_file / file_lines with said space.
         """
         indices = []
@@ -104,8 +105,6 @@ class CDLICorpus(object):
                 splitstring = string.split('=')
                 edition = splitstring[1].lstrip()
                 output.append(edition)  # pylint: disable =expression-not-assigned
-            else:
-                output.append('No edition information in text!'.format())
         return output
 
     def _find_metadata(self, file_lines):
