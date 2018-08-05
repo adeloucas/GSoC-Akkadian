@@ -35,7 +35,7 @@ class PrettyPrint(object):
 ### transliteration
     {transliteration}  
 """.format(edition=edition, metadata=metadata, transliteration=transliteration)
-                self.markdown_text = m_d
+                self.markdown_text = m_d  # pylint: disable=attribute-defined-outside-init
 
     def html_print_file(self, ingested_file, destination):
         """
@@ -46,9 +46,9 @@ class PrettyPrint(object):
         """
         with open(destination, mode='r+', encoding='utf8') as t_f:
             for text in ingested_file:
-                edition = text['text edition'][0]
-                metadata = '<br> \n'.join(text['metadata'])
-                transliteration = '<br> \n'.join(text['transliteration'])
+                edition = '<br>\n'.join(text['text edition']).rstrip()
+                metadata = '<br>\n'.join(text['metadata']).rstrip()
+                transliteration = '<br>\n'.join(text['transliteration']).rstrip()
                 self.html_file = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,7 +64,7 @@ class PrettyPrint(object):
 <h3>transliteration</h3>
 </th></tr><tr><td></td><td>
 <font size='2'>
-    {metadata}     
+    {metadata}
 </font></td><td>
 <p>{trans}
 </td></tr></table>
@@ -84,10 +84,10 @@ class PrettyPrint(object):
         for text in ingested_file:
             cdli = text['cdli number'][0]
             if cdli_number in cdli:
-                edition = text['text edition'][0]
-                metadata = '<br> \n'.join(text['metadata']).rstrip()
-                transliteration = '<br> \n'.join(text
-                                               ['transliteration']).rstrip()
+                edition = '<br>\n'.join(text['text edition']).rstrip()
+                metadata = '<br>\n'.join(text['metadata']).rstrip()
+                transliteration = '<br>\n'.join(
+                    text['transliteration']).rstrip()
                 with open(destination, mode='r+', encoding='utf8') as t_f:
                     self.html_single = """<!DOCTYPE html>
 <html lang="en">
@@ -104,7 +104,7 @@ class PrettyPrint(object):
 <h3>transliteration</h3>
 </th></tr><tr><td></td><td>
 <font size='2'>
-    {metadata}     
+    {metadata}
 </font></td><td>
 <p>{trans}
 </td></tr></table>

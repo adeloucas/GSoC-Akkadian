@@ -46,4 +46,4 @@ class FileImport(object):
         :return: list of files.
         """
         pathway = os.path.split(self.filename)
-        self.catalog = sorted(os.listdir(pathway[0]))
+        self.catalog = sorted(os.listdir(pathway[0]))  # pylint: disable= attribute-defined-outside-init

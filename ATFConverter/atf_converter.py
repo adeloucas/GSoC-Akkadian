@@ -22,7 +22,7 @@ TITTLES = {r's,': chr(0x1E63), r'sz': chr(0x0161), r't,': chr(0x1E6D),
 
 
 # noinspection PyUnboundLocalVariable
-class ATFConverter(object):
+class ATFConverter(object):  # pylint: disable=too-few-public-methods
     """
     Transliterates ATF data from CDLI into readable unicode.
         sz = š
@@ -115,7 +115,7 @@ class ATFConverter(object):
         if num > 3:  # "buru14" -> "buru₁₄"
             return new_sign.replace(str(num),
                                     self._convert_number_to_subscript(num))
-        if self.two_three:
+        if self.two_three:   # pylint: disable=no-else-return
             return new_sign.replace(str(num),
                                     self._convert_number_to_subscript(num))
         else:

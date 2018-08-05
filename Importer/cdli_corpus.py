@@ -57,8 +57,8 @@ class CDLICorpus(object):
             texts.append(text)
         else:
             for line in file_lines:
-                if re.match('&?P\d{6}', line):
-                    if len(text) > 0:
+                if re.match(r'&?P\d{6}', line):
+                    if len(text) > 0:  # pylint: disable =len-as-condition
                         texts.append(text)
                     text = [line]
                 else:
@@ -80,8 +80,8 @@ class CDLICorpus(object):
                     header.append(lines)
         for string in header:
             if len(string) > 1:
-                splitstring = string.split('=')
-                cdli_num = splitstring[0].rstrip()
+                split_string = string.split('=')
+                cdli_num = split_string[0].rstrip()
                 output.append(cdli_num)
         return output
 
@@ -99,8 +99,8 @@ class CDLICorpus(object):
                     header.append(lines)
         for string in header:
             if len(string) > 1:
-                splitstring = string.split('=')
-                edition = splitstring[1].lstrip()
+                split_string = string.split('=')
+                edition = split_string[1].lstrip()
                 output.append(edition)  # pylint: disable =expression-not-assigned
         return output
 
@@ -175,22 +175,20 @@ class CDLICorpus(object):
             table.append(text)
         return table
 
-    def print_text(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
+    def call_text(self, cdli_number):
         """
-        Prints transliteration with either text edition or cdli number.
+        Prints transliteration with cdli number.
         :return: transliteration
         """
-        for text in self.texts:
-            if edition_or_cdli_number in text['text edition'] or \
-                    text['cdli number']:
-                return text['transliteration']
+        text = next((item for item in self.texts if
+                     item['cdli number'] == [cdli_number]), None)
+        return text['transliteration']
 
-    def print_metadata(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
+    def call_metadata(self, cdli_number):
         """
-        Prints metadata with either text edition or cdli number.
+        Prints metadata with cdli number.
         :return: metadata
         """
-        for text in self.texts:
-            if edition_or_cdli_number in text['text edition'] or \
-                    text['cdli number']:
-                return text['metadata']
+        my_item = next((item for item in self.texts if
+                        item['cdli number'] == [cdli_number]), None)
+        return my_item['metadata']
