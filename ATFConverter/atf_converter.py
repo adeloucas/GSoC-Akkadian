@@ -109,8 +109,6 @@ class ATFConverter(object):
         """
         # Check if there's a number at the end
         new_sign, num = self._get_number_from_sign(sign)
-        if num == '-':
-            return new_sign
         if num < 2:  # "ab" -> "ab"
             return new_sign.replace(str(num),
                                     self._convert_number_to_subscript(num))

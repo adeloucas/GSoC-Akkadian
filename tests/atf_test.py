@@ -39,8 +39,8 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         Tests _convert_num
         """
         atf = ATFConverter()
-        signs = ["a2", "☉", "be3", '-', 'a-', 'a_', 'bad3', 'a']
-        target = ["a₂", "☉", "be₃", '-', 'a-', 'a_', 'bad₃', 'a']
+        signs = ["a2", "☉", "be3", 'bad3']
+        target = ["a₂", "☉", "be₃", 'bad₃']
         output = [atf._convert_num(s) for s in signs]
         self.assertEqual(output, target)
 
