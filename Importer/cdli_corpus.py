@@ -40,34 +40,31 @@ class CDLICorpus(object):
         """
         self.texts = []
 
-    def space_texts(self, file_lines):
-        """
-        Looks at file_lines, spots pnums, and ensures there is a blank
-        space prior to the pnum line.
-        :return: updates raw_file / file_lines with said space.
-        """
-        indices = []
-        for i, elem in enumerate(file_lines):
-            if '&P' in elem:
-                indices.append(i)
-        for i in sorted(indices, reverse=True):
-            file_lines.insert(i, '')
-
     def _chunk_text(self, file_lines):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
         """
-        chunk_text, text = [], []
-        for line in file_lines:
-            if line.strip() == '':
-                if len(text) > 0:   # pylint: disable =len-as-condition
-                    chunk_text.append(text)
-                text = []
-            else:
-                text.append(line.rstrip())
-        chunk_text.append(text)
-        return chunk_text
+        texts, text = [], []
+        if re.match('Primary publication:', file_lines[0]):
+            for line in file_lines:
+                if line.strip() == '':
+                    if len(text) > 0:   # pylint: disable =len-as-condition
+                        texts.append(text)
+                    text = []
+                else:
+                    text.append(line.rstrip())
+            texts.append(text)
+        else:
+            for line in file_lines:
+                if re.match('&?P\d{6}', line):
+                    if len(text) > 0:
+                        texts.append(text)
+                    text = [line]
+                else:
+                    text.append(line)
+            texts.append(text)
+        return texts
 
     def _find_cdli_number(self, file_lines):
         """

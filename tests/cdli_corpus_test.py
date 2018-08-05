@@ -15,20 +15,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
     """
     Tests CDLICorpus class.
     """
-    def test_space_texts(self):
-        """
-        Tests _space_texts.
-        """
-        path = os.path.join('..', 'texts', 'two_text_no_metadata.txt')
-        f_i = FileImport(path)
-        f_i.read_file()
-        text_file = f_i.file_lines
-        cdli = CDLICorpus()
-        cdli.space_texts(text_file)
-        output = len(cdli._chunk_text(text_file))
-        goal = 2
-        self.assertEqual(output, goal)
-
     def test_chunk_text(self):
         """
         Tests _chunk_text.
@@ -169,7 +155,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        cdli.space_texts(text_file)
         output = cdli._chunk_text(text_file)
         goal = [['&P254202 = ARM 01, 001',
                  '#atf: lang akk',
@@ -700,7 +685,6 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         f_i.read_file()
         text_file = f_i.file_lines
         cdli = CDLICorpus()
-        cdli.space_texts(text_file)
         cdli.ingest_text_file(text_file)
         goal = [{'cdli number': ['P254202'],
                  'metadata': 'None found.',
