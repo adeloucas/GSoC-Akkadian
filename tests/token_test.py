@@ -95,7 +95,8 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 ('e2-kal2-la-ka', 'akkadian'),
                 ('_e2_-ka', 'sumerian'), ('_e2', 'sumerian'),
                 ('{lu}lu2', 'sumerian'), ('e2_', 'sumerian'),
-                ('wu-e-er', 'akkadian'), ('Nippur{ki}', 'akkadian')]
+                ('wu-e-er', 'akkadian'), ('Nippur{ki}', 'akkadian'),
+                ('utu-{d}iszkur', 'akkadian'), ('_{lu2}nagar', 'sumerian')]
         output = [TOKENIZER.sign_tokenizer(s) for s in word]
         goal = [[('u2', 'akkadian'), ('wa', 'akkadian'),
                  ('a', 'akkadian'), ('ru', 'akkadian')],
@@ -108,7 +109,10 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 [('e2', 'sumerian')],
                 [('wu', 'akkadian'), ('e', 'akkadian'),
                  ('er', 'akkadian')], [('Nippur', 'akkadian'),
-                                       ('ki', 'determinative')]]
+                                       ('ki', 'determinative')],
+                [('utu', 'akkadian'), ('d', 'determinative'),
+                 ('iszkur', 'akkadian')],
+                [('lu2', 'determinative'), ('nagar', 'sumerian')]]
         self.assertEqual(output, goal)
 
 

@@ -160,7 +160,7 @@ class Tokenizer(object):
         output: [("gisz", "determinative"), ("isz", "akkadian"),
         ("pur", "akkadian"), ("ram", "akkadian")]
 
-        :param: tuple created by word_tokenizer2
+        :param: tuple created by word_tokenizer
         :return: list of tuples: (sign, function or language)
         """
         word, word_language = word
@@ -168,7 +168,7 @@ class Tokenizer(object):
 
         if word[0] == "{":
             # Take care of initial determinative
-            determinative = re.search("{(.+)}", word)
+            determinative = re.search("{(.+?)}", word)
             signs_output.append((determinative[1], "determinative"))
             # Take match out of word
             word = word[determinative.end():]
@@ -176,12 +176,30 @@ class Tokenizer(object):
         # Akkadian is easy...
         if word_language == "akkadian":
             for sign in word.split('-'):
+                if sign[-1] == '}':
+                    determinative = re.search("{(.+?)}", word)
+                    sign = word[:determinative.start()]
+                if sign[0] == '{':
+                    determinative = re.search("{(.+?)}", word)
+                    signs_output.append((determinative[1], "determinative"))
+                    sign = word[determinative.end():]
+                else:
+                    sign = sign
                 signs_output.append((sign, "akkadian"))
+
+        if word[-1] == "}":
+            # Take care of final determinative
+            determinative = re.search("{(.+?)}", word)
+            signs_output.append((determinative[1], "determinative"))
 
         # Sumerian and mixed words are harder...
         elif word_language == "sumerian":
             language = "sumerian"
             for sign in word.split('-'):
+                if sign[1] == '{':
+                    determinative = re.search("{(.+?)}", word)
+                    sign = word[determinative.end():]
+                    signs_output.append((determinative[1], "determinative"))
                 if sign[-1] == "_":
                     # We've reached the last Sumerian sign, the rest is a
                     # phonetic compliment in Akkadian.
@@ -189,12 +207,5 @@ class Tokenizer(object):
                     language = "akkadian"
                 else:
                     signs_output.append((sign, language))
-
-        if signs_output[-1][0][-1] == "}":
-            # Take care of final determinative
-            determinative = re.search("{(.+)}", signs_output[-1][0])
-            signs_output[-1] = (signs_output[-1][0][:determinative.start()],
-                                signs_output[-1][1])
-            signs_output.append((determinative[1], "determinative"))
 
         return signs_output
