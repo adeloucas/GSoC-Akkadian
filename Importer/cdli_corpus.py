@@ -40,7 +40,7 @@ class CDLICorpus(object):
         """
         self.texts = []
 
-    def _chunk_text(self, file_lines):     # pylint: disable =no-self-use
+    def _chunk_text(self, file_lines, only_normalization=False):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
@@ -64,6 +64,18 @@ class CDLICorpus(object):
                 else:
                     text.append(line)
             texts.append(text)
+        if only_normalization:
+            norm_texts = []
+            for text in texts:
+                norm = False
+                norm_text = [text[0]]
+                for line in text[1:]:
+                    if line.startswith('#tr.ts'):
+                        norm = True
+                        norm_text.append(line[8:])
+                if norm:
+                    norm_texts.append(norm_text)
+            texts = norm_texts
         return texts
 
     def _find_cdli_number(self, file_lines):
