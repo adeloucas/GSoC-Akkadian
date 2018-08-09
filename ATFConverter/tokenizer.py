@@ -152,60 +152,66 @@ class Tokenizer(object):
 
     @staticmethod
     def sign_tokenizer(word):
-        """
-        Takes tuple (word, language) and splits the word up into individual
-        sign tuples (sign, language) in a list.
-
-        input: ("{gisz}isz-pur-ram", "akkadian")
-        output: [("gisz", "determinative"), ("isz", "akkadian"),
-        ("pur", "akkadian"), ("ram", "akkadian")]
-
-        :param: tuple created by word_tokenizer
-        :return: list of tuples: (sign, function or language)
-        """
-        word, word_language = word
-        signs_output = []
-
-        if word[0] == "{":
-            # Take care of initial determinative
-            determinative = re.search("{(.+?)}", word)
-            signs_output.append((determinative[1], "determinative"))
-            # Take match out of word
-            word = word[determinative.end():]
-
-        # Akkadian is easy...
-        if word_language == "akkadian":
-            for sign in word.split('-'):
-                if sign[-1] == '}':
-                    determinative = re.search("{(.+?)}", word)
-                    sign = word[:determinative.start()]
-                if sign[0] == '{':
-                    determinative = re.search("{(.+?)}", word)
-                    signs_output.append((determinative[1], "determinative"))
-                    sign = word[determinative.end():]
+        word_signs = []
+        sign = ''
+        language = word[1]
+        determinative = False
+        for char in word[0]:
+            if determinative is True:
+                if char == '}':
+                    determinative = False
+                    if len(sign) > 0:
+                        word_signs.append((sign, 'determinative'))
+                    sign = ''
+                    language = word[1]
+                    continue
                 else:
-                    sign = sign
-                signs_output.append((sign, "akkadian"))
+                    sign += char
+                    continue
+            else:
+                if language == 'akkadian':
+                    if char == '{':
+                        if len(sign) > 0:
+                            word_signs.append((sign, language))
+                        sign = ''
+                        determinative = True
+                        continue
+                    elif char == '_':
+                        if len(sign) > 0:
+                            word_signs.append((sign, language))
+                        sign = ''
+                        language = 'sumerian'
+                        continue
+                    elif char == '-':
+                        if len(sign) > 0:
+                            word_signs.append((sign, language))
+                        sign = ''
+                        language = word[1] # or default word[1]?
+                        continue
+                    else:
+                        sign += char
+                elif language == 'sumerian':
+                    if char == '{':
+                        if len(sign) > 0:
+                            word_signs.append((sign, language))
+                        sign = ''
+                        determinative = True
+                        continue
+                    elif char == '_':
+                        if len(sign) > 0:
+                            word_signs.append((sign, language))
+                        sign = ''
+                        language = word[1]
+                        continue
+                    elif char == '-':
+                        if len(sign) > 0:
+                            word_signs.append((sign, language))
+                        sign = ''
+                        language = word[1]
+                        continue
+                    else:
+                        sign += char
+        if len(sign) > 0:
+            word_signs.append((sign, language))
 
-        if word[-1] == "}":
-            # Take care of final determinative
-            determinative = re.search("{(.+?)}", word)
-            signs_output.append((determinative[1], "determinative"))
-
-        # Sumerian and mixed words are harder...
-        elif word_language == "sumerian":
-            language = "sumerian"
-            for sign in word.split('-'):
-                if sign[1] == '{':
-                    determinative = re.search("{(.+?)}", word)
-                    sign = word[determinative.end():]
-                    signs_output.append((determinative[1], "determinative"))
-                if sign[-1] == "_":
-                    # We've reached the last Sumerian sign, the rest is a
-                    # phonetic compliment in Akkadian.
-                    signs_output.append((sign[:-1], "sumerian"))
-                    language = "akkadian"
-                else:
-                    signs_output.append((sign, language))
-
-        return signs_output
+        return word_signs

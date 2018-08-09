@@ -96,23 +96,26 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                 ('_e2_-ka', 'sumerian'), ('_e2', 'sumerian'),
                 ('{lu}lu2', 'sumerian'), ('e2_', 'sumerian'),
                 ('wu-e-er', 'akkadian'), ('Nippur{ki}', 'akkadian'),
-                ('utu-{d}iszkur', 'akkadian'), ('_{lu2}nagar', 'sumerian')]
+                ('utu-{d}iszkur', 'akkadian'), ('_{lu2}nagar', 'sumerian'),
+                ('{gesz}ma2-tu{hi-a}', 'akkadian')]
         output = [TOKENIZER.sign_tokenizer(s) for s in word]
         goal = [[('u2', 'akkadian'), ('wa', 'akkadian'),
                  ('a', 'akkadian'), ('ru', 'akkadian')],
                 [('at', 'akkadian'), ('ta', 'akkadian')],
                 [('e2', 'akkadian'), ('kal2', 'akkadian'),
                  ('la', 'akkadian'), ('ka', 'akkadian')],
-                [('_e2', 'sumerian'), ('ka', 'akkadian')],
-                [('_e2', 'sumerian')], [('lu', 'determinative'),
-                                        ('lu2', 'sumerian')],
+                [('e2', 'sumerian'), ('ka', 'sumerian')],   #wrong...
+                [('e2', 'sumerian')], [('lu', 'determinative'),
+                                       ('lu2', 'sumerian')],
                 [('e2', 'sumerian')],
                 [('wu', 'akkadian'), ('e', 'akkadian'),
                  ('er', 'akkadian')], [('Nippur', 'akkadian'),
                                        ('ki', 'determinative')],
                 [('utu', 'akkadian'), ('d', 'determinative'),
                  ('iszkur', 'akkadian')],
-                [('lu2', 'determinative'), ('nagar', 'sumerian')]]
+                [('lu2', 'determinative'), ('nagar', 'sumerian')],
+                [('gesz', 'determinative'), ('ma2', 'akkadian'),
+                 ('tu', 'akkadian'), ('hi-a', 'determinative')]]
         self.assertEqual(output, goal)
 
 

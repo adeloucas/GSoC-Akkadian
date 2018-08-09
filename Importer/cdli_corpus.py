@@ -40,7 +40,7 @@ class CDLICorpus(object):
         """
         self.texts = []
 
-    def _chunk_text(self, file_lines, only_normalization=False):     # pylint: disable =no-self-use
+    def _chunk_text(self, file_lines, only_normalization=True):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
@@ -72,7 +72,7 @@ class CDLICorpus(object):
                 for line in text[1:]:
                     if line.startswith('#tr.ts'):
                         norm = True
-                        norm_text.append(line[8:])
+                        norm_text.append(line)
                 if norm:
                     norm_texts.append(norm_text)
             texts = norm_texts
@@ -130,7 +130,7 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def _find_transliteration(self, file_lines):  # broken
+    def _find_transliteration(self, file_lines):
         """
         Finds any transliteration in file_lines and lists it.
         :return: List of transliterations found in file_lines.
