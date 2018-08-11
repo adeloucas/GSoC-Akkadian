@@ -1,30 +1,17 @@
-import os
-from collections import Counter
 from Importer.file_importer import FileImport
 from Importer.cdli_corpus import CDLICorpus
-from ATFConverter.tokenizer import Tokenizer
-from ATFConverter.atf_converter import ATFConverter
-
-
-fi = FileImport('texts/Akkadian.txt')
-fi.read_file()
-cc = CDLICorpus()
-cc.ingest_text_file(fi.file_lines)
-tk = Tokenizer()
-atf = ATFConverter()
-stopwords = ['a-na', 'u3', 'sza', '[...]', 'i-na', '=',
-             'ARM', '01,', 'lang', 'akk', 'um-ma', 'la',
-             'u2-ul', 'mesz_', 'asz-szum', '0.1', 'broken',
-             'isz-tu', '_lu2_', 'ki-a-am', '1(disz)', 'ki-ma',
-             'x', 'sza-a-ti', 'the', '_lu2', '...]', 'lu-u2',
-             'sza#', 'a-na#', '_u4', 'beginning', 'of', '2(disz)',
-             '[a-na', 'szum-ma', 'hi-a_', 'ana', 'a-di']
-
-bag_of_words = []
-for lines in [text['transliteration'][0] for text in cc.texts]:
-    for line in lines:
-        for word in tk.word_tokenizer(line):
-            if word[0] not in stopwords:
-                bag_of_words.append('-'.join(atf.process(word[0].split('-'))))
-frequency_analysis = Counter(bag_of_words).most_common(10)
-print(frequency_analysis)
+f = FileImport('texts/cdli_corpus.txt')
+c = CDLICorpus()
+f.read_file()
+#print(c._find_edition(f.file_lines))
+#print(len(c._find_edition(f.file_lines)))
+#print(c._find_cdli_number(f.file_lines))
+#print(len(c._find_cdli_number(f.file_lines)))
+#print(c._find_metadata(f.file_lines))
+#print(len(c._find_metadata(f.file_lines)))
+#print(c._find_transliteration(f.file_lines))
+#print(len(c._find_transliteration(f.file_lines)))
+#print()
+c.ingest_text_file(f.file_lines)
+#print(c.table_of_contents())
+print(c.call_text('&P464358'))

@@ -40,29 +40,51 @@ class CDLICorpus(object):
         """
         self.texts = []
 
-    def chunk_text(self, file_lines):     # pylint: disable =no-self-use
+    def _chunk_text(self, file_lines, only_normalization=True):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.
         """
-        chunk_text, text = [], []
-        for line in file_lines:
-            if line.strip() == '':
-                if len(text) > 0:   # pylint: disable =len-as-condition
-                    chunk_text.append(text)
-                text = []
-            else:
-                text.append(line.rstrip())
-        chunk_text.append(text)
-        return chunk_text
+        texts, text = [], []
+        if re.match('Primary publication:', file_lines[0]):
+            for line in file_lines:
+                if line.strip() == '':
+                    if len(text) > 0:   # pylint: disable =len-as-condition
+                        texts.append(text)
+                    text = []
+                else:
+                    text.append(line.rstrip())
+            texts.append(text)
+        else:
+            for line in file_lines:
+                if re.match(r'&?P\d{6}', line):
+                    if len(text) > 0:  # pylint: disable =len-as-condition
+                        texts.append(text)
+                    text = [line]
+                else:
+                    text.append(line)
+            texts.append(text)
+        if only_normalization:
+            norm_texts = []
+            for text in texts:
+                norm = False
+                norm_text = [text[0]]
+                for line in text[1:]:
+                    if line.startswith('#tr.ts'):
+                        norm = True
+                        norm_text.append(line)
+                if norm:
+                    norm_texts.append(norm_text)
+            texts = norm_texts
+        return texts
 
-    def find_cdli_number(self, file_lines):
+    def _find_cdli_number(self, file_lines):
         """
         Finds CDLI Number (ex: &P254202, P254203) in file_lines & lists it.
         :return: List of CDLI Numbers found in file_lines.
         """
         header, output = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             for lines in text:
                 if re.match(r'^&P\d.*$', lines):
                     header.append(lines)
@@ -70,23 +92,18 @@ class CDLICorpus(object):
                     header.append(lines)
         for string in header:
             if len(string) > 1:
-                splitstring = string.split('=')
-                cdli_num = splitstring[0].rstrip()
+                split_string = string.split('=')
+                cdli_num = split_string[0].rstrip()
                 output.append(cdli_num)
-            elif len(string) > 1 and not re.match('=', string):
-                cdli_num = header[0].rstrip()
-                output.append(cdli_num)
-            else:
-                output.append('No cdli number found in text!'.format())
         return output
 
-    def find_edition(self, file_lines):
+    def _find_edition(self, file_lines):
         """
         Finds edition info (ex: ARM 01, 001) in file_lines and lists it.
         :return: List of editions found in file_lines.
         """
         header, output = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             for lines in text:
                 if re.match(r'^&P\d.*$', lines):
                     header.append(lines)
@@ -94,20 +111,18 @@ class CDLICorpus(object):
                     header.append(lines)
         for string in header:
             if len(string) > 1:
-                splitstring = string.split('=')
-                edition = splitstring[1].lstrip()
+                split_string = string.split('=')
+                edition = split_string[1].lstrip()
                 output.append(edition)  # pylint: disable =expression-not-assigned
-            else:
-                output.append('No edition information in text!'.format())
         return output
 
-    def find_metadata(self, file_lines):
+    def _find_metadata(self, file_lines):
         """
         Finds metadata in file_lines and lists it.
         :return: List of metadata found in file_lines.
         """
         final, lines = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             if text[0].startswith('Primary publication:'):
                 lines.append(text[0:25])
             else:
@@ -115,13 +130,13 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def find_transliteration(self, file_lines):  # broken
+    def _find_transliteration(self, file_lines):
         """
         Finds any transliteration in file_lines and lists it.
         :return: List of transliterations found in file_lines.
         """
         final, lines = [], []
-        for text in self.chunk_text(file_lines):
+        for text in self._chunk_text(file_lines):
             if text[0].startswith('Primary publication:'):
                 lines.append(text[26:])
             else:
@@ -129,19 +144,19 @@ class CDLICorpus(object):
         final.append(lines)
         return lines
 
-    def ingest(self, file_lines):
+    def _ingest(self, file_lines):
         """
         Captures all listed information above and formats it in a clear, and
         disparate manner.
         :return: Dictionary composed of information gathered in above
         functions.
         """
-        cdli_number = self.find_cdli_number(file_lines)
-        edition = self.find_edition(file_lines)
-        metadata = self.find_metadata(file_lines)
-        transliteration = self.find_transliteration(file_lines)
+        cdli_number = self._find_cdli_number(file_lines)
+        edition = self._find_edition(file_lines)
+        metadata = self._find_metadata(file_lines)
+        transliteration = self._find_transliteration(file_lines)
         new_text = {'text edition': edition, 'cdli number': cdli_number,
-                    'metadata': metadata, 'transliteration': transliteration}
+                    'metadata': metadata[0], 'transliteration': transliteration[0]}
         self.text = new_text  # pylint: disable= attribute-defined-outside-init
 
     def ingest_text_file(self, file_lines):
@@ -151,8 +166,8 @@ class CDLICorpus(object):
         :return: List of dictionaries composed of information gathered in above
         functions.
         """
-        for text_lines in self.chunk_text(file_lines):
-            self.ingest(text_lines)
+        for text_lines in self._chunk_text(file_lines):
+            self._ingest(text_lines)
             texts = self.text
             self.texts.append(dict(texts))
 
@@ -160,38 +175,32 @@ class CDLICorpus(object):
 
     def table_of_contents(self):
         """
-        Prints a table of contents from which a use can identify the edition
+        Prints a table of contents from which one use can identify the edition
         and cdli number for printing purposes, as well as whether or not the
         text has metadata.
         :return: string of edition, number, and metadata.
         """
         table = []
         for toc in self.texts:
-            edition = toc['text edition']
-            num = toc['cdli number']
-            metadata = toc['metadata'][0]
-            text = '{} {}{} {} {}{} {} {}'.format('edition:', edition, ';',
-                                                  'cdli number:', num, ';',
-                                                  'metadata:', metadata)
+            text = '{} {}{} {} {}'.format('edition:', toc['text edition'], ';',
+                                          'cdli number:', toc['cdli number'])
             table.append(text)
         return table
 
-    def print_text(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
+    def call_text(self, cdli_number):
         """
-        Prints transliteration with either text edition or cdli number.
+        Prints transliteration with cdli number.
         :return: transliteration
         """
-        for text in self.texts:
-            if edition_or_cdli_number in text['text edition'] or \
-                    text['cdli number']:
-                return text['transliteration'][0]
+        text = next((item for item in self.texts if
+                     item['cdli number'] == [cdli_number]), None)
+        return text['transliteration']
 
-    def print_metadata(self, edition_or_cdli_number):  # pylint: disable=inconsistent-return-statements
+    def call_metadata(self, cdli_number):
         """
-        Prints metadata with either text edition or cdli number.
+        Prints metadata with cdli number.
         :return: metadata
         """
-        for text in self.texts:
-            if edition_or_cdli_number in text['text edition'] or \
-                    text['cdli number']:
-                return text['metadata']
+        my_item = next((item for item in self.texts if
+                        item['cdli number'] == [cdli_number]), None)
+        return my_item['metadata']

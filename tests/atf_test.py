@@ -3,7 +3,7 @@ This file tests methods in atf_converter.py.
 """
 
 import unittest
-from ATFConverter.atf_converter import ATFConverter # pylint: disable =import-error
+from ATFConverter.atf_converter import ATFConverter  # pylint: disable=import-error
 
 
 __author__ = ['Andrew Deloucas <ADeloucas@g.harvard.com>']
@@ -21,7 +21,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         atf = ATFConverter()
         signs = ['as,', 'S,ATU', 'tet,', 'T,et', 'sza', 'ASZ']
         target = ['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ']
-        output = [atf.__convert_consonant__(s) for s in signs]
+        output = [atf._convert_consonant(s) for s in signs]  # pylint: disable=protected-access
         self.assertEqual(output, target)
 
     def test_get_number_from_sign(self):
@@ -31,7 +31,17 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         atf = ATFConverter()
         signs = ["a", "a1", "be2", "bad3", "buru14"]
         target = [0, 1, 2, 3, 14]
-        output = [atf.__get_number_from_sign__(s)[1] for s in signs]
+        output = [atf._get_number_from_sign(s)[1] for s in signs]  # pylint: disable=protected-access
+        self.assertEqual(output, target)
+
+    def test_convert_num(self):
+        """
+        Tests _convert_num
+        """
+        atf = ATFConverter()
+        signs = ["a2", "☉", "be3", 'bad3']
+        target = ["a₂", "☉", "be₃", 'bad₃']
+        output = [atf._convert_num(s) for s in signs]  # pylint: disable=protected-access
         self.assertEqual(output, target)
 
     def test_single_sign(self):

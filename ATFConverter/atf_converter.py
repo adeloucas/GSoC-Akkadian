@@ -22,7 +22,7 @@ TITTLES = {r's,': chr(0x1E63), r'sz': chr(0x0161), r't,': chr(0x1E6D),
 
 
 # noinspection PyUnboundLocalVariable
-class ATFConverter(object):
+class ATFConverter(object):  # pylint: disable=too-few-public-methods
     """
     Transliterates ATF data from CDLI into readable unicode.
         sz = š
@@ -48,7 +48,7 @@ class ATFConverter(object):
         self.two_three = two_three
 
     @staticmethod
-    def __convert_consonant__(sign):
+    def _convert_consonant(sign):
         """
         Uses dictionary to replace ATF convention for unicode characters.
 
@@ -63,7 +63,7 @@ class ATFConverter(object):
         return sign
 
     @staticmethod
-    def __convert_number_to_subscript__(num):
+    def _convert_number_to_subscript(num):
         """
         Converts number into subscript
 
@@ -79,7 +79,7 @@ class ATFConverter(object):
         return subscript
 
     @staticmethod
-    def __get_number_from_sign__(sign):
+    def _get_number_from_sign(sign):
         """
         Captures numbers after sign for __convert_num__.
 
@@ -97,7 +97,7 @@ class ATFConverter(object):
         return sign, int(number)
 
     # noinspection PyUnusedLocal,PyUnboundLocalVariable
-    def __convert_num__(self, sign):
+    def _convert_num(self, sign):
         """
         Converts number registered in get_number_from_sign.
 
@@ -108,18 +108,16 @@ class ATFConverter(object):
         :return sign: string
         """
         # Check if there's a number at the end
-        new_sign, num = self.__get_number_from_sign__(sign)
-        if num == '-':
-            return new_sign
+        new_sign, num = self._get_number_from_sign(sign)
         if num < 2:  # "ab" -> "ab"
             return new_sign.replace(str(num),
-                                    self.__convert_number_to_subscript__(num))
+                                    self._convert_number_to_subscript(num))
         if num > 3:  # "buru14" -> "buru₁₄"
             return new_sign.replace(str(num),
-                                    self.__convert_number_to_subscript__(num))
-        if self.two_three:
+                                    self._convert_number_to_subscript(num))
+        if self.two_three:   # pylint: disable=no-else-return
             return new_sign.replace(str(num),
-                                    self.__convert_number_to_subscript__(num))
+                                    self._convert_number_to_subscript(num))
         else:
             # "bad3" -> "bàd"
             for i, character in enumerate(new_sign):
@@ -145,6 +143,6 @@ class ATFConverter(object):
         :param text_string: string
         :return: text_string
         """
-        output = [self.__convert_num__(self.__convert_consonant__(token)) for
+        output = [self._convert_num(self._convert_consonant(token)) for
                   token in text_string]
         return output
