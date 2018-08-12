@@ -3,6 +3,13 @@
 This project was made for Google's 2018 Summer of Code on behalf of
 CLTK.
 
+Changes found for the CLTK from this project may be found here 
+initially, and will be updated to reflect the final merge into the
+organization upon acceptance: 
+https://github.com/adeloucas/cltk/commit/0a88c02e6b6cdd2337a1a7fa6fae387c08f59027
+https://github.com/adeloucas/cltk/commit/06cb79a93d3b1d3274ffd846e20a63ff6fc6d0af
+
+
 ## Student and Mentors
 
 ### Student
