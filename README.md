@@ -1,6 +1,6 @@
 # GSoC-Akkadian
 
-This project is being made for Google's 2018 Summer of Code on behalf of
+This project was made for Google's 2018 Summer of Code on behalf of
 CLTK.
 
 ## Student and Mentors
@@ -187,7 +187,7 @@ completed outside of the allotted time mentioned.
 
 #### GSoC Timeline Weeks Endeavors
 
-#### Application Review Period, 27.3 – 23.4, COMPLETED
+##### Application Review Period, 27.3 – 23.4
 
 (4 weeks) \
 • Learn string manipulation \
@@ -195,19 +195,19 @@ completed outside of the allotted time mentioned.
 • Familiarize myself with collections library functions \
 • Total hours = 80 hours
 
-#### Community Bonding, 23.4 – 14.5, COMPLETED
+##### Community Bonding, 23.4 – 14.5
 
 (3 weeks) \
 • Develop and Complete Part 1, Converter \
 • Total hours = 60 hours
 
-### Coding, 14.5 – 6.8, IN PROGRESS
+##### Coding, 14.5 – 6.8
 
 (12 weeks) \
 • Develop and Complete Parts 2 and 3, Normalization and Implementation \
 • Total hours = 240 hours
 
-#### Code Submissions and Final Evaluations, 6.8 – 18.8, not started
+##### Code Submissions and Final Evaluations, 6.8 – 18.8
 
 (2 weeks) \
 • Complete Evaluations and Write Article \

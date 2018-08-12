@@ -1,4 +1,3 @@
-import os
 from collections import Counter
 from Importer.file_importer import FileImport
 from Importer.cdli_corpus import CDLICorpus
