@@ -1,4 +1,134 @@
-**To be added to extant Akkadian .rst file**
+**To be added to extant Akkadian .rst file found here: http://docs.cltk.org/en/latest/akkadian.html**
+
+Workflow Sample Model
+=====================
+A sample workflow model of utilizing the tools in Akkadian is shown below. In this example, we are taking a text file
+downloaded from CDLI, importing it, and have it be read and ingested. From here, we will look at the table of contents,
+select a text, convert the text into Unicode and PrettyPrint its result.
+
+.. code-block:: python
+
+   In[1]: from cltk.corpus.akkadian.file_importer import FileImport
+
+   In[2]: from cltk.corpus.akkadian.cdli_corpus import CDLICorpus
+
+   In[3]: from cltk.corpus.akkadian.pretty_print import PrettyPrint
+
+   In[4]: from cltk.corpus.akkadian.tokenizer import Tokenizer
+
+   In[5]: from cltk.tokenize.word import WordTokenizer
+
+   In[6]: from cltk.stem.akkadian.atf_converter import ATFConverter
+
+   In[7]: import os
+
+   # import a text and read it
+   In[8]: fi = FileImport('texts/two_text.txt')
+
+   In[9]: fi.read_file()
+
+   # output = fi.raw_file or fi.file_lines; for folder catalog = fi.file_catalog()
+   # ingest your file lines
+   In[10]: cc = CDLICorpus()
+
+   In[11]: cc.ingest_text_file(fi.file_lines)
+
+   # this creates disparate sections of the text ingested (edition, metadata, etc)
+   In[12]: transliteration = [text['transliteration'] for text in cc.texts][0]
+
+   # access the data through cc.texts (e.g. above) or initial prints (e.g. below):
+   # look through the file's contents
+   In[13]: print(cc.table_of_contents())
+   Out[13]: ["edition: ['ARM 01, 001']; cdli number: ['&P254202']",
+             "edition: ['ARM 01, 002']; cdli number: ['&P254203']"]
+
+   # select a text through edition or cdli number (there's also .print_metadata):
+   In[14]: selected_text = cc.call_text('&P254202')
+
+   # otherwise use the above 'transliteration'; same thing:
+   In[15]: print(selected_text)
+   Out[15]: ['&P254202 = ARM 01, 001', '#atf: lang akk', '@tablet', '@obverse', '1. a-na ia-ah-du-li-[im]',
+             '2. qi2-bi2-[ma]', '3. um-ma a-bi-sa-mar#-[ma]', '4. sa-li-ma-am e-pu-[usz]',
+             '5. asz-szum mu-sze-zi-ba-am# [la i-szu]', '6. [sa]-li#-ma-am sza e-[pu-szu]',
+             '7. [u2-ul] e-pu-usz sa#-[li-mu-um]', '8. [u2-ul] sa-[li-mu-um-ma]', '$ rest broken', '@reverse',
+             '$ beginning broken', "1'. isz#-tu mu#-[sze-zi-ba-am la i-szu]", "2'. a-la-nu-ia sza la is,-s,a-ab#-[tu]",
+             "3'. i-na-an-na is,-s,a-ab-[tu]", "4'. i-na ne2-kur-ti _lu2_ ha-szi-[im{ki}]",
+             "5'. ur-si-im{ki} _lu2_ ka-ar-ka#-[mi-is{ki}]", "6'. u3 ia-am-ha-ad[{ki}]",
+             "7'. a-la-nu an-nu-tum u2-ul ih-li-qu2#", "8'. i-na ne2-kur-ti {disz}sa-am-si-{d}iszkur#-ma",
+             "9'. ih-ta-al-qu2", "10'. u3 a-la-nu sza ki-ma u2-hu-ru u2-sze-zi-ib#",
+             "11'. u3 na-pa-asz2-ti u2-ba-li-it,", "12'. pi2-qa-at ha-s,e-ra#-at", "13'. asz-szum a-la-nu-ka",
+             "14'. u3 ma-ru-ka sza-al#-[mu]", "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]
+
+   In[16]: print(transliteration)
+   Out[16]: ['&P254202 = ARM 01, 001', '#atf: lang akk', '@tablet', '@obverse', '1. a-na ia-ah-du-li-[im]',
+             '2. qi2-bi2-[ma]', '3. um-ma a-bi-sa-mar#-[ma]', '4. sa-li-ma-am e-pu-[usz]',
+             '5. asz-szum mu-sze-zi-ba-am# [la i-szu]', '6. [sa]-li#-ma-am sza e-[pu-szu]',
+             '7. [u2-ul] e-pu-usz sa#-[li-mu-um]', '8. [u2-ul] sa-[li-mu-um-ma]', '$ rest broken', '@reverse',
+             '$ beginning broken', "1'. isz#-tu mu#-[sze-zi-ba-am la i-szu]", "2'. a-la-nu-ia sza la is,-s,a-ab#-[tu]",
+             "3'. i-na-an-na is,-s,a-ab-[tu]", "4'. i-na ne2-kur-ti _lu2_ ha-szi-[im{ki}]",
+             "5'. ur-si-im{ki} _lu2_ ka-ar-ka#-[mi-is{ki}]", "6'. u3 ia-am-ha-ad[{ki}]",
+             "7'. a-la-nu an-nu-tum u2-ul ih-li-qu2#", "8'. i-na ne2-kur-ti {disz}sa-am-si-{d}iszkur#-ma",
+             "9'. ih-ta-al-qu2", "10'. u3 a-la-nu sza ki-ma u2-hu-ru u2-sze-zi-ib#",
+             "11'. u3 na-pa-asz2-ti u2-ba-li-it,", "12'. pi2-qa-at ha-s,e-ra#-at", "13'. asz-szum a-la-nu-ka",
+             "14'. u3 ma-ru-ka sza-al#-[mu]", "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]
+
+   # tokenize by word or sign
+   In[17]: atf = ATFConverter()
+
+   In[18]: tk = Tokenizer()
+
+   In[19]: wtk = WordTokenizer('akkadian')
+
+   In[18]: lines = [tk.string_tokenizer(text, include_blanks=False)
+                    for text in atf.process(selected_text)]
+
+   In[20]: words = [wtk.tokenize(line[0]) for line in lines]
+
+   # taking off first four lines to focus on the text with [4:]
+   In[21]: print(lines[4:])
+   In[21]: [['1. a-na ia-ah-du-li-im'], ['2. qi2-bi2-ma'], ['3. um-ma a-bi-sa-mar-ma'], ['4. sa-li-ma-am e-pu-uš'],
+            ['5. aš-šum mu-še-zi-ba-am la i-šu'], ['6. sa-li-ma-am ša e-pu-šu'], ['7. u2-ul e-pu-uš sa-li-mu-um'],
+            ['8. u2-ul sa-li-mu-um-ma'], ['$ rest broken'], ['@reverse'], ['$ beginning broken'],
+            ['1ʾ. iš-tu mu-še-zi-ba-am la i-šu'], ['2ʾ. a-la-nu-ia ša la iṣ-ṣa-ab-tu'], ['3ʾ. i-na-an-na iṣ-ṣa-ab-tu'],
+            ['4ʾ. i-na ne2-kur-ti _lu2_ ha-ši-im{ki}'], ['5ʾ. ur-si-im{ki} _lu2_ ka-ar-ka-mi-is{ki}'],
+            ['6ʾ. u3 ia-am-ha-ad{ki}'], ['7ʾ. a-la-nu an-nu-tum u2-ul ih-li-qu2'],
+            '8ʾ. i-na ne2-kur-ti {diš}sa-am-si-{d}iškur-ma'], ['9ʾ. ih-ta-al-qu₂'],
+            ['1₀ʾ. u3 a-la-nu ša ki-ma u2-hu-ru u2-še-zi-ib'], ['11ʾ. u3 na-pa-aš2-ti u2-ba-li-iṭ'],
+            ['12ʾ. pi2-qa-at ha-ṣe-ra-at'], ['13ʾ. aš-šum a-la-nu-ka'], ['14ʾ. u3 ma-ru-ka ša-al-mu'],
+            ['15ʾ. a-na na-pa-aš2-ti-ia i-tu-ur']]
+   In[22]: print(words[4:])
+   In[22]: [[('a-na', 'akkadian'), ('ia-ah-du-li-im', 'akkadian')], [('qi2-bi2-ma', 'akkadian')],
+            [('um-ma', 'akkadian'), ('a-bi-sa-mar-ma', 'akkadian')], [('sa-li-ma-am', 'akkadian'),
+             ('e-pu-uš', 'akkadian')], [('aš-šum', 'akkadian'), ('mu-še-zi-ba-am', 'akkadian'), ('la', 'akkadian'),
+             ('i-šu', 'akkadian')], [('sa-li-ma-am', 'akkadian'), ('ša', 'akkadian'), ('e-pu-šu', 'akkadian')],
+            [('u2-ul', 'akkadian'), ('e-pu-uš', 'akkadian'), ('sa-li-mu-um', 'akkadian')], [('u2-ul', 'akkadian'),
+             ('sa-li-mu-um-ma', 'akkadian')], [('rest', 'akkadian'), ('broken', 'akkadian')], [],
+            [('beginning', 'akkadian'), ('broken', 'akkadian')], [('iš-tu', 'akkadian'), ('mu-še-zi-ba-am', 'akkadian'),
+             ('la', 'akkadian'), ('i-šu', 'akkadian')], [('a-la-nu-ia', 'akkadian'), ('ša', 'akkadian'),
+             ('la', 'akkadian'), ('iṣ-ṣa-ab-tu', 'akkadian')], [('i-na-an-na', 'akkadian'), ('iṣ-ṣa-ab-tu', 'akkadian')],
+            [('i-na', 'akkadian'), ('ne2-kur-ti', 'akkadian'), ('_lu2_', 'sumerian'), ('ha-ši-im{ki}', 'akkadian')],
+            [('ur-si-im{ki}', 'akkadian'), ('_lu2_', 'sumerian'), ('ka-ar-ka-mi-is{ki}', 'akkadian')],
+            [('u3', 'akkadian'), ('ia-am-ha-ad{ki}', 'akkadian')], [('a-la-nu', 'akkadian'), ('an-nu-tum', 'akkadian'),
+             ('u2-ul', 'akkadian'), ('ih-li-qu2', 'akkadian')], [('i-na', 'akkadian'), ('ne2-kur-ti', 'akkadian'),
+             ('{diš}sa-am-si-{d}iškur-ma', 'akkadian')], [('ih-ta-al-qu₂', 'akkadian')], [('u3', 'akkadian'),
+             ('a-la-nu', 'akkadian'), ('ša', 'akkadian'), ('ki-ma', 'akkadian'), ('u2-hu-ru', 'akkadian'),
+             ('u2-še-zi-ib', 'akkadian')], [('u3', 'akkadian'), ('na-pa-aš2-ti', 'akkadian'),
+             ('u2-ba-li-iṭ', 'akkadian')], [('pi2-qa-at', 'akkadian'), ('ha-ṣe-ra-at', 'akkadian')],
+            [('aš-šum', 'akkadian'), ('a-la-nu-ka', 'akkadian')], [('u3', 'akkadian'), ('ma-ru-ka', 'akkadian'),
+             ('ša-al-mu', 'akkadian')], [('a-na', 'akkadian'), ('na-pa-aš2-ti-ia', 'akkadian'),
+             ('i-tu-ur', 'akkadian')]]
+
+   In[23]: for word in words[4:]:
+   In[24]:      signs = [wtk.tokenize_sign(x) for x in word]
+   # Note: Not printing 'signs' due to length. Try it!
+
+   # Pretty printing:
+   In[25]: pp = PrettyPrint()
+
+   In[26]: destination = os.path.join('..', 'Akkadian_test_texts', 'tutorial_html.html')
+
+   In[27]: pp.html_print_single_text(cc.texts, '&P254202', destination)
+
 
 Read File
 =========
@@ -12,7 +142,7 @@ These two instance attributes are used for the ATFConverter.
 
    In[2]: from cltk.corpus.akkadian.file_importer import FileImport
 
-   In[3]: text_location = os.path.join('..', 'texts', 'Akkadian.txt')
+   In[3]: text_location = os.path.join('..', 'Akadian_test_texts', 'Akkadian.txt')
 
    In[4]: text = FileImport(text_location)
 
@@ -32,13 +162,14 @@ This function looks at the folder storing a file and outputs its contents.
 
    In[2]: from cltk.corpus.akkadian.file_importer import FileImport
 
-   In[3]: text_location = os.path.join('..', 'texts', 'Akkadian.txt')
+   In[3]: text_location = os.path.join('..', 'Akkadian_test_texts', 'Akkadian.txt')
 
    In[4]: folder = FileImport(text_location)
 
    In[5]: folder.file_catalog()
 
-   Out[5]: ['Akkadian.txt', 'ARM1texts.txt', 'cdli_corpus.txt', 'Hammurabi.txt']
+   Out[5]: ['Akkadian.txt', 'ARM1Akkadian.txt', 'cdli_corpus.txt', 'html_file.html', 'html_single_text.html',
+            'single_text.txt', 'two_text.txt', 'two_text_abnormalities.txt', 'two_text_no_metadata.txt']
 
 Ingest Text File
 ================
@@ -54,21 +185,19 @@ It saves to memory a list of dictionaries that splits up texts by text edition, 
 
    In[3]: cdli = CDLICorpus()
 
-   In[4]: f_i = FileImport(os.path.join('..','texts', 'single_text.txt'))
+   In[4]: f_i = FileImport(os.path.join('..', 'Akkadian_test_texts', 'single_text.txt'))
 
    In[5]: f_i.read_file()
 
-   In[6]: text_file = f_i.file_lines
+   In[6]: cdli.ingest_text_file(f_i.file_lines)
 
-   In[7]: cdli.ingest_text_file(text_file)
-
-To access the text, use `.texts`.
+To access the text, use `.texts`. This will be especially necessary for Pretty Printing. .texts looks like this:
 
 .. code-block:: python
 
    In[8]: print(cdli.texts)
    Out[8]: [{'text edition': ['ARM 01, 001'], 'cdli number': ['&P254202'], 'metadata':
-   [['Primary publication: ARM 01, 001', 'Author(s): Dossin, Georges', 'Publication date: 1946',
+   ['Primary publication: ARM 01, 001', 'Author(s): Dossin, Georges', 'Publication date: 1946',
    'Secondary publication(s): Durand, Jean-Marie, LAPO 16, 0305',
    'Collection: National Museum of Syria, Damascus, Syria', 'Museum no.: NMSD —',
    'Accession no.:', 'Provenience: Mari (mod. Tell Hariri)', 'Excavation no.:',
@@ -76,8 +205,8 @@ To access the text, use `.texts`.
    'Remarks:', 'Material: clay', 'Language: Akkadian', 'Genre: Letter', 'Sub-genre:',
    'CDLI comments:', 'Catalogue source: 20050104 cdliadmin', 'ATF source: cdlistaff',
    'Translation: Durand, Jean-Marie (fr); Guerra, Dylan M. (en)',
-   'UCLA Library ARK: 21198/zz001rsp8x', 'Composite no.:', 'Seal no.:', 'CDLI no.: P254202']],
-   'transliteration': [['&P254202 = ARM 01, 001', '#atf: lang akk', '@tablet', '@obverse',
+   'UCLA Library ARK: 21198/zz001rsp8x', 'Composite no.:', 'Seal no.:', 'CDLI no.: P254202'],
+   'transliteration': ['&P254202 = ARM 01, 001', '#atf: lang akk', '@tablet', '@obverse',
    '1. a-na ia-ah-du-li-[im]', '2. qi2-bi2-[ma]', '3. um-ma a-bi-sa-mar#-[ma]',
    '4. sa-li-ma-am e-pu-[usz]', '5. asz-szum mu-sze-zi-ba-am# [la i-szu]',
    '6. [sa]-li#-ma-am sza e-[pu-szu]', '7. [u2-ul] e-pu-usz sa#-[li-mu-um]',
@@ -89,8 +218,7 @@ To access the text, use `.texts`.
    "9'. ih-ta-al-qu2", "10'. u3 a-la-nu sza ki-ma u2-hu-ru u2-sze-zi-ib#",
    "11'. u3 na-pa-asz2-ti u2-ba-li-it,", "12'. pi2-qa-at ha-s,e-ra#-at",
    "13'. asz-szum a-la-nu-ka", "14'. u3 ma-ru-ka sza-al#-[mu]",
-   "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]]}]
-
+   "15'. [a-na na-pa]-asz2#-ti-ia i-tu-ur"]}]
 
 Table of Contents
 =================
@@ -105,30 +233,32 @@ Prints a table of contents from which one can identify the edition and cdli numb
 
    In[3]: cdli = CDLICorpus()
 
-   In[4]: f_i = FileImport(path)
+   In[4]: path = FileImport(os.path.join('..', 'Akkadian_test_texts', 'single_text.txt'))
 
-   In[5]: f_i.read_file()
+   In[5]: f_i = FileImport(path)
+
+   In[6]: f_i.read_file()
 
    In[6]: cdli.table_of_contents()
    Out[6]: ["edition: ['ARM 01, 001']; cdli number: ['&P254202']"]
 
 Tokenization
-======
+============
 
 The Akkadian tokenizer reads ATF material and converts the data into readable, mutable tokens.
-There is an option whether or not to include damage in the text.
+There is an option whether or not to `preserve damage` in the text.
 
 The ATFConverter depends upon the word and sign tokenizer outputs.
 
 **String Tokenization:**
 
-This function is based off CLTK's line tokenizer. Use this for strings (e.g. copy-and-paste lines from a document) rather than .txt files.
+This function is based off CLTK's line tokenizer. Use this for strings (e.g. copy-and-pasinge lines from a document) rather than .txt files.
 
 .. code-block:: python
 
-   In[1]: from cltk.tokenize.line import  Akkadian_LineTokenizer
+   In[1]: from cltk.akkadian.Tokenizer import  Tokenizer
 
-   In[2]: line_tokenizer = Akkadian_LineTokenizer('akkadian', preserve_damage=False)
+   In[2]: line_tokenizer = Tokenizer(preserve_damage=False)
 
    In[3]: text = '20. u2-sza-bi-la-kum\n1. a-na ia-as2-ma-ah-{d}iszkur#\n' \
                '2. qi2-bi2-ma\n3. um-ma {d}utu-szi-{d}iszkur\n' \
@@ -154,11 +284,11 @@ Line Tokenization is for any text, from `FileImport.raw_text` to `.CDLICorpus.te
 
    In[1]: import os
 
-   In[2]: from cltk.tokenize.line import  Akkadian_LineTokenizer
+   In[2]: from cltk.akkadian.tokenizer import  Tokenizer
 
-   In[3]: line_tokenizer = Akkadian_LineTokenizer('akkadian', preserve_damage=False)
+   In[3]: line_tokenizer = Tokenizer(preserve_damage=False)
 
-   In[4]: text = os.path.join('..', 'texts', 'Hammurabi.txt')
+   In[4]: text = os.path.join('..', 'Akkadian_test_texts', 'Hammurabi.txt')
 
    In[5]: line_tokenizer.line_token(text[3042:3054])
    Out[5]: ['20. u2-sza-bi-la-kum',
@@ -208,14 +338,14 @@ Sign Tokenization takes a tuple (word, language) and splits the word up into ind
             ("pur", "akkadian"), ("ram", "akkadian")]
 
 Unicode Conversion
-=================
+==================
 
 From a list of tokens, this module will return the list converted from CDLI standards to print publication standards.
 `two_three` is a function allows the user to turn on and off accent marking for signs (`a₂` versus `á`).
 
 .. code-block:: python
 
-   In[1]: from cltk.corpus.akkadian.atf_converter import ATFConverter
+   In[1]: from cltk.stem.akkadian.atf_converter import ATFConverter
 
    In[2]: atf = ATFConverter(two_three=False)
 
@@ -225,9 +355,8 @@ From a list of tokens, this module will return the list converted from CDLI stan
 
    Out[4]: ['aṣ', 'ṢATU', 'teṭ', 'Ṭet', 'ša', 'AŠ', "a", "á", "à", "bé", "bàd", "buru₁₄"]
 
-
 Pretty Printing
-==================
+===============
 
 Pretty Print allows an individual to take a `.txt` file and populate it into an html file.
 
@@ -237,11 +366,9 @@ Pretty Print allows an individual to take a `.txt` file and populate it into an 
 
    In[2]: from cltk.corpus.akkadian.pretty_print import  PrettyPrint
 
-   In[3]: from cltk.
+   In[3]: origin = os.path.join('..', 'Akkadian_test_text', 'Akkadian.txt')
 
-   In[3]: origin = os.path.join('..', 'text', 'Akkadian.txt')
-
-   In[4]: destination = os.path.join('..', 'PrettyPrint', 'html_file.html')
+   In[4]: destination = os.path.join('..', 'Akkadian_test_text', 'html_file.html')
 
    In[5]: f_i = FileImport(path)
         f_i.read_file()
@@ -251,3 +378,4 @@ Pretty Print allows an individual to take a `.txt` file and populate it into an 
         f_o = FileImport(destination)
         f_o.read_file()
         output = f_o.raw_file
+

@@ -95,10 +95,13 @@ c) Establish CDLI Corpus Reader
 
 ## Week 14 (July 23 - July 30)
 1) Finish Pretty Print
-2) Begin Lemmatization
+2) Begin CLTK onboarding process
 3) Create pipfile and use pipenv
 
 ## Week 15 (July 30 - Aug 6)
+1) Debug
+2) Finish onboarding process for CLTK
+3) Ensure code is clean
 
 ## Week 16 (Aug 6 - Aug 13)
 1) Finalize code, documentation

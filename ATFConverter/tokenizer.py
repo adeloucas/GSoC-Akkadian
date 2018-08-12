@@ -152,6 +152,17 @@ class Tokenizer(object):
 
     @staticmethod
     def sign_tokenizer(word):
+        """
+        Takes tuple (word, language) and splits the word up into individual
+        sign tuples (sign, language) in a list.
+
+        input: ("{gisz}isz-pur-ram", "akkadian")
+        output: [("gisz", "determinative"), ("isz", "akkadian"),
+        ("pur", "akkadian"), ("ram", "akkadian")]
+
+        :param: tuple created by word_tokenizer2
+        :return: list of tuples: (sign, function or language)
+        """
         word_signs = []
         sign = ''
         language = word[1]
@@ -160,7 +171,7 @@ class Tokenizer(object):
             if determinative is True:
                 if char == '}':
                     determinative = False
-                    if len(sign) > 0:
+                    if len(sign) > 0:  # pylint: disable=len-as-condition
                         word_signs.append((sign, 'determinative'))
                     sign = ''
                     language = word[1]
@@ -171,19 +182,19 @@ class Tokenizer(object):
             else:
                 if language == 'akkadian':
                     if char == '{':
-                        if len(sign) > 0:
+                        if len(sign) > 0:  # pylint: disable=len-as-condition
                             word_signs.append((sign, language))
                         sign = ''
                         determinative = True
                         continue
                     elif char == '_':
-                        if len(sign) > 0:
+                        if len(sign) > 0:  # pylint: disable=len-as-condition
                             word_signs.append((sign, language))
                         sign = ''
                         language = 'sumerian'
                         continue
                     elif char == '-':
-                        if len(sign) > 0:
+                        if len(sign) > 0:  # pylint: disable=len-as-condition
                             word_signs.append((sign, language))
                         sign = ''
                         language = word[1] # or default word[1]?
@@ -192,19 +203,19 @@ class Tokenizer(object):
                         sign += char
                 elif language == 'sumerian':
                     if char == '{':
-                        if len(sign) > 0:
+                        if len(sign) > 0:  # pylint: disable=len-as-condition
                             word_signs.append((sign, language))
                         sign = ''
                         determinative = True
                         continue
                     elif char == '_':
-                        if len(sign) > 0:
+                        if len(sign) > 0:  # pylint: disable=len-as-condition
                             word_signs.append((sign, language))
                         sign = ''
                         language = word[1]
                         continue
                     elif char == '-':
-                        if len(sign) > 0:
+                        if len(sign) > 0:  # pylint: disable=len-as-condition
                             word_signs.append((sign, language))
                         sign = ''
                         language = word[1]

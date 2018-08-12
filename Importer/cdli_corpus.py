@@ -40,7 +40,7 @@ class CDLICorpus(object):
         """
         self.texts = []
 
-    def _chunk_text(self, file_lines, only_normalization=True):     # pylint: disable =no-self-use
+    def _chunk_text(self, file_lines, only_normalization=False):     # pylint: disable =no-self-use
         """
         Splits up a text whenever a break is found in file_lines.
         :return: Disparate texts.

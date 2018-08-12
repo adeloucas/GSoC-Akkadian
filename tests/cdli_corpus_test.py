@@ -225,6 +225,43 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
                  '2. bi-tum bi-it-ka u3 {disz}a-bi#-[sa]-mar# ma-ru-ka-[ma]']]
         self.assertEqual(output, goal)
 
+
+    def test_chunk_text_norm(self):
+        """
+        Tests chunk_text normalized text finding and collating.
+        """
+        path = os.path.join('..', 'texts', 'cdli_corpus.txt')
+        f_i = FileImport(path)
+        f_i.read_file()
+        text_file = f_i.file_lines
+        cdli = CDLICorpus()
+        output = cdli._chunk_text(text_file, only_normalization=True)[2]
+        goal = ['&P254202 = ARM 01, 001',
+                '#tr.ts: ana yaḫdu-lim',
+                '#tr.ts: qibima',
+                '#tr.ts: umma abi-samarma',
+                '#tr.ts: salīmam ēpuš',
+                '#tr.ts: aššum mušēzibam lā īšu',
+                '#tr.ts: salīmam ša ēpušu',
+                '#tr.ts: ul ēpuš salīmum',
+                '#tr.ts: ul salīmumma',
+                '#tr.ts: ištu mušēzibam lā īšu',
+                '#tr.ts: alānūya ša lā iṣṣabtū',
+                '#tr.ts: inanna iṣṣabtū',
+                '#tr.ts: ina nekurti awīl ḫaššim',
+                '#tr.ts: ursim awīl karkamis',
+                '#tr.ts: u yamḫad',
+                '#tr.ts: alānū annûtum ul iḫliqū',
+                '#tr.ts: ina nekurti samsi-adduma',
+                '#tr.ts: iḫtalqū',
+                '#tr.ts: u alānū ša kīma uḫḫuru ušezib',
+                '#tr.ts: u napaštī uballiṭ',
+                '#tr.ts: pīqat ḫaṣerāt',
+                '#tr.ts: aššum ālanūka',
+                '#tr.ts: u mārūka šalmū',
+                '#tr.ts: ana napaštiya itūr']
+        self.assertEqual(output, goal)
+
     def test_find_cdli_number(self):
         """
         Tests find_cdli_number.
