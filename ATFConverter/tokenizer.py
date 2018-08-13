@@ -122,7 +122,7 @@ class Tokenizer(object):
         two_underscores = "_[^_]+_"
         # only match a string if it has two underscores
 
-        words = line.split()[1:]
+        words = line.split()
         # split the line on spaces ignoring the first split (which is the
         # line number)
         language = "akkadian"

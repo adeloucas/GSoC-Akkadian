@@ -8,7 +8,7 @@ from ATFConverter.atf_converter import ATFConverter
 fi = FileImport('texts/Akkadian.txt')
 fi.read_file()
 cc = CDLICorpus()
-cc.ingest_text_file(fi.file_lines)
+cc.parse_file(fi.file_lines)
 tk = Tokenizer()
 atf = ATFConverter()
 stopwords = ['a-na', 'u3', 'sza', '[...]', 'i-na', '=',
@@ -20,10 +20,9 @@ stopwords = ['a-na', 'u3', 'sza', '[...]', 'i-na', '=',
              '[a-na', 'szum-ma', 'hi-a_', 'ana', 'a-di']
 
 bag_of_words = []
-for lines in [text['transliteration'][0] for text in cc.texts]:
-    for line in lines:
-        for word in tk.word_tokenizer(line):
-            if word[0] not in stopwords:
-                bag_of_words.append('-'.join(atf.process(word[0].split('-'))))
+for lines in cc.catalog['P249253']['transliteration']:
+    for word in tk.word_tokenizer(lines):
+        if word[0] not in stopwords:
+            bag_of_words.append('-'.join(atf.process(word[0].split('-'))))
 frequency_analysis = Counter(bag_of_words).most_common(11)
 print(frequency_analysis)
