@@ -3,10 +3,8 @@
 This project was made for Google's 2018 Summer of Code on behalf of
 CLTK. 
 
-Changes found for the CLTK from this project may be found here 
-initially, and will be updated to reflect the final merge into the
-organization upon acceptance:  \
-https://github.com/cltk/cltk/pull/821
+Changes found for the CLTK from this project may be found here:  \
+https://github.com/cltk/cltk/commit/52e28ecec67aad56b21d29c08b32c05683add826
 
 
 ## Student and Mentors
