@@ -79,7 +79,7 @@ class Test1(unittest.TestCase):  # pylint: disable=R0904
         """
         Tests word_tokenizer.
         """
-        line = '21. u2-wa-a-ru at-ta e2-kal2-la-ka _e2_-ka _e2 lu2 e2_ wu-e-er'
+        line = 'u2-wa-a-ru at-ta e2-kal2-la-ka _e2_-ka _e2 lu2 e2_ wu-e-er'
         output = TOKENIZER.word_tokenizer(line)
         goal = [('u2-wa-a-ru', 'akkadian'), ('at-ta', 'akkadian'), ('e2-kal2-la-ka', 'akkadian'),
                 ('_e2_-ka', 'sumerian'), ('_e2', 'sumerian'), ('lu2', 'sumerian'),
